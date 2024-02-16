@@ -12,7 +12,7 @@ Team members:
 Elaine French, ekfrench17, elfr2434@colorado.edu
 Jessica Carpenter, jeha6343, jeha6343@colorado.edu
 Carlos Garcia, caga5719, caga5719@colorad.edu
-JP
+JP, jofe1383, jofe1383@colorado.edu
 
 ### Weekly Meeting: Thursdays at 7pm MST 
 
