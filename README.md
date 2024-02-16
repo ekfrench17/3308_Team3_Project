@@ -27,24 +27,24 @@ Provide busy customers with easy to access recipes using ingredients they have a
 We all love to cook and this would be a product we would love to use ourselves!
 
 ## Risks to project completion, possibly including:
-new language or working environment\ 
-no prior experience working with these team members
-lack of front and backend experience, git experience, SQL experience or building applications
-teammates in different time zones
+New language or working environment
+No prior experience working with these team members
+Lack of front and backend experience, git experience, SQL experience or building applications
+Teammates in different time zones
 Scope creep
 Due to lack of experience building applications, there is a risk of missizing user stories and falling behind in completing tasks.
 
 ### Mitigation Strategy for above risks
-don't bite off more than we can chew
-using available and outside resources to help determine timelines 
-allocate time for research to help with sizing user stories
-overall: be realistic with sizing stories and requirements
+Don't bite off more than we can chew
+Using available and outside resources to help determine timelines 
+Allocate time for research to help with sizing user stories
+Overall: be realistic with sizing stories and requirements
 Maintain regular communication with teammates
-potential to implement demos
-teammates switching roles to avoid silos or not knowing pieces of the project
+Potential to implement demos
+Teammates switching roles to avoid silos or not knowing pieces of the project
 
 ## Development method: (need more specifics)
-scrum method and jira for the tracking software
+Scrum method and jira for the tracking software
 Will use discord for team coordination and communication.
 Project Tracking Software link https://colorado-caga5719.atlassian.net/jira/software/projects/C3SP/boards/1
 [Make sure to add access for the instructor(s)]
