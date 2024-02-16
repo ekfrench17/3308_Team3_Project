@@ -27,7 +27,7 @@ Provide busy customers with easy to access recipes using ingredients they have a
 We all love to cook and this would be a product we would love to use ourselves!
 
 ## Risks to project completion, possibly including:
-new language or working environment /n
+new language or working environment\ 
 no prior experience working with these team members
 lack of front and backend experience, git experience, SQL experience or building applications
 teammates in different time zones
