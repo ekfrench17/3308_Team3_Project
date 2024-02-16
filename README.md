@@ -9,23 +9,25 @@ User Stories Sizing Vidoe[https://drive.google.com/file/d/1us9fdDwQKpz35HMXXXcjR
 ## Team/Product Name
 
 Team members: 
+
 Elaine French, ekfrench17, elfr2434@colorado.edu
+
 Jessica Carpenter, jeha6343, jeha6343@colorado.edu
+
 Carlos Garcia, caga5719, caga5719@colorad.edu
+
 JP, jofe1383, jofe1383@colorado.edu
 
 ### Weekly Meeting: Thursdays at 7pm MST 
 
 ## Vision statement: 
-what would you tell potential customers?
-Provide busy customers with easy to access recipes with ingredients they have at home.
+Provide busy customers with easy to access recipes using ingredients they have at home.
 
 ## Motivation: 
-why are you working on this project?
 We all love to cook and this would be a product we would love to use ourselves!
 
 ## Risks to project completion, possibly including:
-new language or working environment
+new language or working environment /n
 no prior experience working with these team members
 lack of front and backend experience, git experience, SQL experience or building applications
 teammates in different time zones
