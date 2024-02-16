@@ -1,6 +1,6 @@
 # 3308_Team3_Project
 
-User Stories Sizing Vidoe[https://drive.google.com/file/d/1us9fdDwQKpz35HMXXXcjRgABHhVHoISC/view?usp=drive_link]
+[User Stories Sizing Video](https://drive.google.com/file/d/1us9fdDwQKpz35HMXXXcjRgABHhVHoISC/view?usp=drive_link)
 
 # Project Title: Recipe Something
 
@@ -46,5 +46,5 @@ Teammates switching roles to avoid silos or not knowing pieces of the project<br
 ## Development method: (need more specifics)
 Scrum method and jira for the tracking software<br>
 Will use discord for team coordination and communication.<br>
-Project Tracking Software link https://colorado-caga5719.atlassian.net/jira/software/projects/C3SP/boards/1<br>
+[Project Tracking Software link](https://colorado-caga5719.atlassian.net/jira/software/projects/C3SP/boards/1)<br>
 
