@@ -1,12 +1,10 @@
-# 3308_Team3_Project
+# 3308_Team3_Bash_Potatoes_Project
 
 [User Stories Sizing Video](https://drive.google.com/file/d/1us9fdDwQKpz35HMXXXcjRgABHhVHoISC/view?usp=drive_link)
 
-# Project Title: Recipe Something
+# Project Title: RecipEASY
 
 ## Team 3
-
-## Team 3 - RecipEASY
 
 Team members: 
 
