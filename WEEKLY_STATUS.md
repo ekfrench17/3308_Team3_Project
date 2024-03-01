@@ -19,3 +19,5 @@ Upcoming Week:
   - Elaine: mockup home and add new recipe page
 
 Screenshots from project management tool:
+
+![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/9317f7f7-de0b-427a-b4fe-0ef625ae657a)
