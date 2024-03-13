@@ -1,4 +1,4 @@
-![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/0ff05fc7-f2fa-4a0c-b64e-c6e314368036)![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/64dbb5c0-555c-4529-8579-b4d4250cc15b)# Weekly Status Document
+# Weekly Status Document
 ### Weekly updates on project status for RecipEASY web application development
 #### Team 3 Bash Potatoes
 
