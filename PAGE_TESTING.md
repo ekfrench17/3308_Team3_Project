@@ -2,24 +2,24 @@
 ## A list of descriptions for each page that will be implemented for the project
 
 ### Summary of Pages:
-*Home Page
-*Login Page
-*My Recipes Page
-*Explore - Search Page
-*Community - Social Page
-*Add New Recipe Page
+* Home Page
+* Login Page
+* My Recipes Page
+* Explore - Search Page
+* Community - Social Page
+* Add New Recipe Page
 
 ### Home Page
 Page Title: RecipEASY</br>
 Page Description: The home page will be a default landing page for the site where you can access the other pages, see a preview of your recently added/saved recipes, see notifications and/or preview the ‘community’ page, or add a new recipe</br>
 Parameters needed for the page: No parameters needed as this is the default page. route will be ‘/home' or ‘/recipeasy’</br>
 Data needed to render the page: 
-*an html sheet for the frontend (and copy)
-*links for the other pages
-*data pulled in for the preview sections (if possible)</br>
+* an html sheet for the frontend (and copy)
+* links for the other pages
+* data pulled in for the preview sections (if possible)</br>
 Link destinations for the page: links for the other 4 pages will be on the home page for easy navigation</br>
 List of tests for verifying the rendering of the page:</br>
-*verify  ???
+* verify  ???
 
 ### Login Page
 Page Title</br>
@@ -59,9 +59,9 @@ Page Description: Page to input a new recipe to the my recipes archive</br>
 Parameters needed for the page: @app.route('/my_recipes/add_new')</br>
 Data needed to render the page: an input form for recipe data</br>
 Link destinations for the page:
-*cancel - return to my recipes page
-*save - save recipe to DB and return to my recipes page</br>
+* cancel - return to my recipes page
+* save - save recipe to DB and return to my recipes page</br>
 List of tests for verifying the rendering of the page:
-*verify the form is ready for input / connected to database
-*verify submit working correctly
-*verify data was input to database</br>
+* verify the form is ready for input / connected to database
+* verify submit working correctly
+* verify data was input to database</br>
