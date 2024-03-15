@@ -53,7 +53,8 @@ Data needed to render the page:
 * HTML, CSS, and Javascript programs for the UI of commmunity page.
 * previous post data from users 
 * links for a menu/toggle scetion to direct me to the other pages </br>
-Link destinations for the page: Links for the 4 other pages on the site including the home page</br>
+Link destinations for the page:</br>
+* Links for the 4 other pages on the site including the home page</br>
 List of tests for verifying the rendering of the page:</br>
 * Validate previous posts are seen from other users in decending order (oldest to newest)
 * Valitdate you can make your own post
