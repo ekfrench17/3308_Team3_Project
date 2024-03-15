@@ -70,7 +70,8 @@ List of tests for verifying the rendering of the page</br>
 ### Explore
 Page Title: Search</br>
 
-Page Description [mockup](web_page_designs/search.jpg) This is the page that will give options for searching the recipes in the database. There will be options to search by ingredient, title, and a button to generate a random recipe. [mockup](web_page_design/search_results.JPG) This is the page that will display the results of the search (except the "Surprise me" button- it will jump straight to recipe display. [mockup](web_page_designs/recipe_display.JPG) This is the page where the recipe will be displayed for the user.</br> 
+Page Description:</br>
+[mockup](web_page_designs/search.jpg) This is the page that will give options for searching the recipes in the database. There will be options to search by ingredient, title, and a button to generate a random recipe. [mockup](web_page_design/search_results.JPG) This is the page that will display the results of the search (except the "Surprise me" button- it will jump straight to recipe display. [mockup](web_page_designs/recipe_display.JPG) This is the page where the recipe will be displayed for the user.</br> 
 
 Parameters needed for the page: '/search' '/search_results' and '/recipe_display'</br>
 
