@@ -11,7 +11,7 @@
 
 ### Home Page
 Page Title: RecipEASY</br>
-Page Description: [mockup](web_page_designs/RecipEASY_Home.pdf) The home page will be a default landing page for the site where you can access the other pages, see a preview of your recently added/saved recipes, see notifications and/or preview the ‘community’ page, or add a new recipe</br>
+Page Description: [Home Page Mockup](web_page_designs/RecipEASY_Home.pdf) The home page will be a default landing page for the site where you can access the other pages, see a preview of your recently added/saved recipes, see notifications and/or preview the ‘community’ page, or add a new recipe</br>
 Parameters needed for the page:‘/’</br>
 Data needed to render the page: 
 * an html sheet for the frontend (and copy)
@@ -27,7 +27,7 @@ List of tests for verifying the rendering of the page:</br>
 
 ### User/Profile Page
 Page Title: User Profile</br>
-
+[Profile Page Mockup](web_page_designs/Profile_Page_Mockup.png)
 Page Description:</br>
 - The User Profile page displays the personal details of the user</br>
 - Editable Information (Name, Username, Password)</br>
