@@ -17,9 +17,13 @@ Data needed to render the page:
 * an html sheet for the frontend (and copy)
 * links for the other pages
 * data pulled in for the preview sections (if possible)</br>
-Link destinations for the page: links for the other 4 pages will be on the home page for easy navigation</br>
+Link destinations for the page: links for the other 4 pages will be on the home page as a navigation bar for easy navigation</br>
+
 List of tests for verifying the rendering of the page:</br>
-* verify  ???
+* navigation bar is working
+* response design testing - the screen size doesn't change how the page works or is navigated, everything is still responsive
+* each preview of the other pages is appearing correctly and the links work
+* everything is loaded properly (images and text etc)
 
 ### Login Page
 Page Title</br>
@@ -69,9 +73,12 @@ Page Description: [mockup](web_page_designs/RecipEASY_addNew.pdf) Page to input 
 Parameters needed for the page: @app.route('/my_recipes/add_new')</br>
 Data needed to render the page: an input form for recipe data</br>
 Link destinations for the page:
+* navigation bar on the page
 * cancel - return to my recipes page
 * save - save recipe to DB and return to my recipes page</br>
+
 List of tests for verifying the rendering of the page:
 * verify the form is ready for input / connected to database
 * verify submit working correctly
+* verify cancel returns to the previous page
 * verify data was input to database</br>
