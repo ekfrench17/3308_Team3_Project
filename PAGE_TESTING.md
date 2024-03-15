@@ -25,13 +25,39 @@ List of tests for verifying the rendering of the page:</br>
 * each preview of the other pages is appearing correctly and the links work
 * everything is loaded properly (images and text etc)
 
-### Login Page
-Page Title</br>
-Page Description (include a mockup or hand drawn image of the page)</br>
-Parameters needed for the page</br>
-Data needed to render the page</br>
-Link destinations for the page</br>
-List of tests for verifying the rendering of the page</br>
+### User/Profile Page
+Page Title: User Profile</br>
+
+Page Description:</br>
+- The User Profile page displays the personal details of the user</br>
+- Editable Information (Name, Username, Password)</br>
+- Their activity history saved recipes </br>
+- It should have a clean, user-friendly layout with distinct sections for different information types. </br>
+
+Parameters Needed for the Page:</br>
+- userID: Unique identifier for the user to fetch the correct profile data.</br>
+- sessionToken: To ensure that the user is authenticated and to maintain session security.</br>
+
+Data Needed to Render the Page:</br>
+- User personal details (name, email, etc.)</br>
+- List of recent user activities (e.g., personal recipes/saved recipes)</br>
+- Account settings (name, email, password, account management options)</br>
+
+Link Destinations for the Page:</br>
+- Home/Feed: Redirects to the main content feed.</br>
+- Edit Profile: Allows the user to modify their profile details.</br>
+- Recipes: Allows user to see their recipes (Personal/Saved)</br>
+- Logout: A link for the user to log out of their account.</br>
+
+List of Tests for Verifying the Rendering of the Page:</br>
+- User Data Display Test: Verify that all user data (profile picture, name, email, etc.) is correctly fetched and displayed.
+- Responsive Design Test: Ensure that the page is responsive and renders well on different devices and screen sizes.
+- Link Functionality Test: Test all links on the page (Edit Profile, Settings, Logout, etc.) to ensure they redirect correctly.
+- Loading Performance Test: Check that the page loads within an acceptable time frame, with all elements rendering correctly.
+- Security Test: Ensure that the page does not render without a valid sessionToken, preventing unauthorized access.
+- User Interaction Test: Confirm that interactive elements (like edit buttons, settings options) respond correctly to user input.
+- Error Handling Test: Verify that the page handles errors gracefully (e.g., displays user-friendly error messages if data fails to load).
+
 
 ### My Recipes Page
 Page Title</br>
