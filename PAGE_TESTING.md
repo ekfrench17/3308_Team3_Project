@@ -75,20 +75,20 @@ Page Description [mockup](web_page_designs/search.jpg) This is the page that wil
 Parameters needed for the page: '/search' '/search_results' and '/recipe_display'</br>
 
 Data needed to render the page: 
--html pages for each of the three outlined above: search, search_results, and recipe_display
--a css style sheet to format and add colors
--links to each other and the home page
--data from the recipe and user database</br>
+* html pages for each of the three outlined above: search, search_results, and recipe_display
+* a css style sheet to format and add colors
+* links to each other and the home page
+* data from the recipe and user database</br>
 
 Link destinations for the page: the link destination for the search page will be on the home page, the recipe display will be on the user profile page and attached to the search results page. The search results page will be a link from the search page, and the recipe display page will be linked to the results page and well as the surprise me button in the search.</br>
 
 List of tests for verifying the rendering of the page:
--valid search paramters
--working links to recipe display, search, and results
--image display working correctly
--database access is correct for recipe
--button links correctly correspond
--error friendly message printed if parameters for search are not met
+* valid search paramters
+* working links to recipe display, search, and results
+* image display working correctly
+* database access is correct for recipe
+* button links correctly correspond
+* error friendly message printed if parameters for search are not met
 </br>
 
 
