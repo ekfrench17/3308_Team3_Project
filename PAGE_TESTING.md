@@ -65,7 +65,7 @@ List of tests for verifying the rendering of the page:</br>
 
 ### Add New Recipe Page
 Page Title: Add New Recipe</br>
-Page Description: Page to input a new recipe to the my recipes archive</br>
+Page Description: [mockup](web_page_designs/RecipEASY_addNew.pdf) Page to input a new recipe to the my recipes archive</br>
 Parameters needed for the page: @app.route('/my_recipes/add_new')</br>
 Data needed to render the page: an input form for recipe data</br>
 Link destinations for the page:
