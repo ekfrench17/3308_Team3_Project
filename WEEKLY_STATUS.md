@@ -40,5 +40,20 @@ Upcoming Week:
 Screenshots from project management tool:
 ![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/b05c36f6-b60d-4a58-b543-97c10956fa3e)
 
+## Week of March 11th
+
+Completed Last Week:
+- Carlos: Finished mockup of community page and write up for web page design
+- Elaine: Finished mockup of home and add new pages and write up for web page design
+- Jessica: Finished mockup search page and write up for web page design
+- JP: Finished mockup user profile (my recipe) page and write up for web page design
+
+Upcoming Week:
+- Carlos & JP: start Flask file
+- Jessica & Elaine: start html/css files
+- whole team: start sketching out SQL table design (milestone 5)
+
+Screenshots from project management tool:
+
 
 
