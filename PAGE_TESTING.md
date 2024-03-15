@@ -77,7 +77,7 @@ List of tests for verifying the rendering of the page</br>
 
 ### Community
 Page Title: Community Page</br>
-Page Description: A community page where users can post about recipies.</br>
+Page Description: A community page where users can post about recipies.[mockup](web_page_designs/Community_Page.png)</br>
 Parameters needed for the page @app.route('/community_page')</br>
 Data needed to render the page:
 * HTML, CSS, and Javascript programs for the UI of commmunity page.
