@@ -46,10 +46,10 @@ Link destinations for the page</br>
 List of tests for verifying the rendering of the page</br>
 
 ### Community
-Page Title: Community Page</br
-Page Description: A coommunity page where users can post about recipies.</br>
+Page Title: Community Page</br>
+Page Description: A community page where users can post about recipies.</br>
 Parameters needed for the page @app.route('/community_page')</br>
-Data needed to render the page
+Data needed to render the page:
 * HTML, CSS, and Javascript programs for the UI of commmunity page.
 * previous post data from users 
 * links for a menu/toggle scetion to direct me to the other pages</br>
