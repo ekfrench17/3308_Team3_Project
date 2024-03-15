@@ -46,12 +46,21 @@ Link destinations for the page</br>
 List of tests for verifying the rendering of the page</br>
 
 ### Community
-Page Title</br>
-Page Description (include a mockup or hand drawn image of the page)</br>
-Parameters needed for the page</br>
-Data needed to render the page</br>
-Link destinations for the page</br>
-List of tests for verifying the rendering of the page</br>
+Page Title: Community Page</br
+Page Description: A coommunity page where users can post about recipies.</br>
+Parameters needed for the page @app.route('/community_page')</br>
+Data needed to render the page
+* HTML, CSS, and Javascript programs for the UI of commmunity page.
+* previous post data from users 
+* links for a menu/toggle scetion to direct me to the other pages</br>
+Link destinations for the page: Links for the 4 other pages on the site including the home page</br>
+List of tests for verifying the rendering of the page:
+* Can see previous posts from other users in decending order (oldest to newest)
+* Can make your own post
+* Can see your previous post
+* Can scroll up to first post.
+* Can scroll down to most recent post
+</br>
 
 ### Add New Recipe Page
 Page Title: Add New Recipe</br>
