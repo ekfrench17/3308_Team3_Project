@@ -4,7 +4,7 @@
 ### Summary of Pages:
 * Home Page
 * Login Page
-* My Recipes Page
+* User Profile Page
 * Explore - Search Page
 * Community - Social Page
 * Add New Recipe Page
@@ -58,14 +58,6 @@ List of Tests for Verifying the Rendering of the Page:</br>
 - User Interaction Test: Confirm that interactive elements (like edit buttons, settings options) respond correctly to user input.
 - Error Handling Test: Verify that the page handles errors gracefully (e.g., displays user-friendly error messages if data fails to load).
 
-
-### My Recipes Page
-Page Title</br>
-Page Description (include a mockup or hand drawn image of the page)</br>
-Parameters needed for the page</br>
-Data needed to render the page</br>
-Link destinations for the page</br>
-List of tests for verifying the rendering of the page</br>
 
 ### Explore
 Page Title: Search</br>
