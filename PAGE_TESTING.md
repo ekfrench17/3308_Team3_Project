@@ -11,7 +11,7 @@
 
 ### Home Page
 Page Title: RecipEASY</br>
-Page Description: mockup[web_page_designs/RecipEASY_Home.pdf] The home page will be a default landing page for the site where you can access the other pages, see a preview of your recently added/saved recipes, see notifications and/or preview the ‘community’ page, or add a new recipe</br>
+Page Description: [mockup](web_page_designs/RecipEASY_Home.pdf) The home page will be a default landing page for the site where you can access the other pages, see a preview of your recently added/saved recipes, see notifications and/or preview the ‘community’ page, or add a new recipe</br>
 Parameters needed for the page: No parameters needed as this is the default page. route will be ‘/home' or ‘/recipeasy’</br>
 Data needed to render the page: 
 * an html sheet for the frontend (and copy)
