@@ -68,12 +68,29 @@ Link destinations for the page</br>
 List of tests for verifying the rendering of the page</br>
 
 ### Explore
-Page Title</br>
-Page Description (include a mockup or hand drawn image of the page)</br>
-Parameters needed for the page</br>
-Data needed to render the page</br>
-Link destinations for the page</br>
-List of tests for verifying the rendering of the page</br>
+Page Title: Search</br>
+
+Page Description [mockup](web_page_designs/search.jpg) This is the page that will give options for searching the recipes in the database. There will be options to search by ingredient, title, and a button to generate a random recipe. [mockup](web_page_design/search_results.JPG) This is the page that will display the results of the search (except the "Surprise me" button- it will jump straight to recipe display. [mockup](web_page_designs/recipe_display.JPG) This is the page where the recipe will be displayed for the user.</br> 
+
+Parameters needed for the page: '/search' '/search_results' and '/recipe_display'</br>
+
+Data needed to render the page: 
+-html pages for each of the three outlined above: search, search_results, and recipe_display
+-a css style sheet to format and add colors
+-links to each other and the home page
+-data from the recipe and user database</br>
+
+Link destinations for the page: the link destination for the search page will be on the home page, the recipe display will be on the user profile page and attached to the search results page. The search results page will be a link from the search page, and the recipe display page will be linked to the results page and well as the surprise me button in the search.</br>
+
+List of tests for verifying the rendering of the page:
+-valid search paramters
+-working links to recipe display, search, and results
+-image display working correctly
+-database access is correct for recipe
+-button links correctly correspond
+-error friendly message printed if parameters for search are not met
+</br>
+
 
 ### Community
 Page Title: Community Page</br>
