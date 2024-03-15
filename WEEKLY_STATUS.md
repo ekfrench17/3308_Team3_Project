@@ -54,6 +54,8 @@ Upcoming Week:
 - whole team: start sketching out SQL table design (milestone 5)
 
 Screenshots from project management tool:
+![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/2e57cba1-c85a-49ec-bd12-5ae70e9f905f)
+
 
 
 
