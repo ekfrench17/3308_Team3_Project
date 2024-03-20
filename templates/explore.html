@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Explore RecipEASY{% endblock %}
+
+{% block header %}Explore RecipEASY{% endblock %}
+    
+     <div class="white-bar"></div> 
+
+{% block content %}
+        <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+            Recipe Name
+            <div class="overlay"></div>
+        </div>
+        <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+            Ingredient
+            <div class="overlay"></div>
+        </div>
+        <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+            Author
+            <div class="overlay"></div>
+        </div>
+        <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+            Surprise Me
+            <div class="overlay"></div>
+        </div>
+    <script>
+        function toggleOverlay(element) {
+            element.querySelector('.overlay').classList.toggle('show');
+        }
+    </script>
+{% endblock %}

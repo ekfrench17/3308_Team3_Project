@@ -1,0 +1,118 @@
+body {
+    font-family: 'Arial Black', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #7B9E89;
+}
+
+.header {
+    background-color: #D95D39;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.nav_bar {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav_bar a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.nav_bar a:hover {
+    transform: scale(1.1); /* Enlarge the text on hover */
+    display: inline-block; /* Ensures the anchor elements have layout */
+}
+
+.white-bar {
+    height: 10px; /* Adjust height of the white bar */
+    background-color: white; /* White color for the bar */
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.box {
+    position: relative;
+    border: 2px solid #0E1428; /* Add border for the boxes */
+    padding: 20px; /* Add padding for the boxes */
+    margin-bottom: 20px; /* Add margin to create space between boxes */
+    background-color: #F0A202; /* Add background color */
+    transition: border-radius 0.3s; /* Add transition for border-radius */
+}
+
+.box:hover {
+    border-radius: 20px; /* Adjust border radius on hover */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/spoonfork.jpg') WIDTH=155; /* Image URL */
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Prevents overlay from interfering with mouse events */
+}
+
+.overlay.show {
+    opacity: 0.5; /* Adjust opacity as desired */
+}
+
+.recipe-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.recipe-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ingredients {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.ingredients h2 {
+    margin-bottom: 10px;
+}
+
+.recipe-image {
+    flex: 1;
+}
+
+.recipe-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.directions {
+    margin-top: 20px;
+}
+
+.directions h2 {
+    margin-bottom: 10px;
+}
+
+.directions ol {
+    padding-left: 20px;
+}
