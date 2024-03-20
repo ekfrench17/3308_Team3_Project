@@ -1,6 +1,9 @@
 ###############################################################################
 ## This is starter code for RecipEASY Flask App
 ##
+## Instructions:
+## start vitual environment with . venv/bin/activate
+## then run flask --app recipeasy_app run
 ###############################################################################
 
 
