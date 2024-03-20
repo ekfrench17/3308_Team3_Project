@@ -1,50 +1,12 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore RecipEASY</title>
-    <link rel="stylesheet" href="home_page_style.css">
-</head>
-<body>
-    <div class="header">
-        <h1>Explore RecipEASY</h1>
-    </div>
-    <div class="container">
-        <div class="box">
-            Recipe Name
-        </div>
-        <div class="box">
-            Ingredient
-        </div>
-        <div class="box">
-            Author
-        </div>
-        <div class="box">
-            Surprise Me
-        </div>
-    </div>
-</body>
-</html> -->
+{% extends 'base.html' %}
 
+{% block title %}Explore RecipEASY{% endblock %}
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore RecipEASY</title>
-    <link rel="stylesheet" href="home_page_style.css">
-</head>
-<body>
-    <div class="header">
-        <h1>Explore RecipEASY</h1>
-    </div>
+{% block header %}Explore RecipEASY{% endblock %}
     
      <div class="white-bar"></div> 
-    
-    <div class="container">
+
+{% block content %}
         <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
             Recipe Name
             <div class="overlay"></div>
@@ -61,11 +23,9 @@
             Surprise Me
             <div class="overlay"></div>
         </div>
-    </div>
     <script>
         function toggleOverlay(element) {
             element.querySelector('.overlay').classList.toggle('show');
         }
     </script>
-</body>
-</html>
+{% endblock %}
