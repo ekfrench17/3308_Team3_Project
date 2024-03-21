@@ -7,6 +7,7 @@
      <div class="white-bar"></div> 
 
 {% block content %}
+<div class="container">
         <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
             Recipe Name
             <div class="overlay"></div>
@@ -28,4 +29,5 @@
             element.querySelector('.overlay').classList.toggle('show');
         }
     </script>
+</div>
 {% endblock %}

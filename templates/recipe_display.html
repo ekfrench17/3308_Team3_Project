@@ -2,10 +2,10 @@
 {% block title %} Delicious Recipe {% endblock %}
 {% block header %} Homemade Pizza {% endblock %}
 {% block content %}
-<body>
-        <div class="recipe-content">
-            <div class="ingredients">
-                <h2>Ingredients:</h2>
+<div class="recipe">
+    <div class="recipe-content">
+        <div class="ingredients">
+            <h2>Ingredients:</h2>
                 <ul>
                     <li>1 pre-made pizza crust</li>
                     <li>1/2 cup pizza sauce</li>
@@ -18,11 +18,12 @@
                     <li>1/4 cup grated Parmesan cheese</li>
                     <!-- Add more ingredients as needed -->
                 </ul>
-            </div>
-            <div class="recipe-image">
-                <img src="images/pizza.jpg" alt="Food Image" WIDTH=250>
-            </div>
         </div>
+    
+        <div class="recipe-image">
+            <img src="static/images/pizza.jpg" alt="Food Image" WIDTH=250>
+        </div>
+    </div>
         <div class="directions">
             <h2>Directions:</h2>
             <ol>
@@ -38,4 +39,5 @@
                 <!-- Add more steps as needed -->
             </ol>
         </div>
+</div>
 {% endblock %}

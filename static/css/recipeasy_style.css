@@ -5,6 +5,7 @@ body {
     background-color: #7B9E89;
 }
 
+
 .header {
     background-color: #D95D39;
     color: #fff;
@@ -43,6 +44,11 @@ body {
     margin-top: 20px;
 }
 
+.recipe {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 .box {
     position: relative;
     border: 2px solid #0E1428; /* Add border for the boxes */
@@ -73,18 +79,12 @@ body {
     opacity: 0.5; /* Adjust opacity as desired */
 }
 
-.recipe-title {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
 .recipe-content {
     display: flex;
-    flex-wrap: wrap;
-}
+} 
 
 .ingredients {
-    flex: 1;
+    flex: 2;
     margin-right: 20px;
 }
 
@@ -94,6 +94,7 @@ body {
 
 .recipe-image {
     flex: 1;
+    margin-top: 20px;
 }
 
 .recipe-image img {
