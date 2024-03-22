@@ -71,6 +71,7 @@ Upcoming Week:
 - Jessica: create html file for Community page
 
 Screenshots from project management tool:
+![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/dbf6bc46-e622-4621-8b16-f973ae63e070)
 
 
 
