@@ -56,6 +56,22 @@ Upcoming Week:
 Screenshots from project management tool:
 ![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/2e57cba1-c85a-49ec-bd12-5ae70e9f905f)
 
+## Week of March 
+
+Completed Last Week:
+- Created html
+- Created css files
+- started sql file
+- able to run flask application & navigation bar links to each page
+- all files available in main branch of repo
+
+Upcoming Week:
+- Elaine: Add new recipe page - create Html file and start on figuring out how to link to DB (e.g. create a function to add recipes to DB); update flask app file in main repo to be able to run in virtual environment 
+- JP & Carlos: work on SQL db concepts & begin writing functions / setting up file
+- Jessica: create html file for Community page
+
+Screenshots from project management tool:
+
 
 
 
