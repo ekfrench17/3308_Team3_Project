@@ -27,9 +27,19 @@
       <li>This will be rating of the recipe that will be in a 3 digit format with digits being decimals to the 100th's value.</li>
     </ul>
   </li>
+  <li>Total Rating Submissions (int)
+    <ul>
+      <li>This will tally the number of ratings submitted for a specific recipe</li>
+    </ul>
+  </li>
   <li>User ID (varchar)
     <ul>
       <li>This will be identifier of the user who submitted the recipe</li>
+    </ul>
+  </li>
+  <li>Submit Date (int)
+    <ul>
+      <li>This will be the date of the post</li>
     </ul>
   </li>
 </ul>
@@ -42,16 +52,21 @@
 <li>Add a Recipie</li>
     <ul><li>By passing the recipe, its name, user id as parameters you will be add a record/recipe to the table. The AVG Rating will be initalized to null no values will be returned.</li></ul>
     <ul><li>Tests:</li></ul> 
+<li>Give Rating on Recipe</li>
+    <ul><li>By passing a parameter that follows the 3 digit 2 decimal format, a new rating will be returned. The new rating will be calulated by using the weighted average of the new rating submitted and the current rating weighted off the Total Ratings Submission .</li></ul>
+    <ul><li>Tests:</li></ul> 
 <li>Search Recipies</li>
-    <ul><li>By passing the recipe name as a parameter you will be able to have the recipe requested returned to the page. The AVG Rating will be initalized to null no values will be returned.</li></ul>
+    <ul><li>By passing the recipe name as a parameter you will be able to have the recipe, author, and rating returned to the page.</li></ul>
     <ul><li>Tests:</li></ul> 
 <li>Pull Recently Added Recipe</li>
-<li>Suggested Recipes. (I don't know if possible given time frame). If needed we can pull maybe just top rated Recipes</li>
+<ul><li>By passing the user ID you will be able to up to 5 of the most recent recipes.</li></ul>
+<ul><li>Tests:</li></ul> 
+<li>Suggested Recipes</li>
+<ul><li>By calling this method you will be able to return up to 5 of the top rated recipes .</li></ul>
+<ul><li>Tests:</li></ul> 
 <li>Pull and Display all Recipes uploaded by a user</li>
-<li>Pull and Display all Recipes by Name given user Input</li>
-<li>Pull and Display all Recipes by Ingredient given user Input</li>
-<li>Pull and Display all Recipes by Author (User who uploaded) given user Input</li>
-<li>Pull and Display all Random Recipes by Name given user Input (likely just pressing a button)</li>
+<ul><li>By passing the User ID as a parameter this method will return all Recipes uploaded by a user</li></ul>
+<ul><li>Tests:</li></ul> 
 </ul>
 
 </hr>
@@ -88,7 +103,23 @@
     </ul>
   </li>
 </ul>
-
+</hr>
+<h2>Access Methods for Login Credentials Table</h2>
+<hr>
+<ul>
+  <li>Add User Record
+    <ul>
+      <li>By passing a user id, password, first name, last name, and email, a record of login credentials will be created </li>
+      <li>Tests:</li>
+    </ul>
+  </li>
+  <li>Verify User exists
+    <ul>
+      <li>By passing a user id and password as parameters a search will be conducted for the user id and password access to the site will be granted.</li>
+      <li>Tests:</li>
+    </ul>
+  </li>
+</ul>
 </hr>
 
 
@@ -119,5 +150,21 @@
     </ul>
   </li>
 </ul>
-
+<h2>Access Methods for Community Posts Table</h2>
+<hr>
+<ul>
+  <li>Add Posts
+    <ul>
+      <li>By using the post (string) as a parameter to this method, we will be able to store this post, record the date and time, and record the user of the post to the DB. Nothing will be returned from this method.</li>
+      <li>Test:</li>
+    </ul>
+  </li>
+  <li>Pull all posts (maybe have a cap for total that should be posted?)
+    <ul>
+      <li>There will be no needed parameters but by using this method we should be able to return all posts and their correspond user ids. These posts will be returned in the order of most recent to oldest</li>
+      <li>Tests:</li>
+    </ul>
+  </li>
+</ul>
+</hr>
 </hr>
