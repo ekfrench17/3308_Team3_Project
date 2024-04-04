@@ -2,124 +2,159 @@
   <h1>SQL DESIGN</h1>
 </div>
 <hr>
-<h1><b> Recipes Table </b></h1>
-<b>Table Description:</b> This table will contain all the needed information for ranking a recipe, storing recipe's ingredients, as well as accociating a recipe sumbitted to the creator of it.
+<hr>
+<h1><b>Recipes Table</b></h1>
+<b>Table Description:</b> This table will contain all the needed information for ranking a recipe, storing recipe's ingredients, as well as associating a recipe submitted to the creator of it.
 
 <b>Table Values (Columns):</b>
 <ul>
   <li>Recipe ID (int)
     <ul>
-      <li>This will be the Recipe Identifier</li>
+      <li>The unique Recipe Identifier.</li>
     </ul>
   </li>
   <li>Name (varchar)
     <ul>
-      <li>This will be name of the Recipe</li>
+      <li>The name of the Recipe.</li>
     </ul>
   </li>
-  <li>Recipe (varchar)
+  <li>Ingredients (varchar)
     <ul>
-      <li>This will be the Recipe</li>
+      <li>A list of ingredients required for the recipe.</li>
     </ul>
   </li>
-  <li>Avg Ratings Decimal(3,2) **Can be null at a records/recipe's creation**
+  <li>Quantity (varchar)
     <ul>
-      <li>This will be rating of the recipe that will be in a 3 digit format with digits being decimals to the 100th's value.</li>
+      <li>The quantities of each ingredient needed for the recipe.</li>
+    </ul>
+  </li>
+  <li>Cooking Time (int)
+    <ul>
+      <li>The time required to cook the recipe, measured in minutes.</li>
+    </ul>
+  </li>
+  <li>Directions (text)
+    <ul>
+      <li>Step-by-step instructions on how to prepare and cook the recipe.</li>
+    </ul>
+  </li>
+  <li>Avg Ratings (Decimal(3,2)) **Can be null at a record/recipe's creation**
+    <ul>
+      <li>The average rating of the recipe, in a 3-digit format with 2 decimals to the hundredth's value.</li>
     </ul>
   </li>
   <li>Total Rating Submissions (int)
     <ul>
-      <li>This will tally the number of ratings submitted for a specific recipe</li>
+      <li>The tally of the number of ratings submitted for a specific recipe.</li>
     </ul>
   </li>
   <li>User ID (varchar)
     <ul>
-      <li>This will be identifier of the user who submitted the recipe</li>
+      <li>The identifier of the user who submitted the recipe.</li>
     </ul>
   </li>
-  <li>Submit Date (int)
+  <li>Submit Date (datetime)
     <ul>
-      <li>This will be the date of the post</li>
+      <li>The date and time when the recipe was submitted.</li>
     </ul>
   </li>
 </ul>
-</hr>
+<hr>
 <h2>Access Methods for Recipe Table</h2>
 <hr>
 <ul>
-<li>Add a Recipie</li>
-    <ul><li>By passing the recipe, its name, user id as parameters you will be add a record/recipe to the table. The AVG Rating will be initalized to null no values will be returned.</li></ul>
+<li>Add a Recipe</li>
+    <ul>
+        <li>By passing the recipe name, ingredients, quantity, cooking time, directions, and user ID as parameters, you can add a new recipe record to the table. The AVG Rating will be initialized to null, and the submit date will be automatically set to the current date. No values will be returned.</li>
+    </ul>
     <ul>
         <li>Tests:</li>
         <ul>
-            <li>Attempt to add a unique recipe name while passing the recipe itself and its associated user id to see if the recipe record is created.</li>
-            <li>Attempt to add a recipe with a recipe name that already exist to ensure the system prevents duplicate identical recipe names.</li>
+            <li>Attempt to add a recipe with a unique name and all necessary details to see if the recipe record is created.</li>
+            <li>Attempt to add a recipe with a name that already exists to ensure the system prevents duplicate identical recipe names.</li>
         </ul>
     </ul>
 <li>Give Rating on Recipe</li>
-    <ul><li>By passing a parameter that follows the 3 digit 2 decimal format, a new rating will be returned. The new rating will be calulated by using the weighted average of the new rating submitted and the current rating weighted off the Total Ratings Submission .</li></ul>
+    <ul>
+        <li>By passing a recipe ID and a rating that follows the 3 digit 2 decimal format, a new rating will be calculated using the weighted average of the new rating submitted and the current average rating, factoring in the updated total ratings submission. No values will be returned.</li>
+    </ul>
     <ul>
         <li>Tests:</li>
         <ul>
-            <li>Test the weighted avg calculation and updating of the Avg Ratings field when new ratings are added.</li>
+            <li>Test the weighted average calculation and updating of the Avg Ratings field when a new rating is added.</li>
             <li>Verify that the Total Ratings submission auto-increments with each new recipe rating submission.</li>
         </ul>
     </ul>
-<li>Search Recipies</li>
-    <ul><li>By passing the recipe name as a parameter you will be able to have the recipe, author, and rating returned to the page.</li></ul>
+<li>Search Recipes</li>
+    <ul>
+        <li>By passing the recipe name as a parameter, you will be able to retrieve the recipe details including ingredients, cooking time, and directions, alongside the recipe, author, and rating.</li>
+    </ul>
     <ul>
         <li>Tests:</li>
         <ul>
-            <li>Verify the corret recipe is pulled when given a name</li>
-            <li>Verify nothing is returned when a recipe name that doesn't exist is being searched</li>
+            <li>Verify the correct recipe is pulled when given a name.</li>
+            <li>Verify nothing is returned when a recipe name that doesn't exist is being searched.</li>
         </ul>
     </ul>
 <li>Pull Recently Added Recipe</li>
-<ul><li>By passing the user ID you will be able to up to 5 of the most recent recipes.</li></ul>
-<ul>
+    <ul>
+        <li>By passing the user ID, you will be able to retrieve up to 5 of the most recently submitted recipes by that user.</li>
+    </ul>
+    <ul>
         <li>Tests:</li>
         <ul>
-            <li>Verify the order of the 5 recipes returned is correctly listed by most recent date to 5th most recent</li>
-            <li>Verify only 5 recipes are returned when more than 5 recipes exist in the table</li>
-            <li>Verify all recipes are returned when less than 5 recipes exist in the table</li>
+            <li>Verify the order of the 5 recipes returned is correctly listed from the most recent to the 5th most recent submission date.</li>
+            <li>Verify only 5 recipes are returned when more than 5 recipes exist in the table.</li>
+            <li>Verify all recipes are returned when fewer than 5 recipes exist in the table.</li>
         </ul>
     </ul>
 <li>Suggested Recipes</li>
-<ul><li>By calling this method you will be able to return up to 5 of the top rated recipes .</li></ul>
-<ul>
+    <ul>
+        <li>By calling this method, you will be able to return up to 5 of the top-rated recipes.</li>
+    </ul>
+    <ul>
         <li>Tests:</li>
         <ul>
-            <li>Verify the the top 5 most recent recipes are returned in order from highest to 5th highest rated for the entire recipe table</li>
-            <li>Verify only 5 recipes are returned when more than 5 recipes exist in the table</li>
-            <li>Verify all recipes are returned when less than 5 recipes exist in the table</li>
+            <li>Verify the top 5 rated recipes are returned in order from the highest to the 5th highest average rating for the entire recipe table.</li>
+            <li>Verify only 5 recipes are returned when more than 5 recipes exist in the table.</li>
+            <li>Verify all recipes are returned when fewer than 5 recipes exist in the table.</li>
         </ul>
     </ul>
 <li>Pull and Display all Recipes uploaded by a user</li>
-<ul><li>By passing the User ID as a parameter this method will return all Recipes uploaded by a user</li></ul>
-<ul>
+    <ul>
+        <li>By passing the User ID as a parameter, this method will return all recipes uploaded by a user, including their ingredients, quantities, cooking times, and directions.</li>
+    </ul>
+    <ul>
         <li>Tests:</li>
         <ul>
-            <li>Verify nothing is returned when a userid that doesn't exist is being searched</li>
-            <li>Verify every recipe associated with a userid is being returned</li>
+            <li>Verify nothing is returned when a User ID that doesn't exist is being searched.</li>
+            <li>Verify every recipe associated with a User ID is being returned, complete with all new fields.</li>
         </ul>
     </ul>
 </ul>
-</hr>
+<hr>
+
+
 <h2>List of Tests for Recipes Table</h2>
 <hr>
 <ul>
-    <li>Verify that the Recipe ID is a primary key and auto-increments with each new recipe entry.</li>
-    <li>Confirm that each Name entered into the table is unique.</li>
-    <li>Ensure that the Avg Ratings field can be set to null upon record creation and restricts the rating to a decimal(3,2) format.</li>
-    <li>Update the Avg Ratings for a recipe and confirm that the new average is accurately reflected.</li>
-    <li>Verify that the User ID correctly references the identifier of the user who submitted the recipe.</li>
-    <li>Test the return value of 5 Recipes pulled by date to see if the most recent 5 submission dates are being returned.</li>
-    <li>Attempt to insert a record with missing required fields to ensure that the table enforces data integrity.</li>
-    <li>Retrieve a recipe by Recipe ID to confirm that all associated information is returned correctly.</li>
-    <li>Attempt to delete a recipe to check for cascading effects or restrictions and try updating a recipe's User ID to test for immutability.</li>
-    <li>Perform searches on the Name field to ensure that recipes can be found based on their title.</li>
+  <li>Verify that the Recipe ID is a primary key and auto-increments with each new recipe entry.</li>
+  <li>Confirm that each Name entered into the table is unique.</li>
+  <li>Ensure that the Ingredients field can store a list of ingredients in the expected varchar format.</li>
+  <li>Verify that the Quantity field can store quantities for each ingredient in the expected varchar format.</li>
+  <li>Check that the Cooking Time field accepts only integer values and represents the time in minutes.</li>
+  <li>Ensure that the Directions field can store a text value large enough for step-by-step instructions.</li>
+  <li>Ensure that the Avg Ratings field can be set to null upon record creation and restricts the rating to a decimal(3,2) format.</li>
+  <li>Verify that the Total Rating Submissions field auto-increments with each new rating entry.</li>
+  <li>Verify that the User ID correctly references the identifier of the user who submitted the recipe.</li>
+  <li>Confirm that the Submit Date field is automatically set to the current date and time upon recipe creation.</li>
+  <li>Attempt to insert a record with missing required fields to ensure that the table enforces data integrity.</li>
+  <li>Retrieve a recipe by Recipe ID to confirm that all associated information is returned correctly.</li>
+  <li>Attempt to delete a recipe to check for cascading effects or restrictions and try updating a recipe's User ID to test for immutability.</li>
+  <li>Perform searches on the Name field to ensure that recipes can be found based on their title.</li>
 </ul>
-</hr>
+<hr>
+
 
 <h1><b> Login Credentials Table</b> </h1>
 
