@@ -1,8 +1,8 @@
 <div style="text-align: center;">
   <h1>SQL DESIGN</h1>
 </div>
-<h1> Recipes Table </h1>
 <hr>
+<h1><b> Recipes Table </b></h1>
 <b>Table Description:</b> This table will contain all the needed information for ranking a recipe, storing recipe's ingredients, as well as accociating a recipe sumbitted to the creator of it.
 
 <b>Table Values (Columns):</b>
@@ -27,49 +27,101 @@
       <li>This will be rating of the recipe that will be in a 3 digit format with digits being decimals to the 100th's value.</li>
     </ul>
   </li>
+  <li>Total Rating Submissions (int)
+    <ul>
+      <li>This will tally the number of ratings submitted for a specific recipe</li>
+    </ul>
+  </li>
   <li>User ID (varchar)
     <ul>
       <li>This will be identifier of the user who submitted the recipe</li>
     </ul>
   </li>
+  <li>Submit Date (int)
+    <ul>
+      <li>This will be the date of the post</li>
+    </ul>
+  </li>
 </ul>
-<b>List of Tests for Recipes Table</b>
-<ul>
-    <li>Verify that the Recipe ID is a primary key and auto-increments with each new recipe entry.</li>
-    <li>Confirm that each Name entered into the table is unique.</li>
-    <li>Ensure that the Avg Ratings field can be set to null upon record creation and restricts the rating to a decimal(3,2) format.</li>
-    <li>Verify that the User ID correctly references the identifier of the user who submitted the recipe.</li>
-    <li>Attempt to insert a record with missing required fields to ensure that the table enforces data integrity.</li>
-    <li>Test the calculation and updating of the Avg Ratings field when new ratings are added.</li>
-    <li>Retrieve a recipe by Recipe ID to confirm that all associated information is returned correctly.</li>
-    <li>Attempt to delete a recipe to check for cascading effects or restrictions and try updating a recipe's User ID to test for immutability.</li>
-    <li>Perform searches on the Name field to ensure that recipes can be found based on their title.</li>
-    <li>Update the Avg Ratings for a recipe and confirm that the new average is accurately reflected.</li>
-</ul>
-
 </hr>
-
 <h2>Access Methods for Recipe Table</h2>
 <hr>
 <ul>
 <li>Add a Recipie</li>
     <ul><li>By passing the recipe, its name, user id as parameters you will be add a record/recipe to the table. The AVG Rating will be initalized to null no values will be returned.</li></ul>
-    <ul><li>Tests:</li></ul> 
+    <ul>
+        <li>Tests:</li>
+        <ul>
+            <li>Attempt to add a unique recipe name while passing the recipe itself and its associated user id to see if the recipe record is created.</li>
+            <li>Attempt to add a recipe with a recipe name that already exist to ensure the system prevents duplicate identical recipe names.</li>
+        </ul>
+    </ul>
+<li>Give Rating on Recipe</li>
+    <ul><li>By passing a parameter that follows the 3 digit 2 decimal format, a new rating will be returned. The new rating will be calulated by using the weighted average of the new rating submitted and the current rating weighted off the Total Ratings Submission .</li></ul>
+    <ul>
+        <li>Tests:</li>
+        <ul>
+            <li>Test the weighted avg calculation and updating of the Avg Ratings field when new ratings are added.</li>
+            <li>Verify that the Total Ratings submission auto-increments with each new recipe rating submission.</li>
+        </ul>
+    </ul>
 <li>Search Recipies</li>
-    <ul><li>By passing the recipe name as a parameter you will be able to have the recipe requested returned to the page. The AVG Rating will be initalized to null no values will be returned.</li></ul>
-    <ul><li>Tests:</li></ul> 
+    <ul><li>By passing the recipe name as a parameter you will be able to have the recipe, author, and rating returned to the page.</li></ul>
+    <ul>
+        <li>Tests:</li>
+        <ul>
+            <li>Verify the corret recipe is pulled when given a name</li>
+            <li>Verify nothing is returned when a recipe name that doesn't exist is being searched</li>
+        </ul>
+    </ul>
 <li>Pull Recently Added Recipe</li>
-<li>Suggested Recipes. (I don't know if possible given time frame). If needed we can pull maybe just top rated Recipes</li>
+<ul><li>By passing the user ID you will be able to up to 5 of the most recent recipes.</li></ul>
+<ul>
+        <li>Tests:</li>
+        <ul>
+            <li>Verify the order of the 5 recipes returned is correctly listed by most recent date to 5th most recent</li>
+            <li>Verify only 5 recipes are returned when more than 5 recipes exist in the table</li>
+            <li>Verify all recipes are returned when less than 5 recipes exist in the table</li>
+        </ul>
+    </ul>
+<li>Suggested Recipes</li>
+<ul><li>By calling this method you will be able to return up to 5 of the top rated recipes .</li></ul>
+<ul>
+        <li>Tests:</li>
+        <ul>
+            <li>Verify the the top 5 most recent recipes are returned in order from highest to 5th highest rated for the entire recipe table</li>
+            <li>Verify only 5 recipes are returned when more than 5 recipes exist in the table</li>
+            <li>Verify all recipes are returned when less than 5 recipes exist in the table</li>
+        </ul>
+    </ul>
 <li>Pull and Display all Recipes uploaded by a user</li>
-<li>Pull and Display all Recipes by Name given user Input</li>
-<li>Pull and Display all Recipes by Ingredient given user Input</li>
-<li>Pull and Display all Recipes by Author (User who uploaded) given user Input</li>
-<li>Pull and Display all Random Recipes by Name given user Input (likely just pressing a button)</li>
+<ul><li>By passing the User ID as a parameter this method will return all Recipes uploaded by a user</li></ul>
+<ul>
+        <li>Tests:</li>
+        <ul>
+            <li>Verify nothing is returned when a userid that doesn't exist is being searched</li>
+            <li>Verify every recipe associated with a userid is being returned</li>
+        </ul>
+    </ul>
 </ul>
-
+</hr>
+<h2>List of Tests for Recipes Table</h2>
+<hr>
+<ul>
+    <li>Verify that the Recipe ID is a primary key and auto-increments with each new recipe entry.</li>
+    <li>Confirm that each Name entered into the table is unique.</li>
+    <li>Ensure that the Avg Ratings field can be set to null upon record creation and restricts the rating to a decimal(3,2) format.</li>
+    <li>Update the Avg Ratings for a recipe and confirm that the new average is accurately reflected.</li>
+    <li>Verify that the User ID correctly references the identifier of the user who submitted the recipe.</li>
+    <li>Test the return value of 5 Recipes pulled by date to see if the most recent 5 submission dates are being returned.</li>
+    <li>Attempt to insert a record with missing required fields to ensure that the table enforces data integrity.</li>
+    <li>Retrieve a recipe by Recipe ID to confirm that all associated information is returned correctly.</li>
+    <li>Attempt to delete a recipe to check for cascading effects or restrictions and try updating a recipe's User ID to test for immutability.</li>
+    <li>Perform searches on the Name field to ensure that recipes can be found based on their title.</li>
+</ul>
 </hr>
 
-<h1> Login Credentials Table </h1>
+<h1><b> Login Credentials Table</b> </h1>
 
 <b>Table Description:</b> This table stores essential information about the users registered in the application, including their credentials.
 
@@ -101,8 +153,8 @@
     </ul>
   </li>
 </ul>
-
-<b>List of Tests for User_Table</b>
+</hr>
+<h2>List of Tests for User_Table</h2>
 <ul>
     <li>Verify that each User name is unique.</li>
     <li>Confirm that User_ID is auto-incremented and unique for each user.</li>
@@ -140,7 +192,7 @@
 
 
 
-<h1>Community Posts Table</h1>
+<h1><b>Community Posts Table</b></h1>
 
 <b>Table Description:</b> This table will contain all the community posts posted on the community page as well as other data associated with those posts.
 
@@ -171,7 +223,9 @@
     </ul>
   </li>
 </ul>
-<b>List of Tests for Community_Table</b>
+</hr>
+<h2>List of Tests for Community_Table</h2>
+<hr>
 <ul>
     <li>Confirm that Post_ID is auto-incremented and unique.</li>
     <li>Check that User_ID refers to a valid user in User_Table.</li>
@@ -179,8 +233,6 @@
     <li>Check that Post Date is automatically set to the current date and time in UTC upon creation.</li>
 </ul>
 </hr>
-
-
 <h2>Access Methods for Community_Table</h2>
 <hr>
 <ul>
