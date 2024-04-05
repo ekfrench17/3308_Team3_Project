@@ -1,10 +1,25 @@
 <div style="text-align: center;">
-  <h1>SQL DESIGN</h1>
+# SQL DESIGN
 </div>
 <hr>
+## Overview
+**Tables:**
+- Recipes Table
+- Community Posts Table
+- Login Credentials Table
+
+## Page Access
+
+Pages that need access to the database information:
+- Home Page: Access the Recipes table to display recently added recipes. Also access to the Login Credentials table for users to login from the home page.
+- Community Page: get and post needed for the Community Posts table
+- Explore Page: access the Recipes table
+- My Recipes Page: access the Recipes table
+- Add New Recipe page: access the Recipes table
+
 <hr>
 <h1><b>Recipes Table</b></h1>
-<b>Table Description:</b> This table will contain all the needed information for ranking a recipe, storing recipe's ingredients, as well as associating a recipe submitted to the creator of it.
+**Table Description:** This table will contain all the needed information for ranking a recipe, storing recipe's ingredients, as well as associating a recipe submitted to the creator of it.
 
 <b>Table Values (Columns):</b>
 <ul>
@@ -317,3 +332,4 @@
     </ul>
 </ul>
 <hr>
+
