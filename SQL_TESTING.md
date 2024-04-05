@@ -89,22 +89,23 @@
 
 ## List of Tests for Recipes Table
 
-<ul>
-  <li>Verify that the Recipe ID is a primary key and auto-increments with each new recipe entry.</li>
-  <li>Confirm that each Name entered into the table is unique.</li>
-  <li>Ensure that the Ingredients field can store a list of ingredients in the expected varchar format.</li>
-  <li>Verify that the Quantity field can store quantities for each ingredient in the expected varchar format.</li>
-  <li>Check that the Cooking Time field accepts only integer values and represents the time in minutes.</li>
-  <li>Ensure that the Directions field can store a text value large enough for step-by-step instructions.</li>
-  <li>Ensure that the Avg Ratings field can be set to null upon record creation and restricts the rating to a decimal(3,2) format.</li>
-  <li>Verify that the Total Rating Submissions field auto-increments with each new rating entry.</li>
-  <li>Verify that the User ID correctly references the identifier of the user who submitted the recipe.</li>
-  <li>Confirm that the Submit Date field is automatically set to the current date and time upon recipe creation.</li>
-  <li>Attempt to insert a record with missing required fields to ensure that the table enforces data integrity.</li>
-  <li>Retrieve a recipe by Recipe ID to confirm that all associated information is returned correctly.</li>
-  <li>Attempt to delete a recipe to check for cascading effects or restrictions and try updating a recipe's User ID to test for immutability.</li>
-  <li>Perform searches on the Name field to ensure that recipes can be found based on their title.</li>
-</ul>
+**Field Type Verification**
+- Verify that the Recipe ID is a primary key and auto-increments with each new recipe entry.
+- Confirm that each Name entered into the table is unique.
+- Ensure that the Ingredients field can store a list of ingredients in the expected varchar format.
+- Verify that the Quantity field can store quantities for each ingredient in the expected varchar format.
+- Check that the Cooking Time field accepts only integer values and represents the time in minutes.
+- Ensure that the Directions field can store a text value large enough for step-by-step instructions.
+- Ensure that the Avg Ratings field can be set to null upon record creation and restricts the rating to a decimal(3,2) format.
+- Verify that the Total Rating Submissions field auto-increments with each new rating entry.
+- Verify that the User ID correctly references the identifier of the user who submitted the recipe.
+- Confirm that the Submit Date field is automatically set to the current date and time upon recipe creation.
+
+**Data Access Verification**
+- Attempt to insert a record with missing required fields to ensure that the table enforces data integrity.
+- Retrieve a recipe by Recipe ID to confirm that all associated information is returned correctly.
+- Attempt to delete a recipe to check for cascading effects or restrictions and try updating a recipe's User ID to test for immutability.
+- Perform searches on the Name field to ensure that recipes can be found based on their title.
 
 ---
 
@@ -114,41 +115,17 @@
 **Table Description:** This table stores essential information about the users registered in the application, including their credentials.
 
 **Table Values (Columns):**
-<ul>
-  <li>User_ID (Int)
-    <ul>
-      <li>This will be identifier of the user who submitted the recipe</li>
-    </ul>
-  </li>
-  <li>Password (varchar)
-    <ul>
-      <li>This will be the password associated with the User ID</li>
-    </ul>
-  </li>
-  <li>First Name (varchar)
-    <ul>
-      <li>This will be the first name of the user</li>
-    </ul>
-  </li>
-  <li>Last Name (char)
-    <ul>
-      <li>This will be the last name of the user</li>
-    </ul>
-  </li>
-  <li>Email (varchar)
-    <ul>
-      <li>This will be the email address of the user</li>
-    </ul>
-  </li>
-</ul>
-
-
-
-## List of Tests for Login Credentials Table
-
-- Verify that each User name is unique.
-- Confirm that User_ID is auto-incremented and unique for each user.
-- Check that passwords are encrypted before storage.
+- User_ID (Int)
+    * This will be identifier of the user who submitted the recipe
+    * Referenced by the Recipes Table and Community Table
+- Password (varchar)
+    * This will be the password associated with the User ID
+- First Name (varchar)
+    * This will be the first name of the user
+- Last Name (char)
+    * This will be the last name of the user
+- Email (varchar)
+    * This will be the email address of the user
 
 
 ## Access Methods for Login Credentials Table
@@ -157,30 +134,22 @@
 - Home page: login page pop up as part of home page from User perspective
 
 **Methods**
-<ul>
-    <li>Add User</li>
-    <ul>
-        <li>By passing the user's name and password as parameters, you can add a new user record to the table. No values will be returned.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Attempt to add a user with unique credentials and verify that the record is created.</li>
-            <li>Attempt to add a user with an existing username to ensure the system prevents duplicate usernames.</li>
-        </ul>
-    </ul>
-    <li>Validate User Login</li>
-    <ul>
-        <li>By passing a username and password, you can validate a user's credentials. Returns <code>true</code> if credentials match, otherwise <code>false</code>.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Verify that correct username and password return <code>true</code>.</li>
-            <li>Verify that incorrect credentials return <code>false</code>.</li>
-        </ul>
-    </ul>
-</ul>
+- Add User
+    * By passing the user's name and password as parameters, you can add a new user record to the table. No values will be returned.
+    * Tests:
+        + Attempt to add a user with unique credentials and verify that the record is created.
+        + Attempt to add a user with an existing username to ensure the system prevents duplicate usernames.
+- Validate User Login
+    * By passing a username and password, you can validate a user's credentials. Returns `true` if credentials match, otherwise `false`.
+    * Tests:
+        + Verify that correct username and password return `true`.
+        + Verify that incorrect credentials return `false`.
+
+## List of Tests for Login Credentials Table
+
+- Verify that each User name is unique.
+- Confirm that User_ID is auto-incremented and unique for each user.
+- Check that passwords are encrypted before storage.
 
 ---
 
@@ -189,42 +158,16 @@
 **Table Description:** This table will contain all the community posts posted on the community page as well as other data associated with those posts.
 
 **Table Values (Columns):**
-<ul>
-  <li>Post_ID (int)
-    <ul>
-      <li>This will be the identifier for the post</li>
-    </ul>
-  </li>
-  <li>Post (varchar)
-    <ul>
-      <li>This will be the post itself</li>
-    </ul>
-  </li>
-  <li>Recipe (varchar)
-    <ul>
-      <li>This will be the Recipe in which post is related to</li>
-    </ul>
-  <li>User_ID (varchar)
-    <ul>
-      <li>This will be identifier of the user who submitted the post</li>
-    </ul>
-  </li>
-  <li>Post Date (int)
-    <ul>
-      <li>This will be the date of the post</li>
-    </ul>
-  </li>
-</ul>
-</hr>
-
-## List of Tests for Community_Table
-
-<ul>
-    <li>Confirm that Post_ID is auto-incremented and unique.</li>
-    <li>Check that User_ID refers to a valid user in User_Table.</li>
-    <li>Ensure Recipe_ID corresponds to an existing recipe entry.</li>
-    <li>Check that Post Date is automatically set to the current date and time in UTC upon creation.</li>
-</ul>
+- Post_ID (int)
+    * This will be the identifier for the post
+- Post (varchar)
+    * This will be the post itself
+- Recipe (varchar)
+    * This will be the Recipe in which post is related to
+- User_ID (varchar)
+    * This will be identifier of the user who submitted the post
+- Post Date (int)
+    * This will be the date of the post
 
 ## Access Methods for Community_Table
 
@@ -233,50 +176,30 @@
 - Community page
 
 **Methods**
-    <li>Create Post</li>
-    <ul>
-        <li>By providing the user ID, recipe ID, post title, user rating, and user comments, a new post will be created in the table. The post date is set to the current UTC time. No values will be returned.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Ensure that a post with all required fields can be created and receives a proper timestamp.</li>
-            <li>Confirm rejection of post creation when mandatory fields are missing or invalid.</li>
-        </ul>
-    </ul>
-    <li>Edit Post</li>
-    <ul>
-        <li>By passing the post ID along with any new values for post title, user rating, and user comments, an existing post can be updated. The method verifies the post belongs to the user before editing.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Check that valid edits update the post correctly.</li>
-            <li>Confirm that editing a non-existent post ID fails gracefully.</li>
-        </ul>
-    </ul>
-    <li>Delete Post</li>
-    <ul>
-        <li>By providing the post ID and user ID, a post can be deleted from the table. The method verifies the post belongs to the user before deletion.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Ensure a post can be deleted when valid IDs are provided.</li>
-            <li>Attempt to delete a post with incorrect user ID to ensure it cannot be deleted by another user.</li>
-        </ul>
-    </ul>
-    <li>Display Posts by Time</li>
-    <ul>
-        <li>Posts can be retrieved and sorted by their post date. Returns a list of posts in descending order from the most recent to the oldest.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Verify that the posts are returned in the correct order based on the post date.</li>
-            <li>Confirm that the posts retrieved are within the specified timeframe if one is set.</li>
-        </ul>
-    </ul>
-</ul>
+- Create Post
+    * By providing the user ID, recipe ID, post title, user rating, and user comments, a new post will be created in the table. The post date is set to the current UTC time. No values will be returned.
+    * Tests:
+        + Ensure that a post with all required fields can be created and receives a proper timestamp.
+        + Confirm rejection of post creation when mandatory fields are missing or invalid.
+- Edit Post
+    * By passing the post ID along with any new values for post title, user rating, and user comments, an existing post can be updated. The method verifies the post belongs to the user before editing.
+    * Tests:
+        + Check that valid edits update the post correctly.
+        + Confirm that editing a non-existent post ID fails gracefully.
+- Delete Post
+    * By providing the post ID and user ID, a post can be deleted from the table. The method verifies the post belongs to the user before deletion.
+    * Tests:
+        + Ensure a post can be deleted when valid IDs are provided.
+        + Attempt to delete a post with incorrect user ID to ensure it cannot be deleted by another user.
+- Display Posts by Time
+    * Posts can be retrieved and sorted by their post date. Returns a list of posts in descending order from the most recent to the oldest.
+    * Tests:
+        + Verify that the posts are returned in the correct order based on the post date.
+        + Confirm that the posts retrieved are within the specified timeframe if one is set.
 
+## List of Tests for Community_Table
 
+- Confirm that Post_ID is auto-incremented and unique.
+- Check that User_ID refers to a valid user in User_Table.
+- Ensure Recipe_ID corresponds to an existing recipe entry.
+- Check that Post Date is automatically set to the current date and time in UTC upon creation.
