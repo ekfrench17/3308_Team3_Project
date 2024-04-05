@@ -16,121 +16,79 @@
 ---
 
 #  **Recipes Table**
+
 **Table Description:** This table will contain all the needed information for ranking a recipe, storing recipe's ingredients, as well as associating a recipe submitted to the creator of it.
 
 **Table Values (Columns):**
 - Recipe ID (int)
-      * The unique Recipe Identifier.
-      * Reference field for the other two tables
+    * The unique Recipe Identifier.
+    * Reference field for the other two tables
 - Name (varchar)
-      * The name of the Recipe.
+    * The name of the Recipe.
 - Ingredients (varchar)
-      * A list of ingredients required for the recipe.
+    * A list of ingredients required for the recipe.
 - Quantity (varchar)
-        * The quantities of each ingredient needed for the recipe.
+    * The quantities of each ingredient needed for the recipe.
 - Cooking Time (int)
-        * The time required to cook the recipe, measured in minutes.
+    * The time required to cook the recipe, measured in minutes.
 - Directions (text)
-        * Step-by-step instructions on how to prepare and cook the recipe.
+    * Step-by-step instructions on how to prepare and cook the recipe.
 - Avg Ratings (Decimal(3,2)) **Can be null at a record/recipe's creation**
     * The average rating of the recipe, in a 3-digit format with 2 decimals to the hundredth's value.
 - Total Rating Submissions (int)
-        * The tally of the number of ratings submitted for a specific recipe.
+    * The tally of the number of ratings submitted for a specific recipe.
 - User ID (varchar)
     * The identifier of the user who submitted the recipe.
     * Reference from the Login Credentials table
 - Submit Date (datetime)
      * The date and time when the recipe was submitted.
      
-<hr>
 
 ## Access Methods for Recipe Table
 
-<hr>
-
-Pages that will access this table:
+**Pages that will access this table:**
 - Home page
 - Explore page
 - My Recipes page
 - Add New Recipe page (get and post)
 
-Methods
-<ul>
-<li>Add a Recipe</li>
-    <ul>
-        <li>By passing the recipe name, ingredients, quantity, cooking time, directions, and user ID as parameters, you can add a new recipe record to the table. The AVG Rating will be initialized to null, and the submit date will be automatically set to the current date. No values will be returned.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Attempt to add a recipe with a unique name and all necessary details to see if the recipe record is created.</li>
-            <li>Attempt to add a recipe with a name that already exists to ensure the system prevents duplicate identical recipe names.</li>
-        </ul>
-    </ul>
-<li>Give Rating on Recipe</li>
-    <ul>
-        <li>By passing a recipe ID and a rating that follows the 3 digit 2 decimal format, a new rating will be calculated using the weighted average of the new rating submitted and the current average rating, factoring in the updated total ratings submission. No values will be returned.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Test the weighted average calculation and updating of the Avg Ratings field when a new rating is added.</li>
-            <li>Verify that the Total Ratings submission auto-increments with each new recipe rating submission.</li>
-        </ul>
-    </ul>
-<li>Search Recipes</li>
-    <ul>
-        <li>By passing the recipe name as a parameter, you will be able to retrieve the recipe details including ingredients, cooking time, and directions, alongside the recipe, author, and rating.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Verify the correct recipe is pulled when given a name.</li>
-            <li>Verify nothing is returned when a recipe name that doesn't exist is being searched.</li>
-        </ul>
-    </ul>
-<li>Pull Recently Added Recipe</li>
-    <ul>
-        <li>By passing the user ID, you will be able to retrieve up to 5 of the most recently submitted recipes by that user.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Verify the order of the 5 recipes returned is correctly listed from the most recent to the 5th most recent submission date.</li>
-            <li>Verify only 5 recipes are returned when more than 5 recipes exist in the table.</li>
-            <li>Verify all recipes are returned when fewer than 5 recipes exist in the table.</li>
-        </ul>
-    </ul>
-<li>Suggested Recipes</li>
-    <ul>
-        <li>By calling this method, you will be able to return up to 5 of the top-rated recipes.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Verify the top 5 rated recipes are returned in order from the highest to the 5th highest average rating for the entire recipe table.</li>
-            <li>Verify only 5 recipes are returned when more than 5 recipes exist in the table.</li>
-            <li>Verify all recipes are returned when fewer than 5 recipes exist in the table.</li>
-        </ul>
-    </ul>
-<li>Pull and Display all Recipes uploaded by a user</li>
-    <ul>
-        <li>By passing the User ID as a parameter, this method will return all recipes uploaded by a user, including their ingredients, quantities, cooking times, and directions.</li>
-    </ul>
-    <ul>
-        <li>Tests:</li>
-        <ul>
-            <li>Verify nothing is returned when a User ID that doesn't exist is being searched.</li>
-            <li>Verify every recipe associated with a User ID is being returned, complete with all new fields.</li>
-        </ul>
-    </ul>
-</ul>
-<hr>
+**Methods**
+- Add a Recipe
+    * By passing the recipe name, ingredients, quantity, cooking time, directions, and user ID as parameters, you can add a new recipe record to the table. The AVG Rating will be initialized to null, and the submit date will be automatically set to the current date. No values will be returned.
+    * Tests:
+        + Attempt to add a recipe with a unique name and all necessary details to see if the recipe record is created.
+        + Attempt to add a recipe with a name that already exists to ensure the system prevents duplicate identical recipe names.
+- Give Rating on Recipe
+    * By passing a recipe ID and a rating that follows the 3 digit 2 decimal format, a new rating will be calculated using the weighted average of the new rating submitted and the current average rating, factoring in the updated total ratings submission. No values will be returned.
+    * Tests:
+        + Test the weighted average calculation and updating of the Avg Ratings field when a new rating is added.
+        + Verify that the Total Ratings submission auto-increments with each new recipe rating submission.
+- Search Recipes
+    * By passing the recipe name as a parameter, you will be able to retrieve the recipe details including ingredients, cooking time, and directions, alongside the recipe, author, and rating.
+    * Tests:
+        + Verify the correct recipe is pulled when given a name.
+        + Verify nothing is returned when a recipe name that doesn't exist is being searched.
+- Pull Recently Added Recipe
+    * By passing the user ID, you will be able to retrieve up to 5 of the most recently submitted recipes by that user.
+    * Tests:
+        + Verify the order of the 5 recipes returned is correctly listed from the most recent to the 5th most recent submission date.
+        + Verify only 5 recipes are returned when more than 5 recipes exist in the table.
+        + Verify all recipes are returned when fewer than 5 recipes exist in the table.
+- Suggested Recipes
+    * By calling this method, you will be able to return up to 5 of the top-rated recipes.
+    * Tests:
+        + Verify the top 5 rated recipes are returned in order from the highest to the 5th highest average rating for the entire recipe table.
+        + Verify only 5 recipes are returned when more than 5 recipes exist in the table.
+        + Verify all recipes are returned when fewer than 5 recipes exist in the table.
+- Pull and Display all Recipes uploaded by a user
+    * By passing the User ID as a parameter, this method will return all recipes uploaded by a user, including their ingredients, quantities, cooking times, and directions.
+    * Tests:
+        + Verify nothing is returned when a User ID that doesn't exist is being searched.
+        + Verify every recipe associated with a User ID is being returned, complete with all new fields.
 
 
 ## List of Tests for Recipes Table
 
-<hr>
 <ul>
   <li>Verify that the Recipe ID is a primary key and auto-increments with each new recipe entry.</li>
   <li>Confirm that each Name entered into the table is unique.</li>
@@ -147,14 +105,15 @@ Methods
   <li>Attempt to delete a recipe to check for cascading effects or restrictions and try updating a recipe's User ID to test for immutability.</li>
   <li>Perform searches on the Name field to ensure that recipes can be found based on their title.</li>
 </ul>
-<hr>
+
+---
 
 
 # **Login Credentials Table**
 
-<b>Table Description:</b> This table stores essential information about the users registered in the application, including their credentials.
+**Table Description:** This table stores essential information about the users registered in the application, including their credentials.
 
-<b>Table Values (Columns):</b>
+**Table Values (Columns):**
 <ul>
   <li>User_ID (Int)
     <ul>
@@ -183,25 +142,21 @@ Methods
   </li>
 </ul>
 
-</hr>
+
 
 ## List of Tests for Login Credentials Table
 
-<ul>
-    <li>Verify that each User name is unique.</li>
-    <li>Confirm that User_ID is auto-incremented and unique for each user.</li>
-    <li>Check that passwords are encrypted before storage.</li>
-</ul>
- 
-</hr>
+- Verify that each User name is unique.
+- Confirm that User_ID is auto-incremented and unique for each user.
+- Check that passwords are encrypted before storage.
+
 
 ## Access Methods for Login Credentials Table
 
-
-Pages that will access this table:
+**Pages that will access this table:**
 - Home page: login page pop up as part of home page from User perspective
 
-Methods
+**Methods**
 <ul>
     <li>Add User</li>
     <ul>
@@ -274,10 +229,10 @@ Methods
 ## Access Methods for Community_Table
 
 
-Pages that will access this table:
+**Pages that will access this table:**
 - Community page
 
-Methods
+**Methods**
     <li>Create Post</li>
     <ul>
         <li>By providing the user ID, recipe ID, post title, user rating, and user comments, a new post will be created in the table. The post date is set to the current UTC time. No values will be returned.</li>
@@ -323,5 +278,5 @@ Methods
         </ul>
     </ul>
 </ul>
----
+
 
