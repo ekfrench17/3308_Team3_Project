@@ -90,8 +90,11 @@ Screenshots from project management tool:
 ## Week of April 1
 
 Completed Last Week:
+- SQL outline for milestone 5 
 
 Upcoming Week:
+- start building access methods for SQL tables (Jess: community, Carlos & JP: recipes, Elaine: Login)
+- start writing tests for access methods for SQL (e.g. elaine works on recipe table tests)
 
 Screenshots from project management tool:
 
