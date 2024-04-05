@@ -1,6 +1,5 @@
 #  SQL DESIGN
 
----
 
 ##  Overview
 **Tables:**
@@ -14,7 +13,7 @@
     * Access methods
     * Tests
 
-<hr>
+---
 
 #  **Recipes Table**
 **Table Description:** This table will contain all the needed information for ranking a recipe, storing recipe's ingredients, as well as associating a recipe submitted to the creator of it.
@@ -55,6 +54,7 @@ Pages that will access this table:
 - My Recipes page
 - Add New Recipe page (get and post)
 
+Methods
 <ul>
 <li>Add a Recipe</li>
     <ul>
@@ -185,7 +185,7 @@ Pages that will access this table:
 
 </hr>
 
-## List of Tests for User_Table
+## List of Tests for Login Credentials Table
 
 <ul>
     <li>Verify that each User name is unique.</li>
@@ -197,11 +197,11 @@ Pages that will access this table:
 
 ## Access Methods for Login Credentials Table
 
-<hr>
 
 Pages that will access this table:
 - Home page: login page pop up as part of home page from User perspective
 
+Methods
 <ul>
     <li>Add User</li>
     <ul>
@@ -227,7 +227,7 @@ Pages that will access this table:
     </ul>
 </ul>
 
-
+---
 
 # **Community Posts Table**
 
@@ -264,23 +264,20 @@ Pages that will access this table:
 
 ## List of Tests for Community_Table
 
-<hr>
 <ul>
     <li>Confirm that Post_ID is auto-incremented and unique.</li>
     <li>Check that User_ID refers to a valid user in User_Table.</li>
     <li>Ensure Recipe_ID corresponds to an existing recipe entry.</li>
     <li>Check that Post Date is automatically set to the current date and time in UTC upon creation.</li>
 </ul>
-</hr>
 
 ## Access Methods for Community_Table
 
-<hr>
 
 Pages that will access this table:
 - Community page
 
-<ul>
+Methods
     <li>Create Post</li>
     <ul>
         <li>By providing the user ID, recipe ID, post title, user rating, and user comments, a new post will be created in the table. The post date is set to the current UTC time. No values will be returned.</li>
@@ -326,5 +323,5 @@ Pages that will access this table:
         </ul>
     </ul>
 </ul>
-<hr>
+---
 
