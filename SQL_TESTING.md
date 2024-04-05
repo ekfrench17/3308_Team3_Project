@@ -1,82 +1,60 @@
-<div style="text-align: center;">
-# SQL DESIGN
-</div>
-<hr>
-## Overview
+#  SQL DESIGN
+
+---
+
+##  Overview
 **Tables:**
 - Recipes Table
+    * Access methods
+    * Tests
 - Community Posts Table
+    * Access methods
+    * Tests
 - Login Credentials Table
-
-## Page Access
-
-Pages that need access to the database information:
-- Home Page: Access the Recipes table to display recently added recipes. Also access to the Login Credentials table for users to login from the home page.
-- Community Page: get and post needed for the Community Posts table
-- Explore Page: access the Recipes table
-- My Recipes Page: access the Recipes table
-- Add New Recipe page: access the Recipes table
+    * Access methods
+    * Tests
 
 <hr>
-<h1><b>Recipes Table</b></h1>
+
+#  **Recipes Table**
 **Table Description:** This table will contain all the needed information for ranking a recipe, storing recipe's ingredients, as well as associating a recipe submitted to the creator of it.
 
-<b>Table Values (Columns):</b>
-<ul>
-  <li>Recipe ID (int)
-    <ul>
-      <li>The unique Recipe Identifier.</li>
-    </ul>
-  </li>
-  <li>Name (varchar)
-    <ul>
-      <li>The name of the Recipe.</li>
-    </ul>
-  </li>
-  <li>Ingredients (varchar)
-    <ul>
-      <li>A list of ingredients required for the recipe.</li>
-    </ul>
-  </li>
-  <li>Quantity (varchar)
-    <ul>
-      <li>The quantities of each ingredient needed for the recipe.</li>
-    </ul>
-  </li>
-  <li>Cooking Time (int)
-    <ul>
-      <li>The time required to cook the recipe, measured in minutes.</li>
-    </ul>
-  </li>
-  <li>Directions (text)
-    <ul>
-      <li>Step-by-step instructions on how to prepare and cook the recipe.</li>
-    </ul>
-  </li>
-  <li>Avg Ratings (Decimal(3,2)) **Can be null at a record/recipe's creation**
-    <ul>
-      <li>The average rating of the recipe, in a 3-digit format with 2 decimals to the hundredth's value.</li>
-    </ul>
-  </li>
-  <li>Total Rating Submissions (int)
-    <ul>
-      <li>The tally of the number of ratings submitted for a specific recipe.</li>
-    </ul>
-  </li>
-  <li>User ID (varchar)
-    <ul>
-      <li>The identifier of the user who submitted the recipe.</li>
-    </ul>
-  </li>
-  <li>Submit Date (datetime)
-    <ul>
-      <li>The date and time when the recipe was submitted.</li>
-    </ul>
-  </li>
-</ul>
+**Table Values (Columns):**
+- Recipe ID (int)
+      * The unique Recipe Identifier.
+      * Reference field for the other two tables
+- Name (varchar)
+      * The name of the Recipe.
+- Ingredients (varchar)
+      * A list of ingredients required for the recipe.
+- Quantity (varchar)
+        * The quantities of each ingredient needed for the recipe.
+- Cooking Time (int)
+        * The time required to cook the recipe, measured in minutes.
+- Directions (text)
+        * Step-by-step instructions on how to prepare and cook the recipe.
+- Avg Ratings (Decimal(3,2)) **Can be null at a record/recipe's creation**
+    * The average rating of the recipe, in a 3-digit format with 2 decimals to the hundredth's value.
+- Total Rating Submissions (int)
+        * The tally of the number of ratings submitted for a specific recipe.
+- User ID (varchar)
+    * The identifier of the user who submitted the recipe.
+    * Reference from the Login Credentials table
+- Submit Date (datetime)
+     * The date and time when the recipe was submitted.
+     
 <hr>
-<h2>Access Methods for Recipe Table</h2>
+
+## Access Methods for Recipe Table
+
 <hr>
+
+Pages that will access this table:
+- Home page
+- Explore page
+- My Recipes page
+- Add New Recipe page (get and post)
+
 <ul>
 <li>Add a Recipe</li>
     <ul>
@@ -150,7 +128,8 @@ Pages that need access to the database information:
 <hr>
 
 
-<h2>List of Tests for Recipes Table</h2>
+## List of Tests for Recipes Table
+
 <hr>
 <ul>
   <li>Verify that the Recipe ID is a primary key and auto-increments with each new recipe entry.</li>
@@ -171,7 +150,7 @@ Pages that need access to the database information:
 <hr>
 
 
-<h1><b> Login Credentials Table</b> </h1>
+# **Login Credentials Table**
 
 <b>Table Description:</b> This table stores essential information about the users registered in the application, including their credentials.
 
@@ -203,8 +182,11 @@ Pages that need access to the database information:
     </ul>
   </li>
 </ul>
+
 </hr>
-<h2>List of Tests for User_Table</h2>
+
+## List of Tests for User_Table
+
 <ul>
     <li>Verify that each User name is unique.</li>
     <li>Confirm that User_ID is auto-incremented and unique for each user.</li>
@@ -213,8 +195,13 @@ Pages that need access to the database information:
  
 </hr>
 
-<h2>Access Methods for Login Credentials Table</h2>
+## Access Methods for Login Credentials Table
+
 <hr>
+
+Pages that will access this table:
+- Home page: login page pop up as part of home page from User perspective
+
 <ul>
     <li>Add User</li>
     <ul>
@@ -242,11 +229,11 @@ Pages that need access to the database information:
 
 
 
-<h1><b>Community Posts Table</b></h1>
+# **Community Posts Table**
 
-<b>Table Description:</b> This table will contain all the community posts posted on the community page as well as other data associated with those posts.
+**Table Description:** This table will contain all the community posts posted on the community page as well as other data associated with those posts.
 
-<b>Table Values (Columns):</b>
+**Table Values (Columns):**
 <ul>
   <li>Post_ID (int)
     <ul>
@@ -274,7 +261,9 @@ Pages that need access to the database information:
   </li>
 </ul>
 </hr>
-<h2>List of Tests for Community_Table</h2>
+
+## List of Tests for Community_Table
+
 <hr>
 <ul>
     <li>Confirm that Post_ID is auto-incremented and unique.</li>
@@ -283,8 +272,14 @@ Pages that need access to the database information:
     <li>Check that Post Date is automatically set to the current date and time in UTC upon creation.</li>
 </ul>
 </hr>
-<h2>Access Methods for Community_Table</h2>
+
+## Access Methods for Community_Table
+
 <hr>
+
+Pages that will access this table:
+- Community page
+
 <ul>
     <li>Create Post</li>
     <ul>
