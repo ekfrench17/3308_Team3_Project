@@ -86,6 +86,7 @@ Upcoming Week:
 - Finish outlining SQL requirements for upcoming Milestone
 
 Screenshots from project management tool:
+![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/2829610b-b3ae-4874-aab0-dd5dad2fe705)
 
 ## Week of April 1
 
@@ -98,4 +99,5 @@ Upcoming Week:
 
 Screenshots from project management tool:
 
+![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/4c6e2226-b3d9-4172-8be7-26ca4a0a8dba)
 
