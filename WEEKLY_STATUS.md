@@ -56,7 +56,7 @@ Upcoming Week:
 Screenshots from project management tool:
 ![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/2e57cba1-c85a-49ec-bd12-5ae70e9f905f)
 
-## Week of March 
+## Week of March 18
 
 Completed Last Week:
 - Created html
@@ -73,6 +73,31 @@ Upcoming Week:
 Screenshots from project management tool:
 ![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/dbf6bc46-e622-4621-8b16-f973ae63e070)
 
+## Week of March 25
 
+Completed Last Week:
+- worked on .py file to have classes for each table and methods for each class
+- started outlining SQL tables in excel file to think through fields, relationships & methods needed
+- added readme file for environment set up to repo
+- started html file for add new recipe page
+- created the community page hmtl and javascript files
 
+Upcoming Week:
+- Finish outlining SQL requirements for upcoming Milestone
+
+Screenshots from project management tool:
+![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/2829610b-b3ae-4874-aab0-dd5dad2fe705)
+
+## Week of April 1
+
+Completed Last Week:
+- SQL outline for milestone 5 
+
+Upcoming Week:
+- start building access methods for SQL tables (Jess: community, Carlos & JP: recipes, Elaine: Login)
+- start writing tests for access methods for SQL (e.g. elaine works on recipe table tests)
+
+Screenshots from project management tool:
+
+![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/4c6e2226-b3d9-4172-8be7-26ca4a0a8dba)
 

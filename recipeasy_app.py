@@ -40,6 +40,10 @@ def explore():
 def community():
     return 'community page'
 
+@app.route('/add_new')
+def add():
+    return render_template("add_new.html")
+
 ###############################################################################
 # main driver function
 if __name__ == '__main__':
