@@ -45,27 +45,32 @@ def add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, cou
     if user_id not in check:
         raise ValueError
     
-    # get last recipe id and increment by one for next item
-    cursor.execute("SELECT recipe_id FROM recipesTable ORDER BY recipe_id DESC")
-    last_id = cursor.fetchone()
-    new_id = last_id[0] + 1
-    
-    # insert into table
-    cursor.execute("INSERT INTO RecipesTable Values(?,?,?,?,?,?,?,?,?);",(
-                                                        new_id,
-                                                        recipe_name,
-                                                        ingredients,
-                                                        cook_time,
-                                                        directions,
-                                                        avg_ratings,
-                                                        count_submissions,
-                                                        user_id,
-                                                    datetime.datetime.now().timestamp()                                             
-        )) 
-    cursor.execute("SELECT * FROM RecipesTable;")
-    test_output = cursor.fetchall()
-    test_output = [str(val) for val in test_output]
-    db.commit()
+    # check the recipe does not already exist
+    all_recipes = get_all_recipes()
+    if recipe_name in all_recipes:
+        result = "try again, recipe name already exists"
+    else:
+        # get last recipe id and increment by one for next item
+        cursor.execute("SELECT recipe_id FROM recipesTable ORDER BY recipe_id DESC")
+        last_id = cursor.fetchone()
+        new_id = last_id[0] + 1
+
+        # insert into table
+        cursor.execute("INSERT INTO RecipesTable Values(?,?,?,?,?,?,?,?,?);",(
+                                                            new_id,
+                                                            recipe_name,
+                                                            ingredients,
+                                                            cook_time,
+                                                            directions,
+                                                            avg_ratings,
+                                                            count_submissions,
+                                                            user_id,
+                                                        datetime.datetime.now().timestamp()                                             
+            )) 
+        cursor.execute("SELECT * FROM RecipesTable;")
+        test_output = cursor.fetchall()
+        test_output = [str(val) for val in test_output]
+        db.commit()
     db.close()
     return(test_output)
 
@@ -93,7 +98,7 @@ def get_recipe_data(recipe_name):
     else:
         # convert the returned item to a proper list to be parsed
         recipe = list(recipe[0])#.strip(')(').split(',')
-        recipe[2] = recipe[2].strip(']["').split(",")
+        recipe[2] = recipe[2].strip(']["').split(".")
         recipe[4] = recipe[4].split(".")
 
     return recipe
@@ -129,7 +134,8 @@ def get_all_recipes():
 
 
     
-#recipe = get_recipe_data("homemade_pizza")
+#recipe = get_recipe_data("Warm Comfort")
+
 #delete_recipe("homemade_pizza")
 
 

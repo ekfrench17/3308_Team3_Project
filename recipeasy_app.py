@@ -54,9 +54,13 @@ def explore():
 def community():
     return render_template("community.html")
 
-@app.route('/add_new')
+@app.route('/add_new', methods =["GET","POST"])
 def add():
-    return render_template("add_new.html")
+    if request.method == "POST":
+        result = request.form
+    else: 
+        result = "enter recipe"
+    return render_template("add_new.html",result=result)
 
 @app.route('/test_insert')
 def test_insert():

@@ -73,7 +73,8 @@ def fill_recipes(db_filename, csv_name):
         new_item = item.split(",")
         new_item = tuple(new_item)
         recipe_data.append(new_item)
-    
+    #for item in recipe_data:
+        #print(recipe_data)
     cursor.executemany("INSERT INTO recipesTable Values(?,?,?,?,?,?,?,?,?)",recipe_data)
     #cursor.execute("SELECT * FROM recipesTable;")
     #print(cursor.fetchall())
@@ -152,7 +153,7 @@ def print_tables_rows(dbname):
     conn = sqlite3.connect(dbname)
     c = conn.cursor()
     c.execute("SELECT name FROM sqlite_master WHERE type='table';")
-
+    tables = c.fetchall()
     print ("\nTable Values:")
     for t in tables :
         print ("\t[%s]"%t)
@@ -192,3 +193,4 @@ print('Database updated, file created "RecipEASYDB.db"')
 
 ## uncomment the below function if you want to print out the tables created in a user friendly format
 #print_tables(db_filename)
+#print_tables_rows(db_filename)
