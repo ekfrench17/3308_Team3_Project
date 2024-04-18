@@ -23,26 +23,27 @@ def create(db_filename):
     recipesTable = """recipesTable(Recipe_ID INT PRIMARY KEY, Name VARCHAR, Ingredients VARCHAR, Cooking_Time INT, Directions VARCHAR, Avg_Ratings decimal(3,2), Total_Rating_Submission INT, User_ID VARCHAR, Submit_Date INT,
         FOREIGN KEY (User_ID) REFERENCES loginTable(User_ID));"""
     
+    # login table -- 5 fields
     loginTable = """loginTable(User_ID INT PRIMARY KEY, Password VARCHAR, first_name VARCHAR, last_name VARCHAR, Email VARCHAR);"""
     
+    # community table -- 5 fields
     communityTable = """communityTable(Post_ID INT PRIMARY KEY, Post VARCHAR, Recipe_ID VARCHAR, User_ID VARCHAR, Post_Date INT,
         FOREIGN KEY (User_ID) REFERENCES loginTable(User_ID),
-        FOREIGN KEY (Recipe_ID) REFERENCES recipesTable(Recipe_ID);"""
+        FOREIGN KEY (Recipe_ID) REFERENCES recipesTable(Recipe_ID));"""
     
-    #tables = [recipesTable, loginTable, communityTable]
-    #for table in tables:
-        #print("CREATE TABLE " + table)
-    c.execute("CREATE TABLE " + recipesTable)
+    tables = [recipesTable, loginTable, communityTable]
+    for t in tables:
+        c.execute("CREATE TABLE " + t)
         
     conn.commit()
     conn.close()
     
-def fill(db_filename):
-    '''function to fill the database with dummy data'''
+def fill_recipes(db_filename, csv_name):
+    '''function to fill the recipe table database with dummy data'''
     db = sqlite3.connect(db_filename)
     cursor = db.cursor()
     
-    with open('recipes.csv') as recipes_file:
+    with open(csv_name) as recipes_file:
         # put the header row in a separate variable
         first_line = recipes_file.readline()
         # read in the lines from the csv stripping white space characters
@@ -56,9 +57,59 @@ def fill(db_filename):
         new_item = tuple(new_item)
         recipe_data.append(new_item)
     
-    cursor.executemany("INSERT INTO RecipesTable Values(?,?,?,?,?,?,?,?,?)",recipe_data)
+    cursor.executemany("INSERT INTO recipesTable Values(?,?,?,?,?,?,?,?,?)",recipe_data)
     #cursor.execute("SELECT * FROM recipesTable;")
     #print(cursor.fetchall())
+    db.commit()
+    db.close()
+    
+def fill_login(db_filename, csv_name):
+    '''function to fill the login table database with dummy data'''
+    db = sqlite3.connect(db_filename)
+    cursor = db.cursor()
+    
+    with open(csv_name) as file_handle:
+        # put the header row in a separate variable
+        first_line = file_handle.readline()
+        # read in the lines from the csv stripping white space characters
+        # will read in as a list type
+        logins_list = [line.rstrip() for line in file_handle]
+
+    # in order for cursor.executemany to function the variabe should be a list of tuples
+    login_data = []
+    for item in logins_list:
+        new_item = item.split(",")
+        new_item = tuple(new_item)
+        login_data.append(new_item)
+    
+    cursor.executemany("INSERT INTO loginTable Values(?,?,?,?,?)",login_data)
+    #cursor.execute("SELECT * FROM loginTable;")
+    #print(cursor.fetchall())
+    db.commit()
+    db.close()
+
+def fill_community(db_filename, csv_name):
+    '''function to fill the community table in the database with dummy data'''
+    db = sqlite3.connect(db_filename)
+    cursor = db.cursor()
+    
+    with open(csv_name) as file_handle:
+        # put the header row in a separate variable
+        first_line = file_handle.readline()
+        # read in the lines from the csv stripping white space characters
+        # will read in as a list type
+        community_list = [line.rstrip() for line in file_handle]
+
+    # in order for cursor.executemany to function the variabe should be a list of tuples
+    comm_data = []
+    for item in community_list:
+        new_item = item.split(",")
+        new_item = tuple(new_item)
+        comm_data.append(new_item)
+    
+    cursor.executemany("INSERT INTO communityTable Values(?,?,?,?,?)",comm_data)
+    cursor.execute("SELECT * FROM communityTable;")
+    print(cursor.fetchall())
     db.commit()
     db.close()
 
@@ -101,6 +152,10 @@ def print_tables_rows(dbname):
 ## run the above functions to create and fill the database
 
 db_filename ='RecipEASYDB'
+recipe_csv = 'recipes.csv'
+login_csv = 'logins.csv'
+community_csv = 'community.csv'
+
 
 # first remove the existing database file if it exists in the directory
 try: 
@@ -111,7 +166,9 @@ except:
 # now that the file is removed, replace it by running the above defined functions
 
 create(db_filename)
-fill(db_filename)
+fill_recipes(db_filename, recipe_csv)
+fill_login(db_filename, login_csv)
+fill_community(db_filename, community_csv)
 
 
 print('Database updated, file created "RecipEASYDB.db"')
