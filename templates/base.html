@@ -13,7 +13,7 @@
 	<div class="nav_bar">
         <a href="{{ url_for('home') }}">Home</a>
 		<a href="{{ url_for('explore') }}">Explore</a>
-        <a href="{{ url_for('recipe') }}">My Recipes</a>
+        <a href="{{ url_for('recipe', recipe_name='homemade_pizza' ) }}">My Recipes</a>
 		<a href="{{ url_for('community') }}">Community</a>
     </div>
 {% block content %} {% endblock %}
