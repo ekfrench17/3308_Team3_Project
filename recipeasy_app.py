@@ -54,13 +54,28 @@ def explore():
 def community():
     return render_template("community.html")
 
-@app.route('/add_new', methods =["GET","POST"])
+@app.route('/add_new')
 def add():
     if request.method == "POST":
         result = request.form
     else: 
         result = "enter recipe"
     return render_template("add_new.html",result=result)
+
+@app.route('/submitted_recipe', methods=["POST"])
+def submitted_recipe():
+    if request.method == "POST":
+        # result is a dictionary; example;
+        # {"cook_time":"5","directions":"heat over stove","ingredients":"broth, seasoning","recipeName":"soup"}
+        result = request.form
+        user_id = "garci446" 
+        avg_ratings = 0
+        count_submissions = 1
+        recipename, ingredients = result['recipeName'], result['ingredients']
+        recipe = [recipename, ingredients]
+    else: 
+        result = "enter recipe"
+    return recipe
 
 @app.route('/test_insert')
 def test_insert():

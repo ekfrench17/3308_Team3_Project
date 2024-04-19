@@ -67,12 +67,12 @@ def add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, cou
                                                             user_id,
                                                         datetime.datetime.now().timestamp()                                             
             )) 
-        cursor.execute("SELECT * FROM RecipesTable;")
-        test_output = cursor.fetchall()
-        test_output = [str(val) for val in test_output]
+        #cursor.execute("SELECT * FROM RecipesTable;")
+        #test_output = cursor.fetchall()
+        #test_output = [str(val) for val in test_output]
         db.commit()
     db.close()
-    return(test_output)
+    return(recipe_name)
 
 def get_recipe_data(recipe_name):
     '''function to pull recipe data from the recipestable based on the recipe_name

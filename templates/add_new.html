@@ -3,7 +3,7 @@
 {% block header %} Add New Recipe {% endblock %}
 {% block content %}
 <div class = "container">
-    <form class="add-form" action="/add_items" method="GET">
+    <form class="add-form" action="/submitted_recipe" method="POST">
         <label for="recipeName">Recipe Name:</label>
         <input type="text" name="recipeName"><br>
     
@@ -20,9 +20,5 @@
         <input type="submit" value="ADD ITEM" id="add_btn">
     </form>
     
-</div>
-<div method="POST">
-New Recipe: 
-    {{ result }}
 </div>
 {% endblock %}
