@@ -3,18 +3,22 @@
 {% block header %} Add New Recipe {% endblock %}
 {% block content %}
 <div class = "container">
-    <form class="add-form">
+    <form class="add-form" action="/submitted_recipe" method="POST">
         <label for="recipeName">Recipe Name:</label>
         <input type="text" name="recipeName"><br>
     
         <label for="ingredients">Ingredients:</label><br>
         <textarea name="ingredients" rows="10" cols="30"></textarea><br>
         
+        <label for="cook_time">Cooking Time(in minutes):</label><br>
+        <textarea name="cook_time" rows="1" cols="10"></textarea><br>
+        
         <label for="directions">Directions:</label><br>
-        <textarea name="directions" rows="10" cols="30"></textarea>
-
+        <textarea name="directions" rows="10" cols="30"></textarea><br>
+        
         <button id="cancel">Cancel</button>
-        <input type="submit">
+        <input type="submit" value="ADD ITEM" id="add_btn">
     </form>
+    
 </div>
 {% endblock %}

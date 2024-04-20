@@ -1,9 +1,7 @@
 # code to construct and deconstruct the database
 # fill database with dummy data
 #######################
-# To Use: remove existing RecipEASYDB.db file from directory if it exists by running
-# rm RecipEASYDB.db
-# then, execute this file by running
+# To Use: execute this file by running
 # python3 create_db.py
 # the database file in your directory will now be up to date
 # recipe dataset downloaded from https://www.kaggle.com/datasets/pes12017000148/food-ingredients-and-recipe-dataset-with-images?resource=download
@@ -20,14 +18,33 @@ def create(db_filename):
     c = conn.cursor()
     
     # Create recipesTable - 9 fields
-    recipesTable = """recipesTable(Recipe_ID INT PRIMARY KEY, Name VARCHAR, Ingredients VARCHAR, Cooking_Time INT, Directions VARCHAR, Avg_Ratings decimal(3,2), Total_Rating_Submission INT, User_ID VARCHAR, Submit_Date INT,
+    recipesTable = """recipesTable(
+                            Recipe_ID INT PRIMARY KEY, 
+                            Name VARCHAR, 
+                            Ingredients VARCHAR, 
+                            Cooking_Time INT, 
+                            Directions VARCHAR, 
+                            Avg_Ratings decimal(3,2), 
+                            Total_Rating_Submission INT, 
+                            User_ID VARCHAR, 
+                            Submit_Date INT,
         FOREIGN KEY (User_ID) REFERENCES loginTable(User_ID));"""
     
     # login table -- 5 fields
-    loginTable = """loginTable(User_ID INT PRIMARY KEY, Password VARCHAR, first_name VARCHAR, last_name VARCHAR, Email VARCHAR);"""
+    loginTable = """loginTable(
+                        User_ID INT PRIMARY KEY, 
+                        Password VARCHAR, 
+                        first_name VARCHAR, 
+                        last_name VARCHAR, 
+                        Email VARCHAR);"""
     
     # community table -- 5 fields
-    communityTable = """communityTable(Post_ID INT PRIMARY KEY, Post VARCHAR, Recipe_ID VARCHAR, User_ID VARCHAR, Post_Date INT,
+    communityTable = """communityTable(
+                            Post_ID INT PRIMARY KEY, 
+                            Post VARCHAR, 
+                            Recipe_ID VARCHAR, 
+                            User_ID VARCHAR, 
+                            Post_Date INT,
         FOREIGN KEY (User_ID) REFERENCES loginTable(User_ID),
         FOREIGN KEY (Recipe_ID) REFERENCES recipesTable(Recipe_ID));"""
     
@@ -56,7 +73,8 @@ def fill_recipes(db_filename, csv_name):
         new_item = item.split(",")
         new_item = tuple(new_item)
         recipe_data.append(new_item)
-    
+    #for item in recipe_data:
+        #print(recipe_data)
     cursor.executemany("INSERT INTO recipesTable Values(?,?,?,?,?,?,?,?,?)",recipe_data)
     #cursor.execute("SELECT * FROM recipesTable;")
     #print(cursor.fetchall())
@@ -108,8 +126,8 @@ def fill_community(db_filename, csv_name):
         comm_data.append(new_item)
     
     cursor.executemany("INSERT INTO communityTable Values(?,?,?,?,?)",comm_data)
-    cursor.execute("SELECT * FROM communityTable;")
-    print(cursor.fetchall())
+    #cursor.execute("SELECT * FROM communityTable;")
+    #print(cursor.fetchall())
     db.commit()
     db.close()
 
@@ -135,7 +153,7 @@ def print_tables_rows(dbname):
     conn = sqlite3.connect(dbname)
     c = conn.cursor()
     c.execute("SELECT name FROM sqlite_master WHERE type='table';")
-
+    tables = c.fetchall()
     print ("\nTable Values:")
     for t in tables :
         print ("\t[%s]"%t)
@@ -152,9 +170,9 @@ def print_tables_rows(dbname):
 ## run the above functions to create and fill the database
 
 db_filename ='RecipEASYDB'
-recipe_csv = 'recipes.csv'
-login_csv = 'logins.csv'
-community_csv = 'community.csv'
+recipe_csv = './csv/recipes.csv'
+login_csv = './csv/logins.csv'
+community_csv = './csv/community.csv'
 
 
 # first remove the existing database file if it exists in the directory
@@ -175,3 +193,4 @@ print('Database updated, file created "RecipEASYDB.db"')
 
 ## uncomment the below function if you want to print out the tables created in a user friendly format
 #print_tables(db_filename)
+#print_tables_rows(db_filename)
