@@ -111,3 +111,14 @@ Upcoming Week:
 Screenshots from project management tool:
 
 ![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/2b003124-033d-4cd8-b023-7aa09ae7d23f)
+
+## Week of April 18
+
+
+Upcoming Week:
+- Still actively working on building access methods for SQL tables (Jess: community, Carlos & JP: recipes, Elaine: Login)
+- Still actively writing tests for access methods for SQL (e.g. elaine works on recipe table tests)
+
+Screenshots from project management tool:
+
+![image](https://github.com/ekfrench17/3308_Team3_Project/assets/135086131/2b003124-033d-4cd8-b023-7aa09ae7d23f)
