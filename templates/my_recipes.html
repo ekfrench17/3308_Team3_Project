@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}My Recipes{% endblock %}
+
+{% block header %}My Submitted Recipes{% endblock %}
+    
+     <div class="white-bar"></div> 
+
+{% block content %}
+<div class="container">
+        <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+            <a href="{{ url_for('add') }}">Add New</a>
+            <div class="overlay"></div>
+        </div>
+</div>
+<div class="container">
+    <!-- REMOVE ITEMS FORM -->
+    <div id="remove_recipes">
+        <form action="/remove_recipes" method="POST">   
+            {% for name in my_recipes %}
+            <input type="checkbox" name="check" id="{{ name }}" value="{{ name }}" onchange="check_me('{{ name }}')">
+            <label for="{{ name }}" name="{{ name }}"  style ="padding:10px; background-color: #FFFFFF; margin: 20px ">
+                <a href="{{ url_for('recipe', recipe_name=name  ) }}" style="font-size: 24px">{{ name }}</a>
+            </label>
+            {% endfor %}
+        <input type="submit" value="CHECK ITEMS" id="remove_btn">
+        </form>
+     </div>
+</div>
+   
+
+<script>
+function toggleOverlay(element) {
+            element.querySelector('.overlay').classList.toggle('show');
+        }
+    
+function check_me(input_id) {
+    var checked_input = document.querySelector("input[id=" + input_id + "]");
+    var checked_label = document.querySelector("label[name=" + input_id + "]");
+    var btn = document.getElementById("remove_btn");
+    btn.value = "REMOVE ITEMS";
+    btn.style.color = "#FFFFFF";
+    btn.style.backgroundColor = "#0E1428";
+    btn.style.cursor = "pointer";
+}
+</script>
+{% endblock %}
