@@ -41,15 +41,15 @@ def home():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        session["user_id"] = None  # Adjust based on your user ID strategy
-
+        session["user_id"] = request.form['username']  # Adjust based on your user ID strategy
         password = request.form['password']
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         email = request.form['email']
-        response = create_user('RecipEASYDB.db', session["user_id"], password, first_name, last_name, email)
-        return response
-    return render_template('register.html')
+        result = create_user('RecipEASYDB.db', session["user_id"], password, first_name, last_name, email)
+        if result == True:
+            output = render_template('register.html')
+    return output
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
