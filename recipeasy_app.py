@@ -11,9 +11,13 @@
 import sqlite3
 import random
 import datetime
-from flask import Flask, url_for, make_response, render_template, session, request, g
+from flask import Flask, url_for, make_response, render_template, session, request, g, redirect
 
 from recipeAPI import add_recipe, get_recipe_data, get_all_recipes
+
+## 
+from user_login_db import create_user, validate_login, update_user, delete_user  # Corrected import statement
+
 
 # create app to use in this Flask application
 app = Flask(__name__) 
@@ -32,6 +36,42 @@ app.secret_key = "31xsyBa<VIt8]hD(q;<P18NYYaZyFh6qLeofB[ct"
 @app.route('/')
 def home():
     return render_template("home_page.html")
+
+############### Changes ########
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        user_id = None  # Adjust based on your user ID strategy
+        username = request.form['username']
+        password = request.form['password']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        email = request.form['email']
+        response = create_user('RecipEASYDB.db', user_id, username, password, first_name, last_name, email)
+        return response
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if validate_login('RecipEASYDB.db', username, password):
+            session['username'] = username  # Store username in session
+            return redirect(url_for('home'))  # Redirect to home after login
+        else:
+            return "Invalid credentials"
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)  # Remove the username from session
+    return redirect(url_for('home'))
+
+
+################### 
+
+
 
 @app.route('/recipe/<recipe_name>')
 def recipe(recipe_name=None):
