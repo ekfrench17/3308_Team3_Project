@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %} RecipEASY {% endblock %}
+{% block header %} {{ message }} {% endblock %}
+{% block content %}
+<div>
+    {{ recipe_name }} successfully added!<br>
+    <a href="{{ url_for('recipe', recipe_name=recipe_name  ) }}" style="font-size: 16px">Go to Recipe Page</a>
+</div>
+<div class="container">
+        <div class="box" onclick="location.href='/add_new'">
+            Add Another Recipe
+        </div>
+        <div class="box" onclick="location.href='/explore'">
+            Find New Recipes
+        </div>
+</div>
+{% endblock %}
