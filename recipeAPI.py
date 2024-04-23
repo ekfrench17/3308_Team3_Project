@@ -122,6 +122,20 @@ def get_recipes_by_user(user_id):
     return type is a list'''
     db = sqlite3.connect('RecipEASYDB')
     cursor = db.cursor()
+    # select the user_id column from the recipes table
+    cursor.execute("SELECT name FROM recipesTable WHERE user_id=?",(user_id,))
+    # get a list of all recipes from the table
+    my_recipes = cursor.fetchall()
+    # remove the tuple to return strings using list comprehension
+    my_recipes = [str(val[0]) for val in my_recipes]
+    return my_recipes
+
+def my_recently_added(user_id):
+    '''function to return the 5 most recent recipes added by a given user
+    return type is a list'''
+    db = sqlite3.connect('RecipEASYDB')
+    cursor = db.cursor()
+    #Select up to 5 of the most recent recipes a user has added.
     cursor.execute('SELECT * FROM recipesTable where User_ID=? order by Submit_Date DESC LIMIT 5;',(user_id,))
     my_recipes = cursor.fetchall()
     #print(str(my_recipes))
@@ -160,6 +174,6 @@ def get_all_recipes():
 #recipe = get_recipe_data("Warm Comfort")
 
 #delete_recipe("homemade_pizza")
-test_my_recently_added = my_recently_added("garci446")
+#test_my_recently_added = my_recently_added("garci446")
 
 

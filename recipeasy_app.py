@@ -100,43 +100,6 @@ def submitted_recipe():
         result = "enter recipe"
     return recipe
 
-'''@app.route('/test_insert')
-def test_insert():
-    test_recipe_name = "homemade_pizza"
-    test_ingredients = ["1 pre-made pizza crust",
-                            "1/2 cup pizza sauce",
-                            "1 cup shredded mozzarella cheese",
-                            "1/4 cup sliced pepperoni",
-                            "1/4 cup sliced black olives",
-                            "1/4 cup sliced mushrooms",
-                            "1/4 cup diced bell peppers",
-                            "1/4 cup diced onions",
-                            "1/4 cup grated Parmesan cheese"]
-    test_cooking_time= 45
-    test_directions = ["Preheat your oven to 425°F.",
-                           "Place the pre-made pizza crust on a baking sheet or pizza stone.",
-                           "Spread the pizza sauce evenly over the crust, leaving a small border around the edges.",
-                           "Sprinkle the shredded mozzarella cheese evenly over the sauce.",
-                           "Arrange the pepperoni, black olives, mushrooms, bell peppers, and onions on top of the cheese.",
-                           "Sprinkle the grated Parmesan cheese over the toppings.",
-                           "Place the pizza in the preheated oven and bake for 12-15 minutes, or until the crust is golden brown and the cheese is melted and bubbly.",
-                           "Remove the pizza from the oven and let it cool for a few minutes before slicing.",
-                           "Slice the pizza into wedges and serve hot. Enjoy your delicious homemade pizza!"]
-    directions_str = ''
-    for item in test_directions:
-        directions_str= directions_str + item
-    
-    ingr_str = ''
-    for item in test_ingredients:
-        ingr_str = ingr_str + "," + item
-        
-    test_avg_ratings = 2.5
-    test_total_rating_submissions = 2
-    test_user= "garci446" 
-    # add_recipe function from recipeAPI.py module
-    test_output = add_recipe(test_recipe_name, ingr_str, test_cooking_time, directions_str, test_avg_ratings, test_total_rating_submissions, test_user)
-    return(test_output)'''
-
 @app.route('/view_db')
 def view_db():
     db = getattr(g, '_database', None)
