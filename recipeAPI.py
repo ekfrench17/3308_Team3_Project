@@ -120,6 +120,14 @@ def get_recipe_data(recipe_name):
 def get_recipes_by_user(user_id):
     '''function to return the saved recipes of a given user
     return type is a list'''
+    db = sqlite3.connect('RecipEASYDB')
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM recipesTable where User_ID=? order by Submit_Date DESC LIMIT 5;',(user_id,))
+    my_recipes = cursor.fetchall()
+    #print(str(my_recipes))
+    my_recipes= [str(val[1]) for val in my_recipes]
+    #print(str(my_recipes))
+    return my_recipes
     
 def delete_recipe(recipe_name):
     '''function to delete a recipe in the table'''
