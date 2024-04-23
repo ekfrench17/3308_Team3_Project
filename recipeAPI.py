@@ -17,62 +17,76 @@ import SQL_Insert_test
 
 
 def add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, count_submissions, user_id):
-    '''add a new recipe to the recipes table'''
+    '''add a new recipe to the recipes table
+    return True if successful, False otherwise'''
     #db = getattr(g, '_database', None)
-     
+    success = False
+    
     db = sqlite3.connect('RecipEASYDB')
     cursor = db.cursor()
     
-    # make sure recipe_name is a string and not empty
-    if(type(recipe_name) != str):
-        raise ValueError
-    elif(recipe_name == ''):
-        raise ValueError
-        
-    # check cooking time is an integer above 0
-    if(type(cook_time) != int):
-        raise ValueError
-    elif(cook_time < 0):
-        raise ValueError
-    
-    # increment next recipe_id
+    # set up variables for testing conditions before inserting to table
     # check categoryID exists in category table
     cursor.execute("SELECT user_id FROM loginTable")
     Ids = cursor.fetchall() # returns: [(1,), (2,), (3,)]
     check = []
+    
     for item in Ids:
         check.append(item[0])
-    if user_id not in check:
-        raise ValueError
     
-    # check the recipe does not already exist
+    # check the recipe does not already exist    
     all_recipes = get_all_recipes()
-    if recipe_name in all_recipes:
-        result = "try again, recipe name already exists"
+    
+    # make sure recipe_name is a string and not empty
+    if(type(recipe_name) != str):
+        message = "recipe name must be text string"
+        #raise ValueError
+    elif(recipe_name == ''):
+        message = "recipe name can not be empty"
+        #raise ValueError
+        
+    # check cooking time is an integer above 0
+    elif(type(cook_time) != int):
+        message = "cooking time must be an integer"
+        #raise ValueError
+    elif(cook_time < 0):
+        message = "cooking time must be greater than 0"
+        #raise ValueError
+    # Check the user is in the database
+    elif user_id not in check:
+        message = "User not found in database, need valid ID to submit recipe"
+        #raise ValueError
+    # check the recipe name does not exist yet
+    elif recipe_name in all_recipes:
+            message = "recipe name already exists"
+    # if all passes, add to table
     else:
-        # get last recipe id and increment by one for next item
-        cursor.execute("SELECT recipe_id FROM recipesTable ORDER BY recipe_id DESC")
-        last_id = cursor.fetchone()
-        new_id = last_id[0] + 1
+            # get last recipe id and increment by one for next item
+            cursor.execute("SELECT recipe_id FROM recipesTable ORDER BY recipe_id DESC")
+            last_id = cursor.fetchone()
+            new_id = last_id[0] + 1
 
-        # insert into table
-        cursor.execute("INSERT INTO RecipesTable Values(?,?,?,?,?,?,?,?,?);",(
-                                                            new_id,
-                                                            recipe_name,
-                                                            ingredients,
-                                                            cook_time,
-                                                            directions,
-                                                            avg_ratings,
-                                                            count_submissions,
-                                                            user_id,
-                                                        datetime.datetime.now().timestamp()                                             
-            )) 
-        #cursor.execute("SELECT * FROM RecipesTable;")
-        #test_output = cursor.fetchall()
-        #test_output = [str(val) for val in test_output]
-        db.commit()
+            # insert into table
+            cursor.execute("INSERT INTO RecipesTable Values(?,?,?,?,?,?,?,?,?);",(
+                                                                new_id,
+                                                                recipe_name,
+                                                                ingredients,
+                                                                cook_time,
+                                                                directions,
+                                                                avg_ratings,
+                                                                count_submissions,
+                                                                user_id,
+                                                            datetime.datetime.now().timestamp()                                             
+                )) 
+            #cursor.execute("SELECT * FROM RecipesTable;")
+            #test_output = cursor.fetchall()
+            #test_output = [str(val) for val in test_output]
+            db.commit()
+            success = True
     db.close()
-    return(recipe_name)
+    if success == True:
+        message = "Recipe successfully added!"
+    return(success, message)
 
 def get_recipe_data(recipe_name):
     '''function to pull recipe data from the recipestable based on the recipe_name
@@ -103,24 +117,9 @@ def get_recipe_data(recipe_name):
 
     return recipe
 
-def my_recipes(user_id):
+def get_recipes_by_user(user_id):
     '''function to return the saved recipes of a given user
     return type is a list'''
-
-def my_recently_added(user_id):
-    '''function to return the 5 most recent recipes added by a given user
-    return type is a list'''
-    db = sqlite3.connect('RecipEASYDB')
-    cursor = db.cursor()
-    cursor.execute('SELECT * FROM recipesTable where User_ID=? order by Submit_Date DESC LIMIT 5;',(user_id,))
-    my_recipes = cursor.fetchall()
-    #print(str(my_recipes))
-    my_recipes= [str(val[1]) for val in my_recipes]
-    #print(str(my_recipes))
-    return my_recipes
-
-
-    
     
 def delete_recipe(recipe_name):
     '''function to delete a recipe in the table'''
@@ -128,13 +127,14 @@ def delete_recipe(recipe_name):
     cursor = db.cursor()
     try:
         sql_del = cursor.execute("DELETE FROM recipesTable WHERE name = ?",(recipe_name,))
-        print("Total records affected: ", sql_del.rowcount)
+        result = "Total records affected: ", sql_del.rowcount
         #cursor.execute(sql_del)
         db.commit()
     except Error as e:
-        print(f"Oops! Something went wrong. Error: {e}")
+        result = f"Oops! Something went wrong. Error: {e}"
         # reverse the change in case of error
         db.rollback()
+    return result
 
 def get_all_recipes():
     db = sqlite3.connect('RecipEASYDB')
