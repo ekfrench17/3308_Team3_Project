@@ -11,9 +11,9 @@
 import sqlite3
 import random
 import datetime
-from flask import Flask, url_for, make_response, render_template, session, request, g
+from flask import Flask, url_for, make_response, render_template, session, request, g, redirect
 
-from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user
+from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe
 from community_posts_db import create_post
 
 # create app to use in this Flask application
@@ -55,10 +55,11 @@ def explore():
 def my_recipes(user_id):
     '''function to get and display all the recipes submitted by the given user_id'''
     # good_id = check_user_id(user_id)
+    session['user_id'] = user_id
     good_id = True
     if good_id == True:
-        recipes = get_recipes_by_user(user_id)
-    return render_template("my_recipes.html", my_recipes=recipes)
+        session['my_recipes'] = get_recipes_by_user(session['user_id'])
+    return render_template("my_recipes.html", my_recipes=session['my_recipes'])
 
 @app.route('/community')
 def community():
@@ -97,6 +98,16 @@ def submitted_recipe():
         output = render_template("add_new.html", message=message)
     
     return output
+
+@app.route("/remove_recipes", methods=["POST"])
+def remove_items():
+    checked_boxes = request.form.getlist("check")
+    for recipe in checked_boxes:
+        result = delete_recipe(recipe)
+    #session['my_recipes'] = get_recipes_by_user(session['user_id'])
+    return redirect(url_for('my_recipes', user_id = session['user_id']))
+
+#### Remove the below routes later for testing development only
 
 @app.route('/test_insert')
 def test_insert():
