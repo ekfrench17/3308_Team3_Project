@@ -13,7 +13,8 @@ import random
 import datetime
 from flask import Flask, url_for, make_response, render_template, session, request, g
 
-from recipeAPI import add_recipe, get_recipe_data, get_all_recipes
+from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user
+from community_posts_db import create_post
 
 # create app to use in this Flask application
 app = Flask(__name__) 
@@ -50,20 +51,29 @@ def explore():
     # recipe fields: [ recipeID INT, name string, ingredients list of strings, cook_time INT, directions list of strings]
     return render_template("explore.html", all_recipes=session["all_recipes"])
 
+@app.route('/my_recipes/<user_id>')
+def my_recipes(user_id):
+    '''function to get and display all the recipes submitted by the given user_id'''
+    # good_id = check_user_id(user_id)
+    good_id = True
+    if good_id == True:
+        recipes = get_recipes_by_user(user_id)
+    return render_template("my_recipes.html", my_recipes=recipes)
+
 @app.route('/community')
 def community():
     return render_template("community.html")
 
 @app.route('/add_new')
-def add():
-    if request.method == "POST":
-        result = request.form
-    else: 
-        result = "enter recipe"
-    return render_template("add_new.html",result=result)
+def add(message = ""):
+    return render_template("add_new.html", message=message)
 
 @app.route('/submitted_recipe', methods=["POST"])
 def submitted_recipe():
+    recipe_name = ''
+    success = False
+    message = ''
+    
     if request.method == "POST":
         # result is a dictionary; example;
         # {"cook_time":"5","directions":"heat over stove","ingredients":"broth, seasoning","recipeName":"soup"}
@@ -71,11 +81,22 @@ def submitted_recipe():
         user_id = "garci446" 
         avg_ratings = 0
         count_submissions = 1
-        recipename, ingredients = result['recipeName'], result['ingredients']
-        recipe = [recipename, ingredients]
+        try:
+            cook_time = int(result['cook_time'])
+            success, message = add_recipe(result['recipeName'],result['ingredients'],cook_time,result['directions'],avg_ratings,count_submissions,user_id)
+            recipe_name = result['recipeName']
+        except:
+            message = 'cooking time must be an integer greater than 0'
+        #add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, count_submissions, user_id)
     else: 
-        result = "enter recipe"
-    return recipe
+        message = "enter recipe"  
+    
+    if success == True:
+        output = render_template("submitted_recipe.html",recipe_name=recipe_name,message=message)
+    else:
+        output = render_template("add_new.html", message=message)
+    
+    return output
 
 @app.route('/test_insert')
 def test_insert():

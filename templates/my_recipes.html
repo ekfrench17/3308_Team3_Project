@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}My Recipes{% endblock %}
+
+{% block header %}My Submitted Recipes{% endblock %}
+    
+     <div class="white-bar"></div> 
+
+{% block content %}
+<div class="container">
+        <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+            Add New
+            <div class="overlay"></div>
+        </div>
+    <script>
+        function toggleOverlay(element) {
+            element.querySelector('.overlay').classList.toggle('show');
+        }
+    </script>
+</div>
+<div class="container">
+    {% for name in my_recipes %}
+    <h1 style ="padding:10px; background-color: #FFFFFF; margin: 20px ">
+        <a href="{{ url_for('recipe', recipe_name= name  ) }}" style="font-size: 24px">{{ name }}</a>
+    </h1>
+    <!-- link to recipe page --->
+    
+    {% endfor %}
+</div>
+{% endblock %}
