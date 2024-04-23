@@ -41,23 +41,23 @@ def home():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        user_id = None  # Adjust based on your user ID strategy
-        username = request.form['username']
+        session["user_id"] = None  # Adjust based on your user ID strategy
+
         password = request.form['password']
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         email = request.form['email']
-        response = create_user('RecipEASYDB.db', user_id, username, password, first_name, last_name, email)
+        response = create_user('RecipEASYDB.db', session["user_id"], password, first_name, last_name, email)
         return response
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        session["user_id"] = request.form['username']
         password = request.form['password']
-        if validate_login('RecipEASYDB.db', username, password):
-            session['username'] = username  # Store username in session
+        if validate_login('RecipEASYDB.db', session["userid"], password):
+            session['user_id'] = session["userid"]  # Store username in session
             return redirect(url_for('home'))  # Redirect to home after login
         else:
             return "Invalid credentials"
