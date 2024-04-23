@@ -8,7 +8,12 @@
 
 
 ###############################################################################
-from flask import Flask, url_for, make_response, render_template
+import sqlite3
+import random
+import datetime
+from flask import Flask, url_for, make_response, render_template, session, request, g
+
+from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, my_recently_added
 
 # create app to use in this Flask application
 app = Flask(__name__) 
@@ -38,6 +43,14 @@ def recipe(recipe_name=None):
     else:
         result = render_template("recipe_display.html",recipe_data=recipe_data)
     return result
+
+@app.route('/recently_added/<user_id>')
+def pull_recent_user_recipes (user_id):
+    #Below is set a test until a session variable that catches the user id created
+    user_id ='garci446'
+    user_recent_recipes = my_recently_added(user_id)
+    return render_template("my_recent_recipes.html", user_recent_recipes=user_recent_recipes)
+
 
 @app.route('/explore')
 def explore():
@@ -72,7 +85,7 @@ def submitted_recipe():
         result = "enter recipe"
     return recipe
 
-@app.route('/test_insert')
+'''@app.route('/test_insert')
 def test_insert():
     test_recipe_name = "homemade_pizza"
     test_ingredients = ["1 pre-made pizza crust",
@@ -107,7 +120,7 @@ def test_insert():
     test_user= "garci446" 
     # add_recipe function from recipeAPI.py module
     test_output = add_recipe(test_recipe_name, ingr_str, test_cooking_time, directions_str, test_avg_ratings, test_total_rating_submissions, test_user)
-    return(test_output)
+    return(test_output)'''
 
 @app.route('/view_db')
 def view_db():
@@ -131,66 +144,9 @@ def view_db():
     #test_output = [str(val) for val in test_output]
     return (result) 
 
-@app.route('/test_insert')
-def test_insert():
-    db = getattr(g, '_database', None)
-    test_recipe_name = "Homemade Pizza"
-    test_ingredients = ("pre-made pizza crust",
-                            "cup pizza sauce",
-                            "shredded mozzarella cheese",
-                            "sliced pepperoni",
-                            "sliced black olives",
-                            "sliced mushrooms",
-                            "diced bell peppers",
-                            "diced onions",
-                            "grated Parmesan cheese")
-    test_quantity = ["1",
-                         "1/2 cup",
-                         "1 cup",
-                         "1/4 cup",
-                         "1/4 cup",
-                         "1/4 cup",
-                         "1/4 cup",
-                         "1/4 cup",
-                         "1/4 cup"]
-    test_cooking_time= "45 minutes"
-    test_directions = ["Preheat your oven to 425°F.",
-                           "Place the pre-made pizza crust on a baking sheet or pizza stone.",
-                           "Spread the pizza sauce evenly over the crust, leaving a small border around the edges.",
-                           "Sprinkle the shredded mozzarella cheese evenly over the sauce.",
-                           "Arrange the pepperoni, black olives, mushrooms, bell peppers, and onions on top of the cheese.",
-                           "Sprinkle the grated Parmesan cheese over the toppings.",
-                           "Place the pizza in the preheated oven and bake for 12-15 minutes, or until the crust is golden brown and the cheese is melted and bubbly.",
-                           "Remove the pizza from the oven and let it cool for a few minutes before slicing.",
-                           "Slice the pizza into wedges and serve hot. Enjoy your delicious homemade pizza!"]
-    test_avg_ratings = 2.5
-    test_total_rating_submissions = 2
-    test_user= "garci446" 
-    db = g._database = sqlite3.connect('RecipEasyDB')
-    cursor = db.cursor()
-    cursor.execute("INSERT INTO RecipesTable Values(?,?,?,?,?,?,?,?,?,?);",(
-                                                        None,
-                                                        test_recipe_name,
-                                                        test_ingredients[1],
-                                                        test_quantity[1],
-                                                        test_cooking_time,
-                                                        test_directions[0],
-                                                        test_avg_ratings,
-                                                        test_total_rating_submissions,
-                                                        test_user,
-                                                        datetime.datetime.now().timestamp()                                             
-        )) 
-    cursor.execute("SELECT * FROM RecipesTable;")
-    test_output = cursor.fetchall()
-    test_output = [str(val) for val in test_output]
-    db.close()
-    return(test_output)
 ###############################################################################
 # main driver function
 if __name__ == '__main__':
     # run() method of Flask class runs the application 
     # on the local development server using port 3308 instead of port 5000.
-
-    
     app.run(host='0.0.0.0', port=3308)
-
