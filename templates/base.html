@@ -15,6 +15,12 @@
 		<a href="{{ url_for('explore') }}">Explore</a>
         <a href="{{ url_for('my_recipes', user_id='garci446' ) }}">My Recipes</a>
 		<a href="{{ url_for('community') }}">Community</a>
+        <!-- Conditionally display login or logout -->
+        {% if session['user_id'] %}
+            <a href="{{ url_for('logout') }}" class="logout_button">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="login_button">Login</a>
+        {% endif %}    
     </div>
     {% block content %}{% endblock %}
 </body>
