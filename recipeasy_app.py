@@ -50,7 +50,8 @@ def register():
         result = create_user('RecipEASYDB.db', session["user_id"], password, first_name, last_name, email)
         if result == True:
             output = render_template('register.html')
-    return output
+    #return output
+    return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -151,6 +152,7 @@ def remove_items():
 
 @app.route('/test_insert')
 def test_insert():
+    '''
     test_recipe_name = "homemade_pizza"
     test_ingredients = ["1 pre-made pizza crust",
                             "1/2 cup pizza sauce",
@@ -181,10 +183,28 @@ def test_insert():
         
     test_avg_ratings = 2.5
     test_total_rating_submissions = 2
-    test_user= "garci446" 
-    # add_recipe function from recipeAPI.py module
-    test_output = add_recipe(test_recipe_name, ingr_str, test_cooking_time, directions_str, test_avg_ratings, test_total_rating_submissions, test_user)
-    return(test_output)
+    test_user= "garci446" '''
+
+    test_user_id = "JP"
+    test_password = "123"
+    test_first_name = "Jon" 
+    test_last_name = "Paul" 
+    test_email = "jp@gmail.com"
+    
+    # Attempt to create the user and capture the result
+    creation_success = create_user(test_user_id, test_password, test_first_name, test_last_name, test_email)
+    
+    # Prepare a response message with user details
+    user_details = f"User ID: {test_user_id}, Name: {test_first_name} {test_last_name}, Email: {test_email}"
+    
+    # Decide on the response based on whether the user was successfully created
+    if creation_success:
+        print(f"User created successfully: {user_details}")
+        return f"User created successfully: {user_details}", 200  # HTTP status code 200 for OK
+    else:
+        print("Failed to create user")
+        return f"Failed to create user. Details attempted: {user_details}", 400  # HTTP status code 400 for Bad Request
+
 
 @app.route('/view_db')
 def view_db():
