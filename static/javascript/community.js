@@ -14,7 +14,8 @@ function submitPost() {
     const postElement = document.createElement('div');
     postElement.classList.add('post');
     postElement.innerHTML = `
-        <img src="profile_picture.jpg" class="profile-picture">
+        <img src="../static/images/ice_cream_profile_pic.jpg" class="profile-picture">
+
         <div class="speech-bubble">
             <p>${postContent}</p>
         </div>

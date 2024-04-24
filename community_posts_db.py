@@ -17,36 +17,36 @@ from datetime import date
 # set the date
 today = date.today()
 
-# Set up the table
-def create_community_post(db_filename): 
-    conn = None
-    try:
-        conn = sqlite3.connect(db_filename)
-        print(f"Connected to SQLite database {db_filename}")
+# # Set up the table
+# def create_community_post(db_filename): 
+#     conn = None
+#     try:
+#         conn = sqlite3.connect(db_filename)
+#         print(f"Connected to SQLite database {db_filename}")
 
-        # Create tables
-        c = conn.cursor()
-        c.execute("""
-            CREATE TABLE IF NOT EXISTS CommunityPosts (
-                Post_ID INT PRIMARY KEY,
-                Post VARCHAR,
-                Recipe VARCHAR,
-                User_ID VARCHAR,
-                Rating INT,
-                Post_Date INT
-            )
-        """)
+#         # Create tables
+#         c = conn.cursor()
+#         c.execute("""
+#             CREATE TABLE IF NOT EXISTS CommunityPosts (
+#                 Post_ID INT PRIMARY KEY,
+#                 Post VARCHAR,
+#                 Recipe VARCHAR,
+#                 User_ID VARCHAR,
+#                 Rating INT,
+#                 Post_Date INT
+#             )
+#         """)
 
-        conn.commit()
-        #print("Tables have been successfully created.")
+#         conn.commit()
+#         #print("Tables have been successfully created.")
 
-    except Error as e:
-        print(f"Error create function: {e}")
-    finally:
-        if conn:
-            conn.close()
-            #print("Connection closed.")
-            #print()
+#     except Error as e:
+#         print(f"Error create function: {e}")
+#     finally:
+#         if conn:
+#             conn.close()
+#             #print("Connection closed.")
+#             #print()
             
             
 ###############################################################
@@ -70,7 +70,7 @@ def fill_community_post(db_filename, post_id_counter, user_post_input, desired_r
         c = conn.cursor()
 
         # Insert data
-        c.execute("INSERT INTO CommunityPosts (Post_ID, Post, Recipe, User_ID, Rating, Post_Date) VALUES (?, ?, (SELECT Recipe FROM RecipeTitle WHERE RecipeID=?), ?, ?, ?)", 
+        c.execute("INSERT INTO CommunityPosts (Post_ID, Post, Recipe, User_ID, Rating, Post_Date) VALUES (?, ?, (SELECT Name FROM recipesTable WHERE Recipe ID=?), ?, ?, ?)", 
                   
                   # these are vaiables to be added later
                   # post_id_counter = number of post like a counter (INT)
@@ -80,7 +80,7 @@ def fill_community_post(db_filename, post_id_counter, user_post_input, desired_r
                   # rating = user input number 0 - 10 (INT)
                   # date_nums = date of post in number form 04102024 (INT)
                   
-                  (post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating, date_nums))
+                  (post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums))
 
         
         # Commit the changes to the database
@@ -127,7 +127,7 @@ def create_post(db_filename, post_id_counter, user_post_input, desired_recipe_id
 #                   # rating = user input number 0 - 10 (INT)
 #                   # date_nums = date of post in number form 04102024 (INT)
                   
-                   (post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating, date_nums))
+                   (post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums))
 
         
         # Commit the changes to the database
@@ -175,7 +175,7 @@ def edit_post(db_filename, post_id_input, user_post_input, desired_recipe_id, us
 #                   # rating = user input number 0 - 10 (INT)
 #                   # date_nums = date of post in number form 04102024 (INT)
                   
-                   (post_id_input, user_post_input, desired_recipe_id, user_id_num, rating, date_nums))
+                   (post_id_input, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums))
 
         
         # Commit the changes to the database
