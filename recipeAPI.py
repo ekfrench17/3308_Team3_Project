@@ -16,13 +16,13 @@ import datetime
 import SQL_Insert_test
 
 
-def add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, count_submissions, user_id):
+def add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, count_submissions, user_id, db_filename='RecipEASYDB'):
     '''add a new recipe to the recipes table
     return True if successful, False otherwise'''
     #db = getattr(g, '_database', None)
     success = False
     
-    db = sqlite3.connect('RecipEASYDB')
+    db = sqlite3.connect(db_filename)
     cursor = db.cursor()
     
     # set up variables for testing conditions before inserting to table
@@ -135,10 +135,10 @@ def my_recently_added(user_id):
     return type is a list'''
     db = sqlite3.connect('RecipEASYDB')
     cursor = db.cursor()
-    #Select up to 5 of the most recent recipes a user has added.
+    #Select up to 5 of the most recent recipes a user has added order by most recent to oldest.
     cursor.execute('SELECT * FROM recipesTable where User_ID=? order by Submit_Date DESC LIMIT 5;',(user_id,))
     my_recipes = cursor.fetchall()
-    #print(str(my_recipes))
+    #Capture a tuple of all 5 recipes
     my_recipes= [str(val[1]) for val in my_recipes]
     #print(str(my_recipes))
     return my_recipes
@@ -169,7 +169,29 @@ def get_all_recipes():
     all_recipes = [str(val[0]) for val in all_recipes]
     return all_recipes
 
-
+def create_recipesTable(db_filename):
+    '''create a database for RecipEASY app
+    There are 3 tables: recipesTable, loginTable, communityTable'''
+    conn = sqlite3.connect(db_filename)
+    c = conn.cursor()
+    
+    # Create recipesTable - 9 fields
+    recipesTable = """recipesTable(
+                            Recipe_ID INT PRIMARY KEY, 
+                            Name VARCHAR, 
+                            Ingredients VARCHAR, 
+                            Cooking_Time INT, 
+                            Directions VARCHAR, 
+                            Avg_Ratings decimal(3,2), 
+                            Total_Rating_Submission INT, 
+                            User_ID VARCHAR, 
+                            Submit_Date INT,
+        FOREIGN KEY (User_ID) REFERENCES loginTable(User_ID));"""
+    
+    c.execute("CREATE TABLE " + recipesTable)
+        
+    conn.commit()
+    conn.close()
     
 #recipe = get_recipe_data("Warm Comfort")
 

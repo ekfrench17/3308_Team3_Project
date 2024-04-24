@@ -13,7 +13,7 @@ import random
 import datetime
 from flask import Flask, url_for, make_response, render_template, session, request, g, redirect
 
-from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, my_recently_added
+from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, my_recently_added, get_recipes_by_user
 
 # create app to use in this Flask application
 app = Flask(__name__) 
@@ -29,9 +29,16 @@ app.secret_key = "31xsyBa<VIt8]hD(q;<P18NYYaZyFh6qLeofB[ct"
 ##     4. static text page, "my recipes"   @app.route('/recipe')
 ##
 
+
 @app.route('/')
 def home():
-    return render_template("home_page.html")
+    ##Will need to pass session ['user_id'] to html for configuring dynamic endpoints
+    ##The code below is for testing and will need to be removed after login table has been setup
+
+
+    
+    session['user_id'] = 'garci449'
+    return render_template("home_page.html", user_id=session['user_id'])
 
 @app.route('/recipe/<recipe_name>')
 def recipe(recipe_name=None):
@@ -46,8 +53,9 @@ def recipe(recipe_name=None):
 
 @app.route('/recently_added/<user_id>')
 def pull_recent_user_recipes (user_id):
+    ##is logic is built around testing and should be refined one seccion['user_id'] has been established
+    ##session["user_id"]  = "garcitest"
     #Below is set a test until a session variable that catches the user id created
-    user_id ='garci446'
     user_recent_recipes = my_recently_added(user_id)
     return render_template("my_recent_recipes.html", user_recent_recipes=user_recent_recipes)
 
