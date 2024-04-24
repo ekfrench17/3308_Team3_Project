@@ -8,13 +8,28 @@
 
 
 ###############################################################################
+# Resources used to build
+# Cory Schafer - Flask Tutorials
+# - https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH
+#
+# Code Structure and Best Practices:
+# - Effective Python Code Structure - https://youtu.be/v3CSQkPJtAc
+###############################################################################
+
+
 import sqlite3
 import random
 import datetime
-from flask import Flask, url_for, make_response, render_template, session, request, g, redirect
+from flask import Flask, url_for, make_response, render_template, session, request, g, redirect, flash
+
+#added flash to pop up a message
 
 from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe
 from community_posts_db import create_post
+
+## 
+from user_login_db import create_user, validate_login, update_user, delete_user  # Corrected import statement
+
 
 # create app to use in this Flask application
 app = Flask(__name__) 
@@ -33,6 +48,41 @@ app.secret_key = "31xsyBa<VIt8]hD(q;<P18NYYaZyFh6qLeofB[ct"
 @app.route('/')
 def home():
     return render_template("home_page.html")
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        user_id = request.form['username']
+        password = request.form['password']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        email = request.form['email']
+        result = create_user(user_id, password, first_name, last_name, email)
+        if result:
+            flash('Registration successful! Please login to continue.', 'success')  # Message flashing
+            return redirect(url_for('login'))  # Redirect to the login page
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user_id = request.form['username']
+        password = request.form['password']
+        if validate_login(user_id, password):  # Correctly pass user_id instead of 'session["userid"]'
+            session['user_id'] = user_id  # Store user_id in session
+            flash('You are now logged in!', 'success')
+            return redirect(url_for('home'))  # Redirect to home after login
+        else:
+            flash('Invalid username or password', 'error')  # Flash an error message
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    # Remove user_id from session if it's there
+    session.pop('user_id', None)  # Adjust 'user_id' if you use a different key for storing user login information
+    flash('You have been logged out.', 'info')  # Optional: Flash a message confirming logout
+    return redirect(url_for('home'))  # Redirect to the home page or another appropriate page
+
 
 @app.route('/recipe/<recipe_name>')
 def recipe(recipe_name=None):
@@ -111,6 +161,7 @@ def remove_items():
 
 @app.route('/test_insert')
 def test_insert():
+    '''
     test_recipe_name = "homemade_pizza"
     test_ingredients = ["1 pre-made pizza crust",
                             "1/2 cup pizza sauce",
@@ -141,10 +192,28 @@ def test_insert():
         
     test_avg_ratings = 2.5
     test_total_rating_submissions = 2
-    test_user= "garci446" 
-    # add_recipe function from recipeAPI.py module
-    test_output = add_recipe(test_recipe_name, ingr_str, test_cooking_time, directions_str, test_avg_ratings, test_total_rating_submissions, test_user)
-    return(test_output)
+    test_user= "garci446" '''
+
+    test_user_id = "JP"
+    test_password = "123"
+    test_first_name = "Jon" 
+    test_last_name = "Paul" 
+    test_email = "jp@gmail.com"
+    
+    # Attempt to create the user and capture the result
+    creation_success = create_user(test_user_id, test_password, test_first_name, test_last_name, test_email)
+    
+    # Prepare a response message with user details
+    user_details = f"User ID: {test_user_id}, Name: {test_first_name} {test_last_name}, Email: {test_email}"
+    
+    # Decide on the response based on whether the user was successfully created
+    if creation_success:
+        print(f"User created successfully: {user_details}")
+        return f"User created successfully: {user_details}", 200  # HTTP status code 200 for OK
+    else:
+        print("Failed to create user")
+        return f"Failed to create user. Details attempted: {user_details}", 400  # HTTP status code 400 for Bad Request
+
 
 @app.route('/view_db')
 def view_db():

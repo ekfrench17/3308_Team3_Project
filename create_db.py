@@ -192,5 +192,5 @@ fill_community(db_filename, community_csv)
 print('Database updated, file created "RecipEASYDB.db"')
 
 ## uncomment the below function if you want to print out the tables created in a user friendly format
-#print_tables(db_filename)
-#print_tables_rows(db_filename)
+print_tables(db_filename)
+print_tables_rows(db_filename)
