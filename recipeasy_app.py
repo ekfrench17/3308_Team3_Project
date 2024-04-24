@@ -8,10 +8,21 @@
 
 
 ###############################################################################
+# Resources used to build
+# Cory Schafer - Flask Tutorials
+# - https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH
+#
+# Code Structure and Best Practices:
+# - Effective Python Code Structure - https://youtu.be/v3CSQkPJtAc
+###############################################################################
+
+
 import sqlite3
 import random
 import datetime
-from flask import Flask, url_for, make_response, render_template, session, request, g, redirect
+from flask import Flask, url_for, make_response, render_template, session, request, g, redirect, flash
+
+#added flash to pop up a message
 
 from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe
 from community_posts_db import create_post
@@ -38,41 +49,39 @@ app.secret_key = "31xsyBa<VIt8]hD(q;<P18NYYaZyFh6qLeofB[ct"
 def home():
     return render_template("home_page.html")
 
-############### Changes ########
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        session["user_id"] = request.form['username']  # Adjust based on your user ID strategy
+        user_id = request.form['username']
         password = request.form['password']
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         email = request.form['email']
-        result = create_user('RecipEASYDB.db', session["user_id"], password, first_name, last_name, email)
-        if result == True:
-            output = render_template('register.html')
-    #return output
+        result = create_user(user_id, password, first_name, last_name, email)
+        if result:
+            flash('Registration successful! Please login to continue.', 'success')  # Message flashing
+            return redirect(url_for('login'))  # Redirect to the login page
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        session["user_id"] = request.form['username']
+        user_id = request.form['username']
         password = request.form['password']
-        if validate_login('RecipEASYDB.db', session["userid"], password):
-            session['user_id'] = session["userid"]  # Store username in session
+        if validate_login(user_id, password):  # Correctly pass user_id instead of 'session["userid"]'
+            session['user_id'] = user_id  # Store user_id in session
+            flash('You are now logged in!', 'success')
             return redirect(url_for('home'))  # Redirect to home after login
         else:
-            return "Invalid credentials"
+            flash('Invalid username or password', 'error')  # Flash an error message
     return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)  # Remove the username from session
-    return redirect(url_for('home'))
-
-
-################### 
-
+    # Remove user_id from session if it's there
+    session.pop('user_id', None)  # Adjust 'user_id' if you use a different key for storing user login information
+    flash('You have been logged out.', 'info')  # Optional: Flash a message confirming logout
+    return redirect(url_for('home'))  # Redirect to the home page or another appropriate page
 
 
 @app.route('/recipe/<recipe_name>')
