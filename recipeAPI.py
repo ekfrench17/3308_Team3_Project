@@ -117,6 +117,19 @@ def get_recipe_data(recipe_name):
 
     return recipe
 
+def my_recently_added(user_id):
+    '''function to return the 5 most recent recipes added by a given user
+    return type is a list'''
+    db = sqlite3.connect('RecipEASYDB')
+    cursor = db.cursor()
+    #Select up to 5 of the most recent recipes a user has added order by most recent to oldest.
+    cursor.execute('SELECT * FROM recipesTable where User_ID=? order by Submit_Date DESC LIMIT 5;',(user_id,))
+    my_recipes = cursor.fetchall()
+    #Capture a tuple of all 5 recipes
+    my_recipes= [str(val[1]) for val in my_recipes]
+    #print(str(my_recipes))
+    return my_recipes
+
 def get_recipes_by_user(user_id):
     '''function to return the saved recipes of a given user
     return type is a list'''
