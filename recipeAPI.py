@@ -67,6 +67,9 @@ def add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, cou
             new_id = last_id[0] + 1
 
             # insert into table
+            ##Initializing variables that aren't relevant to inserting a recipes table
+            avg_ratings = 0
+            count_submissions = 0
             cursor.execute("INSERT INTO RecipesTable Values(?,?,?,?,?,?,?,?,?);",(
                                                                 new_id,
                                                                 recipe_name,
@@ -168,6 +171,31 @@ def get_all_recipes():
     # remove the tuple to return strings using list comprehension
     all_recipes = [str(val[0]) for val in all_recipes]
     return all_recipes
+
+
+def create_recipesTable(db_filename):
+    '''create a database for RecipEASY app
+    There are 3 tables: recipesTable, loginTable, communityTable'''
+    conn = sqlite3.connect(db_filename)
+    c = conn.cursor()
+    
+    # Create recipesTable - 9 fields
+    recipesTable = """recipesTable(
+                            Recipe_ID INT PRIMARY KEY, 
+                            Name VARCHAR, 
+                            Ingredients VARCHAR, 
+                            Cooking_Time INT, 
+                            Directions VARCHAR, 
+                            Avg_Ratings decimal(3,2), 
+                            Total_Rating_Submission INT, 
+                            User_ID VARCHAR, 
+                            Submit_Date INT,
+        FOREIGN KEY (User_ID) REFERENCES loginTable(User_ID));"""
+    
+    c.execute("CREATE TABLE " + recipesTable)
+        
+    conn.commit()
+    conn.close()
 
 
     

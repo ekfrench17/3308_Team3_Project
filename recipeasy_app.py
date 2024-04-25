@@ -24,7 +24,7 @@ from flask import Flask, url_for, make_response, render_template, session, reque
 
 #added flash to pop up a message
 
-from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe
+from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe, my_recently_added
 from community_posts_db import create_post
 
 ## 
@@ -47,7 +47,10 @@ app.secret_key = "31xsyBa<VIt8]hD(q;<P18NYYaZyFh6qLeofB[ct"
 
 @app.route('/')
 def home():
-    return render_template("home_page.html")
+    if session.get('user_id') != None:    
+        return render_template("home_page.html", user_id=session['user_id'])
+    
+    return render_template("home_page.html",user_id='No user signed in')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -111,6 +114,14 @@ def my_recipes(user_id):
         session['my_recipes'] = get_recipes_by_user(session['user_id'])
     return render_template("my_recipes.html", my_recipes=session['my_recipes'])
 
+@app.route('/recently_added/<user_id>')
+def pull_recent_user_recipes (user_id):
+    ##is logic is built around testing and should be refined one seccion['user_id'] has been established
+    ##session["user_id"]  = "garcitest"
+    #Below is set a test until a session variable that catches the user id created
+    user_recent_recipes = my_recently_added(user_id)
+    return render_template("my_recent_recipes.html", user_recent_recipes=user_recent_recipes, user_id = session['user_id'])
+
 @app.route('/community')
 def community():
     return render_template("community.html")
@@ -129,12 +140,11 @@ def submitted_recipe():
         # result is a dictionary; example;
         # {"cook_time":"5","directions":"heat over stove","ingredients":"broth, seasoning","recipeName":"soup"}
         result = request.form
-        user_id = "garci446" 
         avg_ratings = 0
-        count_submissions = 1
+        count_submissions = 0
         try:
             cook_time = int(result['cook_time'])
-            success, message = add_recipe(result['recipeName'],result['ingredients'],cook_time,result['directions'],avg_ratings,count_submissions,user_id)
+            success, message = add_recipe(result['recipeName'],result['ingredients'],cook_time,result['directions'],avg_ratings,count_submissions,session['user_id'])
             recipe_name = result['recipeName']
         except:
             message = 'cooking time must be an integer greater than 0'
