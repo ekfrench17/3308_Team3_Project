@@ -47,17 +47,23 @@ app.secret_key = "31xsyBa<VIt8]hD(q;<P18NYYaZyFh6qLeofB[ct"
 
 @app.route('/')
 def home():
-    return render_template("home_page.html")
+    if session.get('user_id') == True:
+        output = render_template("home_page.html")
+    else:
+        output = redirect(url_for('login'))
+    return output
+
+### Routes related to the Login Table
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        user_id = request.form['username']
+        session['user_id'] = request.form['username']
         password = request.form['password']
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         email = request.form['email']
-        result = create_user(user_id, password, first_name, last_name, email)
+        result = create_user(session['user_id'], password, first_name, last_name, email)
         if result:
             flash('Registration successful! Please login to continue.', 'success')  # Message flashing
             return redirect(url_for('login'))  # Redirect to the login page
@@ -81,8 +87,10 @@ def logout():
     # Remove user_id from session if it's there
     session.pop('user_id', None)  # Adjust 'user_id' if you use a different key for storing user login information
     flash('You have been logged out.', 'info')  # Optional: Flash a message confirming logout
-    return redirect(url_for('home'))  # Redirect to the home page or another appropriate page
+    return redirect(url_for('login'))  # Redirect to the home page or another appropriate page
 
+
+### Routes related to the Recipes Table
 
 @app.route('/recipe/<recipe_name>')
 def recipe(recipe_name=None):
@@ -101,22 +109,22 @@ def explore():
     # recipe fields: [ recipeID INT, name string, ingredients list of strings, cook_time INT, directions list of strings]
     return render_template("explore.html", all_recipes=session["all_recipes"])
 
-@app.route('/my_recipes/<user_id>')
-def my_recipes(user_id):
+@app.route('/my_recipes')
+def my_recipes():
     '''function to get and display all the recipes submitted by the given user_id'''
-    # good_id = check_user_id(user_id)
-    session['user_id'] = user_id
-    good_id = True
-    if good_id == True:
+    if session.get('user_id') == True:
         session['my_recipes'] = get_recipes_by_user(session['user_id'])
-    return render_template("my_recipes.html", my_recipes=session['my_recipes'])
-
-@app.route('/community')
-def community():
-    return render_template("community.html")
+        output = render_template("my_recipes.html", my_recipes=session['my_recipes'])
+    else:
+        output = redirect(url_for('login'))   
+    return output
 
 @app.route('/add_new')
 def add(message = ""):
+    if session.get('user_id') == True:
+        output = render_template("add_new.html", message=message)
+    else:
+        output = redirect(url_for('login'))
     return render_template("add_new.html", message=message)
 
 @app.route('/submitted_recipe', methods=["POST"])
@@ -129,12 +137,11 @@ def submitted_recipe():
         # result is a dictionary; example;
         # {"cook_time":"5","directions":"heat over stove","ingredients":"broth, seasoning","recipeName":"soup"}
         result = request.form
-        user_id = "garci446" 
         avg_ratings = 0
         count_submissions = 1
         try:
             cook_time = int(result['cook_time'])
-            success, message = add_recipe(result['recipeName'],result['ingredients'],cook_time,result['directions'],avg_ratings,count_submissions,user_id)
+            success, message = add_recipe(result['recipeName'],result['ingredients'],cook_time,result['directions'],avg_ratings,count_submissions,session['user_id'])
             recipe_name = result['recipeName']
         except:
             message = 'cooking time must be an integer greater than 0'
@@ -156,6 +163,16 @@ def remove_items():
         result = delete_recipe(recipe)
     #session['my_recipes'] = get_recipes_by_user(session['user_id'])
     return redirect(url_for('my_recipes', user_id = session['user_id']))
+
+#### Routes related to the Community Posts Table
+
+@app.route('/community')
+def community():
+    if session.get('user_id') == True:
+        output = render_template("community.html")
+    else: 
+        output = redirect(url_for('login'))
+    return output
 
 #### Remove the below routes later for testing development only
 
@@ -201,18 +218,38 @@ def test_insert():
     test_email = "jp@gmail.com"
     
     # Attempt to create the user and capture the result
-    creation_success = create_user(test_user_id, test_password, test_first_name, test_last_name, test_email)
+    #creation_success = create_user(test_user_id, test_password, test_first_name, test_last_name, test_email)
+    post_id_counter = 1
+    user_post_input = "user input"
+    desired_recipe_id = 1001
+    user_id_num = 'garci446'
+    rating_input= 3
+    
+    # Test inserting a post
+    conn = sqlite3.connect('recipEASYDB')
+    c = conn.cursor()
+    today = datetime.datetime.now().timestamp()
+
+         # Insert data
+    c.execute("INSERT INTO communityTable (Post_ID, Post, Recipe_id, User_ID, Post_Date) VALUES (?, ?, ?, ?, ?)",(post_id_counter,user_post_input,desired_recipe_id,user_id_num,today))
     
     # Prepare a response message with user details
-    user_details = f"User ID: {test_user_id}, Name: {test_first_name} {test_last_name}, Email: {test_email}"
+    #user_details = f"User ID: {test_user_id}, Name: {test_first_name} {test_last_name}, Email: {test_email}"
     
     # Decide on the response based on whether the user was successfully created
-    if creation_success:
+    '''if creation_success:
         print(f"User created successfully: {user_details}")
         return f"User created successfully: {user_details}", 200  # HTTP status code 200 for OK
     else:
         print("Failed to create user")
-        return f"Failed to create user. Details attempted: {user_details}", 400  # HTTP status code 400 for Bad Request
+        return f"Failed to create user. Details attempted: {user_details}", 400  # HTTP status code 400 for Bad Request'''
+    db = getattr(g, '_database', None)
+    db = g._database = sqlite3.connect('RecipEASYDB')
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM communityTable")
+    test_output = cursor.fetchall()
+     
+    return test_output
 
 
 @app.route('/view_db')
