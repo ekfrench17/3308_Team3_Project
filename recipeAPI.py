@@ -16,22 +16,13 @@ import datetime
 import SQL_Insert_test
 
 
-<<<<<<< HEAD
-
-def add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, count_submissions, user_id, db_name="'RecipEASYDB"):
-=======
 def add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, count_submissions, user_id, db_filename='RecipEASYDB'):
->>>>>>> 485ae20592d00f8b094d8d136a88eaae645c3464
     '''add a new recipe to the recipes table
     return True if successful, False otherwise'''
     #db = getattr(g, '_database', None)
     success = False
     
-<<<<<<< HEAD
-    db = sqlite3.connect(db_name)
-=======
     db = sqlite3.connect(db_filename)
->>>>>>> 485ae20592d00f8b094d8d136a88eaae645c3464
     cursor = db.cursor()
     
     # set up variables for testing conditions before inserting to table
@@ -194,10 +185,6 @@ def get_all_recipes():
     all_recipes = [str(val[0]) for val in all_recipes]
     return all_recipes
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 485ae20592d00f8b094d8d136a88eaae645c3464
 def create_recipesTable(db_filename):
     '''create a database for RecipEASY app
     There are 3 tables: recipesTable, loginTable, communityTable'''
@@ -221,11 +208,6 @@ def create_recipesTable(db_filename):
         
     conn.commit()
     conn.close()
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 485ae20592d00f8b094d8d136a88eaae645c3464
     
 #recipe = get_recipe_data("Warm Comfort")
 
