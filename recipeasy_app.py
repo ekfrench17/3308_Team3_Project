@@ -22,10 +22,14 @@ import random
 import datetime
 from flask import Flask, url_for, make_response, render_template, session, request, g, redirect, flash
 
+<<<<<<< HEAD
 #added flash to pop up a message
 
 from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe, my_recently_added
 from community_posts_db import create_post
+=======
+from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, my_recently_added, get_recipes_by_user
+>>>>>>> 485ae20592d00f8b094d8d136a88eaae645c3464
 
 ## 
 from user_login_db import create_user, validate_login, update_user, delete_user  # Corrected import statement
@@ -45,8 +49,10 @@ app.secret_key = "31xsyBa<VIt8]hD(q;<P18NYYaZyFh6qLeofB[ct"
 ##     4. static text page, "my recipes"   @app.route('/recipe')
 ##
 
+
 @app.route('/')
 def home():
+<<<<<<< HEAD
     if session.get('user_id') != None:    
         return render_template("home_page.html", user_id=session['user_id'])
     
@@ -86,6 +92,15 @@ def logout():
     flash('You have been logged out.', 'info')  # Optional: Flash a message confirming logout
     return redirect(url_for('home'))  # Redirect to the home page or another appropriate page
 
+=======
+    ##Will need to pass session ['user_id'] to html for configuring dynamic endpoints
+    ##The code below is for testing and will need to be removed after login table has been setup
+
+
+    
+    session['user_id'] = 'garci449'
+    return render_template("home_page.html", user_id=session['user_id'])
+>>>>>>> 485ae20592d00f8b094d8d136a88eaae645c3464
 
 @app.route('/recipe/<recipe_name>')
 def recipe(recipe_name=None):
@@ -97,6 +112,15 @@ def recipe(recipe_name=None):
     else:
         result = render_template("recipe_display.html",recipe_data=recipe_data)
     return result
+
+@app.route('/recently_added/<user_id>')
+def pull_recent_user_recipes (user_id):
+    ##is logic is built around testing and should be refined one seccion['user_id'] has been established
+    ##session["user_id"]  = "garcitest"
+    #Below is set a test until a session variable that catches the user id created
+    user_recent_recipes = my_recently_added(user_id)
+    return render_template("my_recent_recipes.html", user_recent_recipes=user_recent_recipes)
+
 
 @app.route('/explore')
 def explore():
@@ -150,6 +174,7 @@ def submitted_recipe():
             message = 'cooking time must be an integer greater than 0'
         #add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, count_submissions, user_id)
     else: 
+<<<<<<< HEAD
         message = "enter recipe"  
     
     if success == True:
@@ -224,6 +249,10 @@ def test_insert():
         print("Failed to create user")
         return f"Failed to create user. Details attempted: {user_details}", 400  # HTTP status code 400 for Bad Request
 
+=======
+        result = "enter recipe"
+    return recipe
+>>>>>>> 485ae20592d00f8b094d8d136a88eaae645c3464
 
 @app.route('/view_db')
 def view_db():
@@ -253,4 +282,3 @@ if __name__ == '__main__':
     # run() method of Flask class runs the application 
     # on the local development server using port 3308 instead of port 5000.
     app.run(host='0.0.0.0', port=3308)
-
