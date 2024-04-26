@@ -72,22 +72,24 @@ class Test_recipesTable (unittest.TestCase):
         user_id = "test user"
         user_email = user_id + "@gmail.com"
         result = create_user(user_id, user_id, user_id, user_id, user_email)
-        print("User created == {}".format(result))
+        ##print("User created for test_my_recently_added == {}".format(result))
 
         test_recipe_names_list= []
         incrament = 1
 
         while incrament < 6:
             test_recipe_names_list.append(str(incrament))
-            add_recipe(str(incrament), str(incrament), incrament, str(incrament), 0, 0, user_id)
+            success, message =add_recipe(str(incrament), str(incrament), incrament, str(incrament), 0, 0, user_id)
+            ##print(str(success) + " " +message)
             incrament += 1
         test_recipe_names_list.reverse()
+        ## test to see if results for the top 5 most recent recipes come back as what was submitted to my_recently_added function
         self.assertEqual(my_recently_added(user_id),test_recipe_names_list, "This test to confirm 5 most recent recipes submitted by a user did not pass")
         
         db, cursor = establish_db_connection()
-        ##Clear any reference to the recipe "Recipe should not exist" from the table
-        cursor.execute("Delete from recipesTable where User_ID=(?);", (user_id,))
-        cursor.execute("Delete from loginTable where User_ID=(?);", (user_id,))
+        ##Clear any reference to recipes under the user "test user for future testing"
+        cursor.execute("Delete from recipesTable where User_ID='test user';") ##, (user_id))
+        cursor.execute("Delete from loginTable where User_ID='test user';")
         db.commit()
         close_db_connection(db)
 
@@ -97,28 +99,81 @@ class Test_recipesTable (unittest.TestCase):
         user_id = "test user"
         user_email = user_id + "@gmail.com"
         result = create_user(user_id, user_id, user_id, user_id, user_email)
-        print("User created == {}".format(result))
+        ##print("User created for test_recipes_by_user == {}".format(result))
 
         test_recipe_names_list= []
         incrament = 1
 
         while incrament < 17:
             test_recipe_names_list.append(str(incrament))
-            add_recipe(str(incrament), str(incrament), incrament, str(incrament), 0, 0, user_id)
+            success, message = add_recipe(str(incrament), str(incrament), incrament, str(incrament), 0, 0, user_id)
+            ##print(str(success) + " " +message)
             incrament += 1
-            
+        ## test to see if all recipes are being returned for a submitted user 
         self.assertEqual(get_recipes_by_user(user_id),test_recipe_names_list, "This test to confirm user recipes submitted by are retreived")
         
         db, cursor = establish_db_connection()
-        ##Clear any reference to the recipe "Recipe should not exist" from the table
-        cursor.execute("Delete from recipesTable where User_ID=(?);", (user_id,))
-        cursor.execute("Delete from loginTable where User_ID=(?);", (user_id,))
+        ##Clear any reference to recipes under the user "test user for future testing"
+        cursor.execute("Delete from recipesTable where User_ID='test user';")
+        cursor.execute("Delete from loginTable where User_ID='test user';") 
+        db.commit()
+        close_db_connection(db)
+
+    def test_field_type_verification(self):
+
+        ##Pull the recipeTable schema/columns
+        db, cursor = establish_db_connection()
+        cursor.execute("select sql from sqlite_master where type='table' and name='recipesTable';")
+        recipe_table_info = cursor.fetchall()
+        close_db_connection(db)
+
+        ##parse through the recipeTable schema/columns to pull column that contains the primary key
+        recipe_table_columns = recipe_table_info[0][0]
+        recipe_table_columns = recipe_table_columns.split("\n")
+        primary_key_column_info = ""
+        for line in recipe_table_columns:
+            if "PRIMARY KEY" in line:
+                primary_key_column_info = line.strip()
+
+        ##Asset that 'Recipe_ID' is contained in the same column value that the Primary Key was found. Pretty much make sure the primary key is Recipe_ID
+        self.assertTrue("Recipe_ID" in primary_key_column_info, "Recipe_ID is not the primary key in the recipeTable")
+
+
+        ##create test user
+        test_recipe_names_list= []
+        incrament = 5
+        user_id = "test user"
+        user_email = user_id + "@gmail.com"
+        result = create_user(user_id, user_id, user_id, user_id, user_email)
+        ##print("User created for test_field_type_verification == {}".format(result))
+
+
+        ## add 8 recipes to db
+        while incrament < 9:
+            test_recipe_names_list.append(str(incrament))
+            recipe_name = "Test primary key " + str(incrament)
+            success, message = add_recipe(recipe_name, str(incrament), incrament, str(incrament), 0, 0, user_id)
+            ##print(str(success) + " " +message)
+            incrament += 1
+        
+        db, cursor = establish_db_connection()
+        cursor.execute('SELECT Recipe_ID from recipesTable order by Submit_Date ASC LIMIT 3;')
+        results = cursor.fetchall()
+
+        asc_Recipe_ID_1 = results[0][0]
+        asc_Recipe_ID_2 = results[1][0]
+        asc_Recipe_ID_3 = results[2][0]
+        ##print(str(asc_Recipe_ID_1) + " " + str(asc_Recipe_ID_2) + " " + str(asc_Recipe_ID_3))
+        self.assertEqual(asc_Recipe_ID_3 - asc_Recipe_ID_2, 1, "The difference between the largest and the 2nd largest is not 1. Recipie_ID is not incramenting by 1.")
+        self.assertEqual(asc_Recipe_ID_2 - asc_Recipe_ID_1, 1, "The difference between the 2nd largest and the 3rd largest Recipie_ID is not 1. Recipie_ID is not incramenting by 1.")
+        ##recipe_ID_incrament_by_1 = True
+
+
+        cursor.execute("Delete from recipesTable where User_ID='test user';") ##, (user_id))
+        cursor.execute("Delete from loginTable where User_ID='test user';")
         db.commit()
         close_db_connection(db)
 
 
-
-
-
 if __name__ == '__main__':
-        unittest.main()
+    unittest.main()

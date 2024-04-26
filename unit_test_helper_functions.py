@@ -7,4 +7,3 @@ def establish_db_connection():
 
 def close_db_connection(db):
         db.close()
-        print("DB connection closed")
