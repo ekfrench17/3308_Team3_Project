@@ -16,13 +16,13 @@ import datetime
 
 
 
-def add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, count_submissions, user_id):
+def add_recipe(recipe_name, ingredients, cook_time, directions, avg_ratings, count_submissions, user_id, db_name="'RecipEASYDB"):
     '''add a new recipe to the recipes table
     return True if successful, False otherwise'''
     #db = getattr(g, '_database', None)
     success = False
     
-    db = sqlite3.connect('RecipEASYDB')
+    db = sqlite3.connect(db_name)
     cursor = db.cursor()
     
     # set up variables for testing conditions before inserting to table
