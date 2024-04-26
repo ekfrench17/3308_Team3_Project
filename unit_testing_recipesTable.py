@@ -155,7 +155,8 @@ class Test_recipesTable (unittest.TestCase):
             success, message = add_recipe(recipe_name, str(incrament), incrament, str(incrament), 0, 0, user_id)
             ##print(str(success) + " " +message)
             incrament += 1
-        
+
+        ## pull 3 most recent recipe addtions from recipe table         
         db, cursor = establish_db_connection()
         cursor.execute('SELECT Recipe_ID from recipesTable order by Submit_Date ASC LIMIT 3;')
         results = cursor.fetchall()
@@ -164,11 +165,13 @@ class Test_recipesTable (unittest.TestCase):
         asc_Recipe_ID_2 = results[1][0]
         asc_Recipe_ID_3 = results[2][0]
         ##print(str(asc_Recipe_ID_1) + " " + str(asc_Recipe_ID_2) + " " + str(asc_Recipe_ID_3))
+
+        ## verify the difference between the Recipe_ID values is 1    
         self.assertEqual(asc_Recipe_ID_3 - asc_Recipe_ID_2, 1, "The difference between the largest and the 2nd largest is not 1. Recipie_ID is not incramenting by 1.")
         self.assertEqual(asc_Recipe_ID_2 - asc_Recipe_ID_1, 1, "The difference between the 2nd largest and the 3rd largest Recipie_ID is not 1. Recipie_ID is not incramenting by 1.")
         ##recipe_ID_incrament_by_1 = True
 
-
+        ##Clear any reference to recipes under the user "test user for future testing"
         cursor.execute("Delete from recipesTable where User_ID='test user';") ##, (user_id))
         cursor.execute("Delete from loginTable where User_ID='test user';")
         db.commit()
