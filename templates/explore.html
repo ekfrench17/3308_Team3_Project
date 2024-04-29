@@ -3,27 +3,29 @@
 {% block title %}Explore RecipEASY{% endblock %}
 
 {% block header %}Explore RecipEASY{% endblock %}
-    
-     <div class="white-bar"></div> 
+
+<div class="white-bar"></div>
 
 {% block content %}
 <div class="container">
-        <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
-            Recipe Name
-            <div class="overlay"></div>
-        </div>
-        <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
-            Ingredient
-            <div class="overlay"></div>
-        </div>
-        <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
-            Author
-            <div class="overlay"></div>
-        </div>
-        <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
-            Surprise Me
-            <div class="overlay"></div>
-        </div>
+    <div onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+        <button class="box" onclick="addTextBox('Recipe Name')">
+        Recipe Name
+        </button>
+        <div class="overlay"></div>
+    </div>
+    <div class ="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+        Ingredient
+        <div class="overlay"></div>
+    </div>
+    <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+        Author
+        <div class="overlay"></div>
+    </div>
+    <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+        Surprise Me
+        <div class="overlay"></div>
+    </div>
     <script>
         function toggleOverlay(element) {
             element.querySelector('.overlay').classList.toggle('show');
@@ -32,11 +34,13 @@
 </div>
 <div>
     {% for name in all_recipes %}
-    <h1 style ="padding:10px; background-color: #FFFFFF; margin: 20px ">
+    <h1 style="padding:10px; background-color: #FFFFFF; margin: 20px ">
         <a href="{{ url_for('recipe', recipe_name= name  ) }}" style="font-size: 24px">{{ name }}</a>
     </h1>
     <!-- link to recipe page --->
-    
+
     {% endfor %}
 </div>
+
+<script src="static/javascript/explore_search_recipes.js"></script>
 {% endblock %}

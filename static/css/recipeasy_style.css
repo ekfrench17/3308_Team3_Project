@@ -53,10 +53,11 @@ body {
     position: relative;
     border: 2px solid #0E1428; /* Add border for the boxes */
     padding: 20px; /* Add padding for the boxes */
-    margin-bottom: 20px; /* Add margin to create space between boxes */
+    margin-bottom: 1px; /* Add margin to create space between boxes */
     background-color: #F0A202; /* Add background color */
     transition: border-radius 0.3s; /* Add transition for border-radius */
 }
+
 
 .box:hover {
     border-radius: 20px; /* Adjust border radius on hover */
@@ -145,4 +146,12 @@ body {
 .test {
     background-color: red;
 
+}
+
+input[type='text'] {
+    margin-left: 5px;
+}
+
+label {
+    margin-left: 5px;   
 }

@@ -105,6 +105,12 @@ def explore():
     # recipe fields: [ recipeID INT, name string, ingredients list of strings, cook_time INT, directions list of strings]
     return render_template("explore.html", all_recipes=session["all_recipes"])
 
+@app.route('/search_results/<type_of_search>/<search_box_value>')
+def search(type_of_search, search_box_value):
+    if type_of_search == "Recipe Name":
+        return redirect(url_for('recipe', recipe_name = search_box_value))
+    return redirect(url_for('recipe', recipe_name = "This is a test"))
+
 @app.route('/my_recipes/<user_id>')
 def my_recipes(user_id):
     '''function to get and display all the recipes submitted by the given user_id'''
