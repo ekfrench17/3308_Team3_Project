@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Search Results{% endblock %}
+{% block title %}Search Results for {{author_name}}{% endblock %}
 
-{% block header %}Search Results{% endblock %}
+{% block header %}Search Results for {{author_name}}{% endblock %}
 
 <div class="white-bar"></div>
 
 {% block content %}
-<!-- <div>
+<div>
     {% for name in all_recipes %}
     <h1 style="padding:10px; background-color: #FFFFFF; margin: 20px ">
         <a href="{{ url_for('recipe', recipe_name= name  ) }}" style="font-size: 24px">{{ name }}</a>
@@ -15,7 +15,7 @@
     <!-- link to recipe page --->
 
     {% endfor %}
-</div> --->
+</div>
 
 <script src="static/javascript/explore_search_recipes.js"></script>
 {% endblock %}

@@ -24,7 +24,7 @@ from flask import Flask, url_for, make_response, render_template, session, reque
 
 #added flash to pop up a message
 
-from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe, my_recently_added, get_recipe_by_ingredient
+from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe, my_recently_added, get_recipe_by_ingredient, get_recipe_by_author
 from community_posts_db import create_post
 
 ## 
@@ -116,7 +116,14 @@ def search(type_of_search, search_box_value):
         else:
             message = None
         return render_template("search_by_ingredient.html", all_recipes=recipes, num_results=num_results, message=message)
-
+    elif(type_of_search == "Author_Name"):
+        recipes, num_results = get_recipe_by_author(search_box_value)
+        if num_results == 0:
+            message = "Sorry. No recipes were found with for the author " + search_box_value + "."
+        else:
+            message = None
+        return render_template("search_results_author.html", all_recipes=recipes, num_results=num_results, author_name=search_box_value, message=message)
+    
     return redirect(url_for('recipe', recipe_name = "This is a test"))
 
 @app.route('/my_recipes/<user_id>')
