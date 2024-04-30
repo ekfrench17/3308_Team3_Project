@@ -9,21 +9,27 @@
 {% block content %}
 <div class="container">
     <div onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
-        <button class="box" onclick="addTextBox('Recipe Name')">
+        <button class="box" id="Recipe_Name" onclick="addTextBox('Recipe Name', 'Recipe_Name')">
         Recipe Name
         </button>
         <div class="overlay"></div>
     </div>
-    <div class ="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+    <div onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+        <button class = "box" id="Ingredient_Name" onclick="addTextBox('Ingredient Name', 'Ingredient_Name')">
         Ingredient
+        </button>
         <div class="overlay"></div>
     </div>
-    <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+    <div onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+        <button class = "box" id="Author_Name" onclick="addTextBox('Author Name', 'Author_Name')">
         Author
+        </button>
         <div class="overlay"></div>
     </div>
-    <div class="box" onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+    <div  onmouseover="toggleOverlay(this)" onmouseout="toggleOverlay(this)">
+        <button class = "box" id="Surprise_Me" onclick="addTextBox('Surprise Me', 'Surprise_Me')">
         Surprise Me
+        </button>
         <div class="overlay"></div>
     </div>
     <script>

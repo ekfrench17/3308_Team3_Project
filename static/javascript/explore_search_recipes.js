@@ -1,5 +1,5 @@
 text_box_added = false;
-        function addTextBox(search_type) {
+        function addTextBox(search_type, id) {
             if (!text_box_added){
                 var label = document.createElement("label");
                 label.textContent = "Search by " + search_type + ":";
@@ -7,9 +7,10 @@ text_box_added = false;
                 var text_box = document.createElement("input");
                 text_box.setAttribute("type", "text");
 
-                var search_type_button = document.querySelector('button');
+                var search_type_button = document.getElementById(id);
 
                 var submit_search_button = document.createElement("button");
+
                 submit_search_button.textContent = "Search";
                 
                 search_type_button.insertAdjacentElement('afterend', submit_search_button); 
