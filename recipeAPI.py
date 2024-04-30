@@ -120,6 +120,22 @@ def get_recipe_data(recipe_name):
 
     return recipe
 
+def get_recipe_by_ingredient(ingredient):
+    db = sqlite3.connect('RecipEASYDB')
+    cursor = db.cursor()
+    
+    ingredient = "%" + ingredient + "%"
+    cursor.execute("Select Name from recipesTable where Ingredients like ?;", (ingredient,))
+    recipes_with_ingredient = cursor.fetchall()
+    db.close()
+    
+    recipes_with_ingredient = [str(recipe[0]) for recipe in recipes_with_ingredient]
+
+    
+    results_length = len(recipes_with_ingredient)
+
+    return recipes_with_ingredient, results_length
+
 def my_recently_added(user_id):
     '''function to return the 5 most recent recipes added by a given user
     return type is a list'''
@@ -214,4 +230,4 @@ def create_recipesTable(db_filename):
 #delete_recipe("homemade_pizza")
 #test_my_recently_added = my_recently_added("garci446")
 
-
+##get_recipe_by_ingredient('test')

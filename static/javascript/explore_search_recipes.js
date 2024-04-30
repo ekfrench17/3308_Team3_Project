@@ -28,7 +28,7 @@ text_box_added = false;
                     } else if (event.target === submit_search_button){
                         var search_box_value = text_box.value;
                         //console.log.out(search_box_value)
-                        window.location.href="/search_results/"+ search_type + "/" + search_box_value;
+                        window.location.href="/search_results/"+ id + "/" + search_box_value;
                         
                     }
 
