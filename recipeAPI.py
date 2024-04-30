@@ -206,6 +206,12 @@ def delete_recipe(recipe_name):
         # reverse the change in case of error
         db.rollback()
     return result
+def get_random_recipe():
+    all_recipes = get_all_recipes()
+    total_recipes = len(all_recipes)
+    random_index = random.randint(0, total_recipes-1)
+    random_recipe = all_recipes[random_index]
+    return random_recipe
 
 def get_all_recipes():
     db = sqlite3.connect('RecipEASYDB')
@@ -250,3 +256,5 @@ def create_recipesTable(db_filename):
 ##get_recipe_by_ingredient('test')
 
 ##get_recipe_by_author("garci446")
+
+##get_random_recipe()

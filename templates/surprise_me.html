@@ -1,19 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Search Results for {{author_name}}{% endblock %}
+{% block title %}SURPRISE!!!!!!!{% endblock %}
 
-{% block header %}Search Results for {{author_name}}{% endblock %}
+{% block header %}SURPRISE!!!!!!!{% endblock %}
 
 <div class="white-bar"></div>
 
 {% block content %}
 <div>
-    {% for name in all_recipes %}
     <h1 style="padding:10px; background-color: #FFFFFF; margin: 20px ">
         <a href="{{ url_for('recipe', recipe_name= name  ) }}" style="font-size: 24px">{{ name }}</a>
     </h1>
     <!-- link to recipe page --->
-
-    {% endfor %}
 </div>
 {% endblock %}

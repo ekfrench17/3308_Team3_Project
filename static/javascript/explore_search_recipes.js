@@ -1,6 +1,6 @@
 text_box_added = false;
         function addTextBox(search_type, id) {
-            if (!text_box_added){
+            if (!text_box_added && id !== "Surprise_Me"){
                 var label = document.createElement("label");
                 label.textContent = "Search by " + search_type + ":";
 
@@ -29,10 +29,11 @@ text_box_added = false;
                         var search_box_value = text_box.value;
                         //console.log.out(search_box_value)
                         window.location.href="/search_results/"+ id + "/" + search_box_value;
-                        
                     }
 
                 });
-
         }
     }
+    function surprise_me(){
+        window.location.href="/surprise_me"
+        }
