@@ -40,7 +40,7 @@
 - User ID (varchar)
     * The identifier of the user who submitted the recipe.
     * Reference from the Login Credentials table
-- Submit Date (datetime)
+- Submit Date (int)
      * The date and time when the recipe was submitted.
      
 

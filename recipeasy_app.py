@@ -24,7 +24,7 @@ from flask import Flask, url_for, make_response, render_template, session, reque
 
 #added flash to pop up a message
 
-from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe
+from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe, my_recently_added, get_recipe_by_ingredient, get_recipe_by_author, get_random_recipe
 from community_posts_db import create_post
 
 ## 
@@ -45,9 +45,13 @@ app.secret_key = "31xsyBa<VIt8]hD(q;<P18NYYaZyFh6qLeofB[ct"
 ##     4. static text page, "my recipes"   @app.route('/recipe')
 ##
 
+
 @app.route('/')
 def home():
-    return render_template("home_page.html")
+    if session.get('user_id') != None:    
+        return render_template("home_page.html", user_id=session['user_id'])
+    
+    return render_template("home_page.html",user_id='No user signed in')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -101,6 +105,31 @@ def explore():
     # recipe fields: [ recipeID INT, name string, ingredients list of strings, cook_time INT, directions list of strings]
     return render_template("explore.html", all_recipes=session["all_recipes"])
 
+@app.route('/surprise_me')
+def surprise_me():
+    random_recipe = get_random_recipe()
+    return render_template("surprise_me.html", name=random_recipe)
+
+@app.route('/search_results/<type_of_search>/<search_box_value>')
+def search(type_of_search, search_box_value):
+    if type_of_search == "Recipe_Name":
+        return redirect(url_for('recipe', recipe_name = search_box_value))
+    elif (type_of_search == "Ingredient_Name") :
+        recipes, num_results = get_recipe_by_ingredient(search_box_value)
+        if num_results == 0:
+            message = "Sorry. No recipes were found with the ingredient " + search_box_value + "."
+        else:
+            message = None
+        return render_template("search_by_ingredient.html", all_recipes=recipes, num_results=num_results, message=message)
+    elif(type_of_search == "Author_Name"):
+        recipes, num_results = get_recipe_by_author(search_box_value)
+        if num_results == 0:
+            message = "Sorry. No recipes were found with for the author " + search_box_value + "."
+        else:
+            message = None
+        return render_template("search_results_author.html", all_recipes=recipes, num_results=num_results, author_name=search_box_value, message=message)
+    
+
 @app.route('/my_recipes/<user_id>')
 def my_recipes(user_id):
     '''function to get and display all the recipes submitted by the given user_id'''
@@ -110,6 +139,14 @@ def my_recipes(user_id):
     if good_id == True:
         session['my_recipes'] = get_recipes_by_user(session['user_id'])
     return render_template("my_recipes.html", my_recipes=session['my_recipes'])
+
+@app.route('/recently_added/<user_id>')
+def pull_recent_user_recipes (user_id):
+    ##is logic is built around testing and should be refined one seccion['user_id'] has been established
+    ##session["user_id"]  = "garcitest"
+    #Below is set a test until a session variable that catches the user id created
+    user_recent_recipes = my_recently_added(user_id)
+    return render_template("my_recent_recipes.html", user_recent_recipes=user_recent_recipes)
 
 @app.route('/community')
 def community():
@@ -129,12 +166,11 @@ def submitted_recipe():
         # result is a dictionary; example;
         # {"cook_time":"5","directions":"heat over stove","ingredients":"broth, seasoning","recipeName":"soup"}
         result = request.form
-        user_id = "garci446" 
         avg_ratings = 0
-        count_submissions = 1
+        count_submissions = 0
         try:
             cook_time = int(result['cook_time'])
-            success, message = add_recipe(result['recipeName'],result['ingredients'],cook_time,result['directions'],avg_ratings,count_submissions,user_id)
+            success, message = add_recipe(result['recipeName'],result['ingredients'],cook_time,result['directions'],avg_ratings,count_submissions,session['user_id'])
             recipe_name = result['recipeName']
         except:
             message = 'cooking time must be an integer greater than 0'
@@ -243,4 +279,3 @@ if __name__ == '__main__':
     # run() method of Flask class runs the application 
     # on the local development server using port 3308 instead of port 5000.
     app.run(host='0.0.0.0', port=3308)
-
