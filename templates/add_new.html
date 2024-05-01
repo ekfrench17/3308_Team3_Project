@@ -2,6 +2,13 @@
 {% block title %} Add Recipe {% endblock %}
 {% block header %} Add New Recipe {% endblock %}
 {% block content %}
+<div class ="submit_msg">
+        <!-- Display area for error in submission here -->
+        {% if message != '' %}
+        Please try again<br>
+        Error: {{ message }}
+        {% endif %}
+</div>
 <div class = "container">
     <form class="add-form" action="/submitted_recipe" method="POST">
         <label for="recipeName">Recipe Name:</label>
