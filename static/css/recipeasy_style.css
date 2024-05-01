@@ -118,17 +118,33 @@ body {
     padding-left: 20px;
 }
 
-.post {
+/* .post {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+} */
+
+.post {
+    background-color: #ffffff; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Add padding for spacing */
+    margin-bottom: 20px; /* Add margin between posts */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    overflow: hidden; /* Clear floats */
 }
+
+.post-content {
+    margin-left: 60px; /* Adjust left margin to accommodate profile picture */
+}
+
 
 .profile-picture {
     width: 50px; 
     height: 50px;
     border-radius: 50%;
     margin-right: 10px;
+    float: left; /* Float the profile picture to the left */
+    margin-bottom: 20px; /* Add margin between profile pictures */
 }
 
 .speech-bubble {
@@ -140,4 +156,30 @@ body {
 
 .speech-bubble p {
     margin: 0; 
+}
+
+.input-group {
+    border-radius: 10px;
+    background-color: #444;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#postContent {
+    height: 150px; /* Set the height of the textarea */
+}
+
+.input-group > * {
+    width: 100%; /* Set all input elements to take up full width */
+    margin-bottom: 20px; /* Add margin between input elements */
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.form-heading {
+    color: #444; /* Dark gray color */
 }
