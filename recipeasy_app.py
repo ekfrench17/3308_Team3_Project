@@ -24,7 +24,7 @@ from flask import Flask, url_for, make_response, render_template, session, reque
 
 #added flash to pop up a message
 
-from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe, my_recently_added
+from recipeAPI import add_recipe, get_recipe_data, get_all_recipes, get_recipes_by_user, delete_recipe, my_recently_added, get_recipe_by_ingredient, get_recipe_by_author, get_random_recipe
 from community_posts_db import create_post
 
 ## 
@@ -104,6 +104,31 @@ def explore():
     session["all_recipes"] = get_all_recipes()
     # recipe fields: [ recipeID INT, name string, ingredients list of strings, cook_time INT, directions list of strings]
     return render_template("explore.html", all_recipes=session["all_recipes"])
+
+@app.route('/surprise_me')
+def surprise_me():
+    random_recipe = get_random_recipe()
+    return render_template("surprise_me.html", name=random_recipe)
+
+@app.route('/search_results/<type_of_search>/<search_box_value>')
+def search(type_of_search, search_box_value):
+    if type_of_search == "Recipe_Name":
+        return redirect(url_for('recipe', recipe_name = search_box_value))
+    elif (type_of_search == "Ingredient_Name") :
+        recipes, num_results = get_recipe_by_ingredient(search_box_value)
+        if num_results == 0:
+            message = "Sorry. No recipes were found with the ingredient " + search_box_value + "."
+        else:
+            message = None
+        return render_template("search_by_ingredient.html", all_recipes=recipes, num_results=num_results, message=message)
+    elif(type_of_search == "Author_Name"):
+        recipes, num_results = get_recipe_by_author(search_box_value)
+        if num_results == 0:
+            message = "Sorry. No recipes were found with for the author " + search_box_value + "."
+        else:
+            message = None
+        return render_template("search_results_author.html", all_recipes=recipes, num_results=num_results, author_name=search_box_value, message=message)
+    
 
 @app.route('/my_recipes/<user_id>')
 def my_recipes(user_id):
