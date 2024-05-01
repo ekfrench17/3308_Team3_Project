@@ -120,6 +120,39 @@ def get_recipe_data(recipe_name):
 
     return recipe
 
+def get_recipe_by_ingredient(ingredient):
+    db = sqlite3.connect('RecipEASYDB')
+    cursor = db.cursor()
+    
+    ingredient = "%" + ingredient + "%"
+    cursor.execute("Select Name from recipesTable where Ingredients like ?;", (ingredient,))
+    recipes_with_ingredient = cursor.fetchall()
+    db.close()
+    
+    recipes_with_ingredient = [str(recipe[0]) for recipe in recipes_with_ingredient]
+
+    
+    results_length = len(recipes_with_ingredient)
+
+    return recipes_with_ingredient, results_length
+
+def get_recipe_by_author(author):
+    db = sqlite3.connect('RecipEASYDB')
+    cursor = db.cursor()
+    
+    cursor.execute("Select Name from recipesTable where User_ID = ?;", (author,))
+    recipes_by_author = cursor.fetchall()
+    db.close()
+    
+    recipes_by_author = [str(recipe[0]) for recipe in recipes_by_author]
+
+    
+    results_length = len(recipes_by_author)
+
+    return recipes_by_author, results_length
+
+    ##print(str(recipes_by_author) + " " + str(results_length))
+
 def my_recently_added(user_id):
     '''function to return the 5 most recent recipes added by a given user
     return type is a list'''
@@ -174,6 +207,13 @@ def delete_recipe(recipe_name):
         db.rollback()
     return result
 
+def get_random_recipe():
+    all_recipes = get_all_recipes()
+    total_recipes = len(all_recipes)
+    random_index = random.randint(0, total_recipes-1)
+    random_recipe = all_recipes[random_index]
+    return random_recipe
+
 def get_all_recipes():
     db = sqlite3.connect('RecipEASYDB')
     cursor = db.cursor()
@@ -214,4 +254,9 @@ def create_recipesTable(db_filename):
 #delete_recipe("homemade_pizza")
 #test_my_recently_added = my_recently_added("garci446")
 
+##get_recipe_by_ingredient('test')
+
+##get_recipe_by_author("garci446")
+
+##get_random_recipe()
 

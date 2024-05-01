@@ -52,7 +52,9 @@ today = date.today()
 ###############################################################
 ###############################################################
 # Create a routine to fill the table with data
+
 # This is based on assuming that there is a table called RecipeTable and within it is a field called Name that can be accessed with RecipeID
+
 
 # test data to set up initial table ######
 # post_id_counter = 0
@@ -110,6 +112,7 @@ def fill_community_post(db_filename, post_id_counter, user_post_input, desired_r
 # date_nums = today.strftime('%m/%d/%Y')
 ###########################################
 
+
 def create_post(db_filename, user_post_input, recipe_name, user_id_num, rating_input):
     result = False
     # Connect to the SQLite database
@@ -144,10 +147,7 @@ def create_post(db_filename, user_post_input, recipe_name, user_id_num, rating_i
 #                   # user_id_num = unique user id number (INT)
 #                   # rating = user input number 0 - 10 (INT)
 #                   # date_nums = date of post in number form 04102024 (INT)
-                  
                    (new_id, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums))
-
-        
         # Commit the changes to the database
         conn.commit()
         #print("Table successfully filled.")
@@ -156,7 +156,6 @@ def create_post(db_filename, user_post_input, recipe_name, user_id_num, rating_i
         #print(test)
         result = True
         message = "success"
-
     except Error as e:
         print(f"Error inserting data: {e}")
     finally:
@@ -164,8 +163,8 @@ def create_post(db_filename, user_post_input, recipe_name, user_id_num, rating_i
         if conn:
             conn.close()
             #print("Connection closed.")
-            #print()
     return result,message
+
 
 
 ###################################################################
@@ -247,3 +246,4 @@ def display_posts_by_time(db_filename, post_id_counter, user_post_input, desired
             print()
 
 #result = create_post('RecipEASYDB', "test post", "Warm Comfort", "elaine17", 5)
+
