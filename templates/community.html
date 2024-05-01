@@ -10,7 +10,19 @@
     
     <!-- Form to submit a new post -->
     <div class="post-form">
-        <textarea id="postContent" placeholder="Type post here..."></textarea>
+        <h2 class="form-heading">Add to the RecipEASY community with a post!</h2>
+        <div class="input-group">
+            <textarea id="postContent" placeholder="Type a post here! "></textarea>
+
+            <select id="recipeSelect">
+                <option value="" disabled selected>Recipe Name</option>
+                <option value="Warm Comfort">Warm Comfort</option>
+                <option value="Crispy Salt and Pepper Potatoes">Crispy Salt and Pepper Potatoes</option>
+                <option value="Newton's Law">Newton's Law</option>
+                <option value="Homemade Pizza">Homemade Pizza</option>
+            </select>
+            <input type="number" id="recipeRating" placeholder="Rating (0-10)" min="1" max="10">
+        </div>
         <button id="submitPost">Submit Post</button>
     </div>
 </div>
