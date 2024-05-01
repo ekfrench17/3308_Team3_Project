@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} RecipEASY - Community {% endblock %}
+{% block header %} Come and join the RecipEASY community! {% endblock %}
+{% block content %}
+<div class="container">
+    <!-- Display area for posts -->
+    <div id="posts">
+        <!-- Posts will be added here -->
+    </div>
+    
+    <!-- Form to submit a new post -->
+    <form class="post-form" action='/community' method="POST">
+        <textarea id="postContent" name='postContent' placeholder="Type post here..."></textarea>
+        <select id="recipeSelect">
+            {% for recipe in all_recipes %}
+            <option value="{{ recipe }}">{{recipe}}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="recipe_name"><br>
+        <label for="rating">Recipe Rating:</label>
+        <input type="text" name="rating"><br>
+        <button id="submitPost">Submit Post</button>
+    </form>
+</div>
+
+<script src="static/javascript/community.js"></script>
+{% endblock %}
