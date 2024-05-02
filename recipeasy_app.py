@@ -135,8 +135,9 @@ def search(type_of_search, search_box_value):
     
 
 @app.route('/my_recipes/<user_id>')
-def my_recipes(user_id):
-    '''function to get and display all the recipes submitted by the given user_id'''
+@app.route('/my_recipes/')
+def my_recipes(user_id=None):
+    '''function to get and display all the recipes submitted by the given user_id''' 
     if session.get('user_id') == True:
         session['my_recipes'] = get_recipes_by_user(session['user_id'])
         output = render_template("my_recipes.html", my_recipes=session['my_recipes'])
