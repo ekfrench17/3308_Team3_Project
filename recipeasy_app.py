@@ -147,11 +147,15 @@ def my_recipes(user_id=None):
 
 @app.route('/recently_added/<user_id>')
 def pull_recent_user_recipes (user_id):
-    ##is logic is built around testing and should be refined one seccion['user_id'] has been established
-    ##session["user_id"]  = "garcitest"
-    #Below is set a test until a session variable that catches the user id created
-    user_recent_recipes = my_recently_added(user_id)
-    return render_template("my_recent_recipes.html", user_recent_recipes=user_recent_recipes)
+    ##pulls recent recieps based on the logged in user id
+    if session.get('user_id') == True:
+        #session user id detected, pull their recently added recipes
+        user_recent_recipes = my_recently_added(session['user_id'])
+        output = render_template("my_recent_recipes.html", user_recent_recipes=user_recent_recipes)
+    else:
+        #no user id detected, redirect to login page
+        output = redirect(url_for('login'))
+    return output
 
 
 @app.route('/add_new')
