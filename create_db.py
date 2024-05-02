@@ -126,7 +126,7 @@ def fill_community(db_filename, csv_name):
         new_item = tuple(new_item)
         comm_data.append(new_item)
     
-    cursor.executemany("INSERT INTO communityTable Values(?,?,?,?,?)",comm_data)
+    cursor.executemany("INSERT INTO communityTable Values(?,?,?,?,?,?)",comm_data)
     #cursor.execute("SELECT * FROM communityTable;")
     #print(cursor.fetchall())
     db.commit()
