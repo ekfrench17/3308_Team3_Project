@@ -28,3 +28,4 @@ urllib3==2.2.1
 w3lib==2.1.2
 webencodings==0.5.1
 Werkzeug==3.0.1
+Gunicorn
