@@ -43,7 +43,8 @@ def create(db_filename):
                             Post_ID INT PRIMARY KEY, 
                             Post VARCHAR, 
                             Recipe_ID VARCHAR, 
-                            User_ID VARCHAR, 
+                            User_ID VARCHAR,
+                            Rating INT,
                             Post_Date INT,
         FOREIGN KEY (User_ID) REFERENCES loginTable(User_ID),
         FOREIGN KEY (Recipe_ID) REFERENCES recipesTable(Recipe_ID));"""
