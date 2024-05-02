@@ -110,14 +110,15 @@ def fill_community_post(db_filename, post_id_counter, user_post_input, desired_r
 # date_nums = today.strftime('%m/%d/%Y')
 ###########################################
 
-def create_post(db_filename, post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums):
+def create_post(db_filename, post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating_input):
+    message = ''
     try:
         # Connect to the SQLite database
         conn = sqlite3.connect(db_filename)
         c = conn.cursor()
 
 #         # Insert data
-        c.execute("INSERT INTO CommunityPosts (Post_ID, Post, Recipe, User_ID, Rating, Post_Date) VALUES (?, ?, (SELECT Recipe FROM RecipeTitle WHERE RecipeID=?), ?, ?, ?)", 
+        c.execute("INSERT INTO communityTable (Post_ID, Post, Recipe_id, User_ID, Post_Date) VALUES (?, ?, ?, ?, ?, ?)", 
                   
 #                   # these are vaiables to be added later
 #                   # post_id_counter = number of post like a counter (INT)
@@ -127,7 +128,7 @@ def create_post(db_filename, post_id_counter, user_post_input, desired_recipe_id
 #                   # rating = user input number 0 - 10 (INT)
 #                   # date_nums = date of post in number form 04102024 (INT)
                   
-                   (post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums))
+                   (post_id_counter, user_post_input, desired_recipe_id, user_id_num, today))
 
         
         # Commit the changes to the database
@@ -135,13 +136,14 @@ def create_post(db_filename, post_id_counter, user_post_input, desired_recipe_id
         #print("Table successfully filled.")
 
     except Error as e:
-        print(f"Error inserting data: {e}")
+        message = f"Error inserting data: {e}"
     finally:
         # Close the database connection
         if conn:
             conn.close()
             #print("Connection closed.")
-            print()
+            message = "success"
+    return message
 
 
 ###################################################################
