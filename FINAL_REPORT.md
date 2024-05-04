@@ -20,11 +20,6 @@
   - **Pros:** Effective at managing user stories and tasks, and enabling smooth workflow transitions.
   - **Cons:** Challenging due to its learning and dependency on numerous integrated tools.
 
-
-### Video Demostration
-- **Link:** [Video Demonstration on Youtube](https://www.youtube.com/watch?v=FLxW4_rgiQQ)
-
-
 ### Version Control Repository (GitHub)
 - **Link:** [GitHub Repository](https://github.com/ekfrench17/3308_Team3_Project.git)  
 - **Reflections:**  
@@ -33,7 +28,7 @@
 
 
 ## Demonstrations Of Web Application
-
+- **Link:** [Video Demonstration on Youtube](https://www.youtube.com/watch?v=FLxW4_rgiQQ)
 
 ### Video Demonstration
 - **Link:** [Insert link here]
