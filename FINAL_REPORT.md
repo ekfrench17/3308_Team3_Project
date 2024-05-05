@@ -20,14 +20,14 @@
 ### Project Tracker (Jira)
 - **Link:** [Project Board on Jira](https://colorado-caga5719.atlassian.net/jira/software/projects/C3SP/boards/1)  
 - **Reflections:**  
-  - **Pros:** Effective at managing user stories and tasks, and enabling smooth workflow transitions.
+  - **Pros:** Effective at managing user stories and tasks, and enabling smooth workflow transitions. Also allows for visualization of work progress.
   - **Cons:** Challenging due to its learning and dependency on numerous integrated tools.
 
 ### Version Control Repository (GitHub)
 - **Link:** [GitHub Repository](https://github.com/ekfrench17/3308_Team3_Project.git)  
 - **Reflections:**  
   - **Pros:** Facilitates collaborative coding with branches, ensuring main branch integrity and robust version control.
-  - **Cons:** Occasional merge conflicts and discrepancies in local setups can create challenges.
+  - **Cons:** Occasional merge conflicts and discrepancies in local setups can create challenges. 
 
 
 ## Demonstrations Of Web Application
@@ -60,7 +60,7 @@
 
 ### JavaScript
 - **Reflections:**  
-  - **Pros:** Enabled us to add interactive elements to our web pages, which was crucial for enhancing the user experience. Since we were more focused on functionality we didn't get the chance to use all the exciting features it offered.
+  - **Pros:** Enabled us to add interactive elements to our web pages, which was crucial for enhancing the user experience. 
   - **Cons:** Since we were more focused on functionality we didn't get the chance to use all the exciting features it offered.
 
 
@@ -129,7 +129,7 @@
 ### Culture
 - **Successes:**
   - **Open Communication and Collaboration:** Our team's commitment to open communication really enhanced our collaborative efforts. By holding weekly meetings, we were able to continue working though our tasks effectively and make substantial progress. This regular interaction not only kept everyone aligned but also fostered a supportive atmosphere.
-  - **Flexibility and Support:** Given our full-time job commitments, our flexibility in scheduling and meeting times were easy. Team members showed great understanding and adaptability, rescheduling meetings or start times happened seamlessly without impacting project momentum.
+  - **Flexibility and Support:** Given our full-time job commitments, our flexibility with scheduling made setting meeting times less difficult. Team members showed great understanding and adaptability, rescheduling meetings or start times happened seamlessly without impacting project momentum.
   - **Collective Learning and Participation:** We emphasized collective participation in all project facets, which help our learning experience not just on the project but also in the class.
 
 
