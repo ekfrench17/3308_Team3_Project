@@ -14,8 +14,11 @@
 ## Project Tools/Resources
 
 
-### Project Tracker (Lira)
-- **Link:** [Project Board on Lira](https://colorado-caga5719.atlassian.net/jira/software/projects/C3SP/boards/1)  
+### Project Presentation Slides 
+- **Link:** [Google Docs Presentation Slides](https://docs.google.com/presentation/d/1JT2nllAVaStM2wGJ_JV0BKyAkNLiLIr3/edit#slide=id.g26fff6a42c0_0_0)  
+
+### Project Tracker (Jira)
+- **Link:** [Project Board on Jira](https://colorado-caga5719.atlassian.net/jira/software/projects/C3SP/boards/1)  
 - **Reflections:**  
   - **Pros:** Effective at managing user stories and tasks, and enabling smooth workflow transitions.
   - **Cons:** Challenging due to its learning and dependency on numerous integrated tools.
