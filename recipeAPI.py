@@ -1,8 +1,18 @@
 ###############################################################################
-## These are the access methods for the recipes table for RecipEASY DB
+## Authors: Elaine French and Carlos Garcia
 ##
-## Instructions:
-## 
+## Purpose: Access methods for the recipes table for RecipEASY DB. These methods allow users to add, delete, search, and view recipes from the database.
+##
+## List of Functions (9):
+## add_recipe
+## get_recipe_data
+## get_recipe_by_ingredient
+## get_recipe_by_author
+## my_recently_added
+## get_recipes_by_user
+## delete_recipe
+## get_random_recipe
+## get_all_recipes
 ## 
 ###############################################################################
 
@@ -178,19 +188,6 @@ def get_recipes_by_user(user_id):
     # remove the tuple to return strings using list comprehension
     my_recipes = [str(val[0]) for val in my_recipes]
     return my_recipes
-
-def my_recently_added(user_id):
-    '''function to return the 5 most recent recipes added by a given user
-    return type is a list'''
-    db = sqlite3.connect('RecipEASYDB')
-    cursor = db.cursor()
-    #Select up to 5 of the most recent recipes a user has added order by most recent to oldest.
-    cursor.execute('SELECT * FROM recipesTable where User_ID=? order by Submit_Date DESC LIMIT 5;',(user_id,))
-    my_recipes = cursor.fetchall()
-    #Capture a tuple of all 5 recipes
-    my_recipes= [str(val[1]) for val in my_recipes]
-    #print(str(my_recipes))
-    return my_recipes
     
 def delete_recipe(recipe_name):
     '''function to delete a recipe in the table'''
@@ -206,6 +203,7 @@ def delete_recipe(recipe_name):
         # reverse the change in case of error
         db.rollback()
     return result
+
 def get_random_recipe():
     all_recipes = get_all_recipes()
     total_recipes = len(all_recipes)

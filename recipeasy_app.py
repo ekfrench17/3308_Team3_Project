@@ -11,6 +11,8 @@
 # Resources used to build
 # Cory Schafer - Flask Tutorials
 # - https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH
+# Mariya Sha - Flask SQLite Web Application Step by Step Tutorial
+# - https://www.youtube.com/watch?v=v3CSQkPJtAc
 #
 # Code Structure and Best Practices:
 # - Effective Python Code Structure - https://youtu.be/v3CSQkPJtAc
@@ -40,14 +42,27 @@ app.secret_key = "31xsyBa<VIt8]hD(q;<P18NYYaZyFh6qLeofB[ct"
 ## Routes for RecipEASY app include:
 ##
 ##     1. static text page, "home"   @app.route('/')
-##     2. static text page, "explore"   @app.route('/explore')
-##     3. static text page, "community"    @app.route('/community')
-##     4. static text page, "my recipes"   @app.route('/recipe')
+##     2. dynamic text page, "explore"   @app.route('/explore')
+##     3. dynamic text page, "community"    @app.route('/community')
+##     4. dynamic text page, "my recipes"   @app.route('/my_recipe')
+##     5. static text page, "register"      @app.route('/regiser')
+##     6. static text page, "login"         @app.route('/login')
+##     7. static text page, "logout"        @app.route('/logout')
+##     8. dynamic text page, "recipe"        @app.route('/recipe/<recipe_name>')
+##     9. dynamic text page, "surprise me"   @app.route('/surprise_me')
+##     10. dynamic text page, "search results" @app.route('/search_results/<type_of_search>/<search_box_value>')
+##     11.  dynamic text page, "recently added" @app.route('/recently_added/<user_id>')
+##     12. static text page, "add new"          @app.route('/add_new')
+##     13. dynamic textpage, "submitted recipe" @app.route('/submitted_recipe', methods=["POST"])
+##     14. static text page, "remove recipe"    @app.route("/remove_recipes", methods=["POST"])
 ##
 
 
 @app.route('/')
 def home():
+    '''route for the home page
+    displays buttons to redirect to other functions:
+    recently added, explore, add new, search'''
     if session.get('user_id') != None:    
         return render_template("home_page.html", user_id=session['user_id'])
     
@@ -56,6 +71,8 @@ def home():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    '''route to register a user login
+    when registration is successful, user is redirected to the login page'''
     if request.method == 'POST':
         session['user_id'] = request.form['username']
         password = request.form['password']
@@ -70,6 +87,11 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    '''route to login to the database
+    takes in the user id and password, checks it against data in the login table
+    if successful, user is logged in
+    if data is not found in the table, user is redirected to the registration page
+    if successfully logged in, user is redirected to the home page'''
     if request.method == 'POST':
         user_id = request.form['username']
         password = request.form['password']
@@ -83,7 +105,8 @@ def login():
 
 @app.route('/logout')
 def logout():
-    # Remove user_id from session if it's there
+    '''funtion to log out the current user
+    Removes user_id from session if it's there'''
     session.pop('user_id', None)  # Adjust 'user_id' if you use a different key for storing user login information
     flash('You have been logged out.', 'info')  # Optional: Flash a message confirming logout
     return redirect(url_for('login'))  # Redirect to the home page or another appropriate page
@@ -93,7 +116,7 @@ def logout():
 
 @app.route('/recipe/<recipe_name>')
 def recipe(recipe_name=None):
-    # function returns a list where each item is from a different column
+    '''function returns a list where each item is from a different column'''
     recipe_data = get_recipe_data(recipe_name)
     if recipe_data == None:
         recipe_data = "No recipe found"
@@ -104,6 +127,8 @@ def recipe(recipe_name=None):
 
 @app.route('/explore')
 def explore():
+    '''The explore page displays the names of all the recipes in the database
+    each recipe name is hyper linked to the corresponding recipe's display page'''
     session["all_recipes"] = get_all_recipes()
     # recipe fields: [ recipeID INT, name string, ingredients list of strings, cook_time INT, directions list of strings]
     return render_template("explore.html", all_recipes=session["all_recipes"])
@@ -111,11 +136,15 @@ def explore():
 
 @app.route('/surprise_me')
 def surprise_me():
+    '''Surprise me function pulls a random recipe from the database and
+    returns the recipe name linked to that recipe page'''
     random_recipe = get_random_recipe()
     return render_template("surprise_me.html", name=random_recipe)
 
 @app.route('/search_results/<type_of_search>/<search_box_value>')
 def search(type_of_search, search_box_value):
+    '''This function allows the user to search based on recipe name, ingredient, or author of the recipe
+    function returns the recipe names linked to their recipe pages based on the given input'''
     if type_of_search == "Recipe_Name":
         return redirect(url_for('recipe', recipe_name = search_box_value))
     elif (type_of_search == "Ingredient_Name") :
@@ -149,7 +178,7 @@ def my_recipes(user_id=None):
 
 @app.route('/recently_added/<user_id>')
 def pull_recent_user_recipes (user_id):
-    ##pulls recent recieps based on the logged in user id
+    '''pulls recent recieps based on the logged in user id'''
     if session.get('user_id') != None:
         #session user id detected, pull their recently added recipes
         user_recent_recipes = my_recently_added(session['user_id'])
@@ -162,6 +191,7 @@ def pull_recent_user_recipes (user_id):
 
 @app.route('/add_new')
 def add(message = ""):
+    '''This route displays an input form to add a new recipe to the database'''
     if session.get('user_id') != None:
         output = render_template("add_new.html", message=message)
     else:
@@ -170,6 +200,8 @@ def add(message = ""):
 
 @app.route('/submitted_recipe', methods=["POST"])
 def submitted_recipe():
+    '''After a new recipe is successfully submitted through the add_new page,
+    the user is redirected to the submitted recipe page which displays a success message and a link to the new recipe'''
     recipe_name = ''
     success = False
     message = ''
@@ -199,6 +231,8 @@ def submitted_recipe():
 
 @app.route("/remove_recipes", methods=["POST"])
 def remove_items():
+    '''This function allows the user to delete a selected recipe from their my_recipes page
+    the function will delete the recipe from the database'''
     checked_boxes = request.form.getlist("check")
     for recipe in checked_boxes:
         result = delete_recipe(recipe)
@@ -209,14 +243,15 @@ def remove_items():
 
 @app.route('/community')
 def community():
+    '''This route gets and displays the commmunity posts page'''
     if session.get('user_id') != None:
         output = render_template("community.html")
     else: 
         output = redirect(url_for('login'))
     return output
 
-#### Remove the below routes later for testing development only
-
+#### Routes for testing development only
+"""
 @app.route('/test_insert')
 def test_insert():
     '''
@@ -314,6 +349,7 @@ def view_db():
     db.close()
     #test_output = [str(val) for val in test_output]
     return (result) 
+"""
 
 ###############################################################################
 # main driver function
