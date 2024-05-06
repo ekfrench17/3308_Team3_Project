@@ -1,5 +1,7 @@
 ###############################################################################
-## This is the community page for RecipEASY
+## Author: Jessica Carpenter
+## 
+## Purpose: Access methods for the Community table from the RecipEASY database for use related to the community page and posting for RecipEASY web app.
 ##
 ## Instructions:
 ## this is the SQLite to hold and edit community posts
@@ -18,6 +20,7 @@ from datetime import date
 today = date.today()
 
 # # Set up the table
+# # option function for testing, database file created using create_db.py
 # def create_community_post(db_filename): 
 #     conn = None
 #     try:
@@ -63,14 +66,14 @@ today = date.today()
 # date_nums = today.strftime('%m/%d/%Y')
 ##########################################
 
-def fill_community_post(db_filename, post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums):
+def fill_community_post(db_filename, post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating_input):
     try:
         # Connect to the SQLite database
         conn = sqlite3.connect(db_filename)
         c = conn.cursor()
 
         # Insert data
-        c.execute("INSERT INTO CommunityPosts (Post_ID, Post, Recipe, User_ID, Rating, Post_Date) VALUES (?, ?, (SELECT Name FROM recipesTable WHERE Recipe ID=?), ?, ?, ?)", 
+        c.execute("INSERT INTO communityTable (Post_ID, Post, Recipe_ID, User_ID, Rating, Post_Date) VALUES (?, ?, (SELECT recipe_id FROM recipesTable WHERE Recipe_ID=?), ?, ?, ?)", 
                   
                   # these are vaiables to be added later
                   # post_id_counter = number of post like a counter (INT)
@@ -80,7 +83,7 @@ def fill_community_post(db_filename, post_id_counter, user_post_input, desired_r
                   # rating = user input number 0 - 10 (INT)
                   # date_nums = date of post in number form 04102024 (INT)
                   
-                  (post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums))
+                  (post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating_input, date.today()))
 
         
         # Commit the changes to the database
@@ -160,14 +163,14 @@ def create_post(db_filename, post_id_counter, user_post_input, desired_recipe_id
 # date_nums = today.strftime('%m/%d/%Y')
 ###########################################
 
-def edit_post(db_filename, post_id_input, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums):
+def edit_post(db_filename, post_id_input, user_post_input):
     try:
         # Connect to the SQLite database
         conn = sqlite3.connect(db_filename)
         c = conn.cursor()
 
 #         # Insert data
-        c.execute("INSERT INTO CommunityPosts (Post_ID, Post, Recipe, User_ID, Rating, Post_Date) VALUES (?, ?, (SELECT Recipe FROM RecipeTitle WHERE RecipeID=?), ?, ?, ?)", 
+        c.execute("UPDATE communityTable SET Post=? WHERE post_id=?", 
                   
 #                   # these are vaiables to be added later
 #                   # post_id_counter = number of post like a counter (INT)
@@ -177,7 +180,7 @@ def edit_post(db_filename, post_id_input, user_post_input, desired_recipe_id, us
 #                   # rating = user input number 0 - 10 (INT)
 #                   # date_nums = date of post in number form 04102024 (INT)
                   
-                   (post_id_input, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums))
+                   (user_post_input,post_id_input))
 
         
         # Commit the changes to the database
@@ -199,21 +202,22 @@ def edit_post(db_filename, post_id_input, user_post_input, desired_recipe_id, us
 
 # This will display all posts in order of newest to oldest
 
-def display_posts_by_time(db_filename, post_id_counter, user_post_input, desired_recipe_id, user_id_num, rating_input, date_nums):
+def display_posts_by_time(db_filename):
     try:
         # Connect to the SQLite database
         conn = sqlite3.connect(db_filename)
         c = conn.cursor()
                   
         # Execute a SELECT query to retrieve posts ordered by date_nums
-        c.execute("SELECT * FROM CommunityPosts ORDER BY Post_Date DESC")  # DESC for descending order, ASC for ascending order
+        c.execute("SELECT * FROM CommunityTable ORDER BY Post_Date DESC")  # DESC for descending order, ASC for ascending order
 
         # Fetch all the rows from the result set
         rows = c.fetchall()
 
         # Display the posts
+        row_list = []
         for row in rows:
-            print(row)
+            row_list.append(row)
 
     except Error as e:
         print(f"Error inserting data: {e}")
@@ -222,4 +226,4 @@ def display_posts_by_time(db_filename, post_id_counter, user_post_input, desired
         if conn:
             conn.close()
             #print("Connection closed.")
-            print()
+    return row_list

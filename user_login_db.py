@@ -18,8 +18,9 @@ References:
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# Inserts a new user into the loginTable with hashed password and user details.
+
 def create_user(user_id, password, first_name, last_name, email):
+    '''Inserts a new user into the loginTable with hashed password and user details.'''
     result = False
     db = sqlite3.connect('RecipEASYDB')
     cursor = db.cursor()
@@ -35,8 +36,9 @@ def create_user(user_id, password, first_name, last_name, email):
         db.close()
     return result
 
-# Checks the provided password against the stored hash for the given user_id.
+
 def validate_login(user_id, password):
+    '''Checks the provided password against the stored hash for the given user_id.'''
 
     db = sqlite3.connect('RecipEASYDB')
     cursor = db.cursor()
@@ -46,8 +48,9 @@ def validate_login(user_id, password):
     return stored_password and check_password_hash(stored_password[0], password)
 
 
-# Updates user's password and/or email in the database based on provided data.
+
 def update_user(user_id, new_password=None, new_email=None):
+    '''Updates user's password and/or email in the database based on provided data.'''
 
     db = sqlite3.connect('RecipEASYDB')
     cursor = db.cursor()
@@ -61,8 +64,9 @@ def update_user(user_id, new_password=None, new_email=None):
     return "User updated successfully"
 
 
-# Removes a user from the database by their user ID.
+
 def delete_user(user_id):
+    '''Removes a user from the database by their user ID.'''
 
     db = sqlite3.connect('RecipEASYDB')
     cursor = db.cursor()

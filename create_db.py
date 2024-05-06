@@ -1,5 +1,8 @@
 # code to construct and deconstruct the database
 # fill database with dummy data
+# Author: Elaine French
+#
+# Purpose: Running this file creates the file RecipEASYDB for the recipeasy app database. It pulls in data from CSV files to add initial data to the database for the team to have a db file to all work off of and for the web app to have a common db file with standard tables and values to work off of.
 #######################
 # To Use: execute this file by running
 # python3 create_db.py
@@ -32,7 +35,7 @@ def create(db_filename):
     
     # login table -- 5 fields
     loginTable = """loginTable(
-                        User_ID INT PRIMARY KEY, 
+                        User_ID VARCHAR PRIMARY KEY, 
                         Password VARCHAR, 
                         first_name VARCHAR, 
                         last_name VARCHAR, 
@@ -57,7 +60,7 @@ def create(db_filename):
     conn.close()
     
 def fill_recipes(db_filename, csv_name):
-    '''function to fill the recipe table database with dummy data'''
+    '''function to fill the recipe table database with dummy data from recipes.csv'''
     db = sqlite3.connect(db_filename)
     cursor = db.cursor()
     
@@ -83,7 +86,7 @@ def fill_recipes(db_filename, csv_name):
     db.close()
     
 def fill_login(db_filename, csv_name):
-    '''function to fill the login table database with dummy data'''
+    '''function to fill the login table database with dummy data from login.csv'''
     db = sqlite3.connect(db_filename)
     cursor = db.cursor()
     
@@ -108,7 +111,7 @@ def fill_login(db_filename, csv_name):
     db.close()
 
 def fill_community(db_filename, csv_name):
-    '''function to fill the community table in the database with dummy data'''
+    '''function to fill the community table in the database with dummy data from community.csv'''
     db = sqlite3.connect(db_filename)
     cursor = db.cursor()
     
@@ -193,5 +196,5 @@ fill_community(db_filename, community_csv)
 print('Database updated, file created "RecipEASYDB.db"')
 
 ## uncomment the below function if you want to print out the tables created in a user friendly format
-print_tables(db_filename)
-print_tables_rows(db_filename)
+#print_tables(db_filename)
+#print_tables_rows(db_filename)

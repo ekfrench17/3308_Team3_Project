@@ -1,6 +1,6 @@
 ############################################################################
 ## Unit tests for recipesTable functionality
-## This file contains unit tests for the functions in community_posts_db.py
+## This file contains 5 unit tests for the functions in recipeAPI.py
 ############################################################################
 
 import os
@@ -20,6 +20,7 @@ class Test_recipesTable (unittest.TestCase):
         if not os.path.exists(database_path):
             create_db_file_path = "./create_db.py"
             subprocess.run(["python3", create_db_file_path])
+            
     def test_add_recipe(self):
         
         ##set up test data of a recipe that should already exist in the DB
