@@ -121,7 +121,7 @@
 ### Known Issues
 - **Current Challenges:**
   - Login Clarity: There is no feedback for failed login attempts, which can confuse users. Planned improvements include explicit error messaging.
-  - Recipe Ingredients and Directions formatting: Currently you need to add a period to create a new line for ingredients or steps in the directions. 
+  - Recipe Ingredients and Directions formatting: Currently you need to add a period to create a new line for ingredients or steps in the directions. Also the recipe display page format needs to be updated to flow nicer and be more user friendly.
 
 
 ## Team Reflection
